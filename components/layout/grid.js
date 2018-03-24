@@ -20,6 +20,7 @@ const styles = (theme) => {
       flexGrow: 1,
       paddingRight: '8px',
       paddingLeft: '8px',
+      padding: '8px',
 
       [theme.breakpoints.only('xs')]: {
         width: theme.breakpoints.width('xs')
@@ -33,10 +34,10 @@ const styles = (theme) => {
         width: theme.breakpoints.width('md')
       },
       [theme.breakpoints.only('lg')]: {
-        width: theme.breakpoints.width('lg')
+        width: '1170px'
       },
       [theme.breakpoints.only('xl')]: { // force width of lg
-        width: theme.breakpoints.width('xl')
+        width: '1170px' //theme.breakpoints.width('lg')
       },
     },
 

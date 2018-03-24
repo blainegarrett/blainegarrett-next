@@ -12,24 +12,27 @@ const styles = {
 };
 
 class Index extends React.Component {
-  static async getInitialProps () {
+  static async getInitialProps (ctx) {
     // Async load 10 known images from Mia's collection
-    //const res = await fetch('https://www.mplsart.com/api/posts?limit=25');
-    const res = await fetch('https://blainegarrett-api-dot-blaine-garrett.appspot.com/api/rest/v1.0/posts');
+
+    console.log(ctx.query.slug);
+    const res = await fetch('https://www.mplsart.com/api/posts?category_slug=' + ctx.query.slug + '&limit=10');
     const json = await res.json();
-    return { artworks: json.results };
+    return { artworks: json.results, slug:ctx.query.slug};
   }
 
   render () {
-    const { artworks } = this.props;
+    const { artworks, slug } = this.props;
+
+    let activePage = slug == 'programming' || slug == 'art' ? slug : 'blog';
 
     return (
-      <Page title="Blog" activePage='blog'>
+      <Page title={slug} activePage={activePage}>
         <Head>
           <title>Blaine Garrett | Minneapolis Artist, Software Engineer & Tinkerer</title>
         </Head>
 
-        <h2>Blog Index</h2>
+        <h2>Blog Category ({slug})</h2>
         <ul>
           {
             artworks.map((resource) => {

@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'isomorphic-unfetch';
 import Head from 'next/head';
-import Page from '../../components/Page';
+import Page from '../components/Page';
 import Link from 'next/link';
 import { withStyles } from 'material-ui/styles';
-import withRoot from '../../theming/withRoot';
+import withRoot from '../theming/withRoot';
 
 const styles = {
   root: { color: 'red'}
@@ -14,8 +14,7 @@ const styles = {
 class Index extends React.Component {
   static async getInitialProps () {
     // Async load 10 known images from Mia's collection
-    //const res = await fetch('https://www.mplsart.com/api/posts?limit=25');
-    const res = await fetch('https://blainegarrett-api-dot-blaine-garrett.appspot.com/api/rest/v1.0/posts');
+    const res = await fetch('https://www.mplsart.com/api/posts?limit=25');
     const json = await res.json();
     return { artworks: json.results };
   }
@@ -24,12 +23,12 @@ class Index extends React.Component {
     const { artworks } = this.props;
 
     return (
-      <Page title="Blog" activePage='blog'>
+      <Page title="Links" activePage="links">
         <Head>
           <title>Blaine Garrett | Minneapolis Artist, Software Engineer & Tinkerer</title>
         </Head>
 
-        <h2>Blog Index</h2>
+        <h2>Links</h2>
         <ul>
           {
             artworks.map((resource) => {

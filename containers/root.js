@@ -19,6 +19,13 @@ const styles = (theme) => {
 };
 
 class _GlobalStyle extends React.Component {
+    componentDidMount() {
+    const jssStyles = document.getElementById('jss-server-side');
+    if (jssStyles && jssStyles.parentNode) {
+      console.log("DELETE>>>");
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
+  }
   render() {
     return (<div>{this.props.children}</div>);
   }

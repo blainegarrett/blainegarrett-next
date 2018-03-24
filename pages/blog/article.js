@@ -3,73 +3,33 @@ import PropTypes from 'prop-types';
 import 'isomorphic-unfetch';
 import Head from 'next/head';
 import Page from '../../components/Page';
-import {Grid, Row, Col} from '../../components/layout/grid';
-import Breadcrumbs from '../../components/layout/breadcrumbs';
 import Link from 'next/link';
-import Button from 'material-ui/Button';
+
 import { withStyles } from 'material-ui/styles';
+import withRoot from '../../theming/withRoot';
+import {Grid, Row, Col} from '../../components/layout/grid';
+import ArticleRenderer from '../../components/blog/ArticleRenderer';
+import SideBar from '../../components/layout/SideBar';
 
-const styles = {
-  root: {
-    marginBottom: '40px'
-  },
-  title: {
-    color: '#686868',
-    fontSize: '26px',
-    marginTop: '12px',
-    'text-shadow': 'none',
-    'font-weight': 'normal !important',
-    'font-family': '"Open Sans", sans-serif',
-    'margin-bottom': '10px',
-    'line-height': '1.1'
-  }
-};
-
-class ArticlePage extends React.Component {
-  static async getInitialProps(ctx) {
-    let {year, month, day, slug} = ctx.req.params;
-
-
-    // Async load 10 known images from Mia's collection
-    const res = await fetch(`https://www.mplsart.com/api/posts?get_by_slug=${slug}`);
+class Index extends React.Component {
+  static async getInitialProps (ctx) {
+    // TODO: Pull from a redux store layer to save queries on back buttons, etc
+    const res = await fetch('https://blainegarrett-api-dot-blaine-garrett.appspot.com/api/rest/v1.0/posts?get_by_slug=' + ctx.query.slug);
     const json = await res.json();
-    return { resource: json.results };
+    return { article: json.results };
   }
 
   render () {
-    const { resource, classes } = this.props;
+    const { article } = this.props;
 
     return (
-      <Page>
-        <Head>
-          <title>BLOG</title>
-          <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-        </Head>
-
-        <Breadcrumbs>Hand Drawn Halftone Pattern</Breadcrumbs>
-
+      <Page title={article.title}>
         <Grid>
           <Row>
-            <Col md={9}>
-              <div className={classes.root}>
-
-                <Button variant="raised" color="primary">Hello World</Button>
-
-                <div className='list'>
-                {resource.title}
-                <hr />
-                <div dangerouslySetInnerHTML={{__html: resource.content}} />;
-
-                <pre style={{textAlign: 'left'}}>
-                { JSON.stringify(resource, null, 2) }
-                </pre>
-              </div>
-
-
-
-              </div>
+            <Col xs={9}>
+              <ArticleRenderer article={article} />
             </Col>
-            <Col md={2}>sdfssdds</Col>
+            <Col xs={3}><SideBar /></Col>
           </Row>
         </Grid>
       </Page>
@@ -77,9 +37,9 @@ class ArticlePage extends React.Component {
   }
 }
 
+export default withRoot(Index);
 
-ArticlePage.propTypes = {
-  artworks: PropTypes.array
+
+Index.propTypes = {
+  article: PropTypes.object
 };
-
-export default withStyles(styles)(ArticlePage);

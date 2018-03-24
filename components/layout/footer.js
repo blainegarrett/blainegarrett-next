@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
+import Link from 'next/link';
 
 const styles = (theme) => {
   return {
@@ -41,8 +42,8 @@ const styles = (theme) => {
     paddingLeft: '15px',
     paddingRight: '15px',
     width: '1170px'
+    }
   }
-}
 };
 
 class Footer extends React.Component {
