@@ -8,17 +8,31 @@ import { withStyles } from 'material-ui/styles';
 import withRoot from '../theming/withRoot';
 
 const styles = {
-  root: { color: 'red'}
+  //root: { color: 'red'}
 };
 
 class Index extends React.Component {
+  /*
   static async getInitialProps () {
     // Async load 10 known images from Mia's collection
     const res = await fetch('https://www.mplsart.com/api/posts?limit=25');
     const json = await res.json();
     return { artworks: json.results };
   }
+  */
 
+  render () {
+    return (
+      <Page>
+        <div>
+          <h1>I'll Be Back Shortly</h1>
+          <p>I'm in the process of reworking my site. It needs a makeover and I'll be converting it to next.js on Google App Engine Node Standard Environment.</p>
+        </div>
+      </Page>
+    );
+  }
+
+  /*
   render () {
     const { artworks } = this.props;
 
@@ -42,6 +56,7 @@ class Index extends React.Component {
       </Page>
     );
   }
+  */
 }
 export default withRoot(withStyles(styles)(Index));
 

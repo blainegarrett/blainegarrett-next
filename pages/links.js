@@ -12,12 +12,14 @@ const styles = {
 };
 
 class Index extends React.Component {
+  /*
   static async getInitialProps () {
     // Async load 10 known images from Mia's collection
     const res = await fetch('https://www.mplsart.com/api/posts?limit=25');
     const json = await res.json();
     return { artworks: json.results };
   }
+  */
 
   render () {
     const { artworks } = this.props;
@@ -28,6 +30,9 @@ class Index extends React.Component {
           <title>Blaine Garrett | Minneapolis Artist, Software Engineer & Tinkerer</title>
         </Head>
 
+        <h3>Returning Soon</h3>
+
+        {/*
         <h2>Links</h2>
         <ul>
           {
@@ -39,6 +44,7 @@ class Index extends React.Component {
             })
           }
         </ul>
+      */}
       </Page>
     );
   }

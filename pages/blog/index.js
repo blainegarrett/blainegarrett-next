@@ -12,6 +12,7 @@ const styles = {
 };
 
 class Index extends React.Component {
+  /*
   static async getInitialProps () {
     // Async load 10 known images from Mia's collection
     //const res = await fetch('https://www.mplsart.com/api/posts?limit=25');
@@ -19,6 +20,7 @@ class Index extends React.Component {
     const json = await res.json();
     return { artworks: json.results };
   }
+  */
 
   render () {
     const { artworks } = this.props;
@@ -26,9 +28,12 @@ class Index extends React.Component {
     return (
       <Page title="Blog" activePage='blog'>
         <Head>
-          <title>Blaine Garrett | Minneapolis Artist, Software Engineer & Tinkerer</title>
+          <title>Blog | Blaine Garrett | Minneapolis Artist, Software Engineer & Tinkerer</title>
         </Head>
 
+        <h3>Returning Soon</h3>
+
+        {/*}
         <h2>Blog Index</h2>
         <ul>
           {
@@ -40,6 +45,7 @@ class Index extends React.Component {
             })
           }
         </ul>
+      */}
       </Page>
     );
   }

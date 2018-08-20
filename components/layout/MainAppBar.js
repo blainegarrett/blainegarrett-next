@@ -108,9 +108,6 @@ const MenuOption = ({classes, active, href, as, ...props}) => {
                 </Link>
 }
 
-
-
-
 function ButtonAppBar(props) {
   const { classes, activePage } = props;
   return (
@@ -128,7 +125,7 @@ function ButtonAppBar(props) {
 
                 <MenuOption classes={classes} href="/about" as="/about" active={activePage == 'about'}>About</MenuOption>
                 <MenuOption classes={classes} href="/blog" as="/blog" active={activePage == 'blog'}>Blog</MenuOption>
-                <MenuOption classes={classes} href="/blog/category?slug=exhibition-reviews" as="/exhibition-reviews" active={activePage == 'art'}>Art</MenuOption>
+                <MenuOption classes={classes} href="/blog/category?slug=art" as="/art" active={activePage == 'art'}>Art</MenuOption>
                 <MenuOption classes={classes} href="/blog/category?slug=programming" as="/programming" active={activePage == 'programming'}>Programming</MenuOption>
                 <MenuOption classes={classes} href="/links" as="/link" active={activePage == 'links'}>Links</MenuOption>
 

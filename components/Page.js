@@ -17,9 +17,9 @@ export default class Component extends React.Component {
         <MainAppBar activePage={activePage} />
         {title && (<Breadcrumbs>{title}</Breadcrumbs>)}
         <Grid>
-            <Row>{ children }</Row>
+          <Row>{ children }</Row>
         </Grid>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }
