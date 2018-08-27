@@ -4,7 +4,7 @@ import 'isomorphic-unfetch';
 import Head from 'next/head';
 import Page from '../../components/Page';
 import Link from 'next/link';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../../theming/withRoot';
 
 const styles = {

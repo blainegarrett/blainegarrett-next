@@ -4,7 +4,7 @@ import 'isomorphic-unfetch';
 import Head from 'next/head';
 import Page from '../components/Page';
 import Link from 'next/link';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../theming/withRoot';
 import {Grid, Row, Col} from '../components/layout/grid';
 import SideBar from '../components/layout/SideBar';
@@ -46,7 +46,7 @@ class AboutPage extends React.Component {
                 </Col>
                 <Col xs={6}>
 
-                  <img style={{width: '100%'}} className="img-responsive" src="http://www.blainegarrett.com/static/about_wedding.jpg" alt="" />
+                  <img style={{width: '100%'}} className="img-responsive" src="https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg" alt="" />
 
                 </Col>
               </Row>

@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Head from 'next/head';
-import Button from 'material-ui/Button';
-import Icon from 'material-ui/Icon';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
   section: {
@@ -51,14 +48,14 @@ const styles = (theme) => ({
         '-moz-transition': 'all 0.3s ease-in-out',
         '-webkit-transition': 'all 0.3s ease-in-out',
         '&:hover': {opacity: 1},
-        '&.social_facebook': { background: 'url("http://www.blainegarrett.com/static/themes/v2/assets/img/icons/social/facebook.png") no-repeat', },
-        '&.social_twitter': { background: 'url("http://www.blainegarrett.com/static/themes/v2/assets/img/icons/social/twitter.png") no-repeat', },
-        '&.social_linkedin': { background: 'url("http://www.blainegarrett.com/static/themes/v2/assets/img/icons/social/linkedin.png") no-repeat', },
-        '&.social_github': { background: 'url("http://www.blainegarrett.com/static/themes/v2/assets/img/icons/social/github.png") no-repeat', },
-        '&.social_instagram': { background: 'url("http://www.blainegarrett.com/static/themes/v2/assets/img/icons/social/instagram.png") no-repeat', },
-        '&.social_googleplus': { background: 'url("http://www.blainegarrett.com/static/themes/v2/assets/img/icons/social/googleplus.png") no-repeat', },
-        '&.social_youtube': { background: 'url("http://www.blainegarrett.com/static/themes/v2/assets/img/icons/social/youtube.png") no-repeat', },
-        '&.social_pintrest': { background: 'url("http://www.blainegarrett.com/static/themes/v2/assets/img/icons/social/pintrest.png") no-repeat', },
+        '&.social_facebook': { background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/facebook.png") no-repeat', },
+        '&.social_twitter': { background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/twitter.png") no-repeat', },
+        '&.social_linkedin': { background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/linkedin.png") no-repeat', },
+        '&.social_github': { background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/github.png") no-repeat', },
+        '&.social_instagram': { background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/instagram.png") no-repeat', },
+        '&.social_googleplus': { background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/googleplus.png") no-repeat', },
+        '&.social_youtube': { background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/youtube.png") no-repeat', },
+        '&.social_pintrest': { background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/pintrest.png") no-repeat', },
       }
     }
   }

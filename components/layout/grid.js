@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MuiGrid from 'material-ui/Grid';
-import { withStyles } from 'material-ui/styles';
+import MuiGrid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 const styles = (theme) => {

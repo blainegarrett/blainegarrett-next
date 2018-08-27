@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
 import {Grid, Row, Col} from '../../components/layout/grid';
 import classnames from 'classnames';
 import Link from 'next/link';
@@ -118,7 +115,7 @@ function ButtonAppBar(props) {
             <Row>
               <Col xs={4}>
                 <div className={classes.flex}>
-                  <Link href="/index" as="/"><a title="Home"><img src="http://www.blainegarrett.com/static/themes/v2/assets/logo.png" alt="Blaine Garrett Logo" className={classes.titleImage} /></a></Link>
+                  <Link href="/index" as="/"><a title="Home"><img src="https://storage.googleapis.com/blaine-garrett/theme/v2/logo.png" alt="Blaine Garrett Logo" className={classes.titleImage} /></a></Link>
                 </div>
               </Col>
               <Col xs={8} style={{marginTop:'12px', textAlign:'right'}}>

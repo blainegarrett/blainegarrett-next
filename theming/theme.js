@@ -1,5 +1,5 @@
 // Defines theme to use with jss and material-ui components
-import { createMuiTheme } from 'material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { green, pink, red } from './colors';
 
 const muiTheme = createMuiTheme({

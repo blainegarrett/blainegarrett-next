@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Page from '../../components/Page';
 import Link from 'next/link';
 
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../../theming/withRoot';
 import {Grid, Row, Col} from '../../components/layout/grid';
 import ArticleRenderer from '../../components/blog/ArticleRenderer';

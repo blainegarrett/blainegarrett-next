@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Head from 'next/head';
-import Button from 'material-ui/Button';
-import Icon from 'material-ui/Icon';
+import { withStyles } from '@material-ui/core/styles';
+import Icon from '@material-ui/core/Icon';
 
 const styles = (theme) => ({
   root: {

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ThemeProvider from '../ThemeProvider';
-import CssBaseline from 'material-ui/CssBaseline';
-import { withStyles } from 'material-ui/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => {
   return {
