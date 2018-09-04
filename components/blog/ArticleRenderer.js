@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
+import moment from 'moment';
 
 const styles = (theme) => ({
   root: {
@@ -48,6 +49,10 @@ const styles = (theme) => ({
     color: '#777',
     width: '1.25em',
     'font-size': '12px'
+  },
+  summary: {
+    fontWeight: 'bolder',
+    fontSize:'16px'
   }
 });
 
@@ -55,20 +60,18 @@ const ArticleRenderer = ({classes, article}) => {
   return (
     <div className="blog">
 
+
       <div className={classes.breadcrumbsroot}>
         <ul className={classes.breadcrumbslist}>
-          <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>event</Icon> January 05, 2016</li>
+          <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>event</Icon> { moment(article.published_date).format('MMMM Do, YYYY')}</li>
           <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>person</Icon> Blaine Garrett</li>
-          <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>local_offer</Icon> Posted in <a href="/dim-media/">DIM Media</a>, <a href="/art/">Art</a></li>
-      </ul>
-    </div>
 
-    <div dangerouslySetInnerHTML={{__html: article.summary}} />
-    <div dangerouslySetInnerHTML={{__html: article.content}} />
+          {/* <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>local_offer</Icon> Posted in <a href="/dim-media/">DIM Media</a>, <a href="/art/">Art</a></li> */}
+        </ul>
+      </div>
 
-
-
-
+      <div className={classes.summary}><div dangerouslySetInnerHTML={{__html: article.summary}} /></div>
+      <div dangerouslySetInnerHTML={{__html: article.content}} />
     </div>
   );
 };

@@ -6,52 +6,53 @@ import Page from '../../components/Page';
 import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../../theming/withRoot';
+import moment from 'moment';
+import getConfig from 'next/config';
+import {Row, Col} from './../../components/layout/grid';
 
-const styles = {
-  root: { color: 'red'}
-};
+//let host = getConfig().publicRuntimeConfig.API_HOST;
 
-class Index extends React.Component {
-  /*
+const styles = {};
+class BlogIndexPage extends React.Component {
   static async getInitialProps () {
-    // Async load 10 known images from Mia's collection
-    //const res = await fetch('https://www.mplsart.com/api/posts?limit=25');
-    const res = await fetch('https://blainegarrett-api-dot-blaine-garrett.appspot.com/api/rest/v1.0/posts');
-    const json = await res.json();
-    return { artworks: json.results };
+    //const res = await fetch(host + '/api/rest/v1.0/posts?limit=100&verbose=false');
+    //const json = await res.json();
+    //return { resources: json.results };
+    return { resources: []};
   }
-  */
 
   render () {
-    const { artworks } = this.props;
+    const { resources } = this.props;
 
     return (
       <Page title="Blog" activePage='blog'>
         <Head>
-          <title>Blog | Blaine Garrett | Minneapolis Artist, Software Engineer & Tinkerer</title>
+          <title>Blog | Blaine Garrett</title>
         </Head>
 
-        <h3>Returning Soon</h3>
+        <Row>
+          <Col xs={12}>
+            <p>Returning soon after a revamp.</p>
+            <ol>
+              {
+                resources.map((resource) => {
+                  let id = resource.resource_id;
+                  let slug_prefix = moment(resource.published_date).format('YYYY/MM/DD');
 
-        {/*}
-        <h2>Blog Index</h2>
-        <ul>
-          {
-            artworks.map((resource) => {
-              let id = resource.resource_id;
-              return (
-                <li key={id}><Link href={`/blog/article?slug=${resource.slug}`} as={`/2018/06/25/${resource.slug}`}><a title={resource.slug} className="permalink">{ resource.title }</a></Link></li>
-              );
-            })
-          }
-        </ul>
-      */}
+                  return (
+                    <li key={id}><Link href={`/blog/article?slug=${resource.slug}`} as={`${slug_prefix}/${resource.slug}`}><a title={resource.slug} className="permalink">{ resource.title }</a></Link></li>
+                  );
+                })
+              }
+            </ol>
+          </Col>
+        </Row>
       </Page>
     );
   }
 }
-export default withRoot(withStyles(styles)(Index));
+export default withRoot(withStyles(styles)(BlogIndexPage));
 
-Index.propTypes = {
-  artworks: PropTypes.array
+BlogIndexPage.propTypes = {
+  resources: PropTypes.array
 };

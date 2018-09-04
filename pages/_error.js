@@ -1,7 +1,14 @@
+// Error Page
 import React from 'react';
-import Page from '../components/Page';
+import Head from 'next/head';
 
-export default class Error extends React.Component {
+import Page from '../components/Page';
+import { withStyles } from '@material-ui/core/styles';
+import withRoot from '../theming/withRoot';
+import {Row, Col} from './../components/layout/grid';
+
+const styles = {};
+class ErrorPage extends React.Component {
   static getInitialProps({ res, err }) {
     const statusCode = res ? res.statusCode : err ? err.statusCode : null;
     return { statusCode };
@@ -9,13 +16,27 @@ export default class Error extends React.Component {
 
   render() {
     return (
-      <Page>
-      <p>
-        {this.props.statusCode
-          ? `An error ${this.props.statusCode} occurred on server`
-          : 'An error occurred on client'}
-      </p>
+      <Page activePage="" title={'Oops: ' + this.props.statusCode.toString()}>
+        <Head>
+          <title>Opps {this.props.statusCode}</title>
+        </Head>
+
+        <Row>
+          <Col xs={12}>
+            <p>
+              {
+                this.props.statusCode
+                  ? `An ${this.props.statusCode} error occurred. You might have a broken link.`
+                  : 'An error occurred on client'
+              }
+            </p>
+          </Col>
+        </Row>
       </Page>
-    )
+    );
   }
 }
+
+export default withRoot(withStyles(styles)(ErrorPage));
+
+ErrorPage.propTypes = {};

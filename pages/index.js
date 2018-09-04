@@ -1,65 +1,41 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import 'isomorphic-unfetch';
 import Head from 'next/head';
 import Page from '../components/Page';
-import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
 import withRoot from '../theming/withRoot';
+import {Row, Col} from './../components/layout/grid';
 
-const styles = {
-  //root: { color: 'red'}
-};
+const styles = {};
 
-class Index extends React.Component {
-  /*
-  static async getInitialProps () {
-    // Async load 10 known images from Mia's collection
-    const res = await fetch('https://www.mplsart.com/api/posts?limit=25');
-    const json = await res.json();
-    return { artworks: json.results };
-  }
-  */
-
+class IndexPage extends React.Component {
   render () {
     return (
-      <Page>
-        <div>
-          <h1>I'll Be Back Shortly</h1>
-          <p>I'm in the process of reworking my site. It needs a makeover and I'll be converting it to next.js on Google App Engine Node Standard Environment.</p>
-        </div>
-      </Page>
-    );
-  }
-
-  /*
-  render () {
-    const { artworks } = this.props;
-
-    return (
-      <Page>
+      <Page title="Welcome" activePage="home">
         <Head>
           <title>Blaine Garrett | Minneapolis Artist, Software Engineer & Tinkerer</title>
         </Head>
 
-        <h2>Articles </h2>
-        <ul>
-          {
-            artworks.map((resource) => {
-              let id = resource.resource_id;
-              return (
-                <li key={id}><Link href={`/blog/article?slug=${resource.slug}`} as={`/2018/06/25/${resource.slug}`}><a title={resource.slug} className="permalink">{ resource.title }</a></Link></li>
-              );
-            })
-          }
-        </ul>
+        <Row>
+          <Col xs={12}>
+            <div>Returning soon. I'm rebuilding my site from the ground up to be be more 2018 friendly:
+
+              <ul>
+                <li>Material Design</li>
+                <li>React/Redux</li>
+                <li>NextJS</li>
+                <li>REST</li>
+                <li>NodeJS on Google App Engine Standard.</li>
+              </ul>
+
+              Stay tuned.
+
+            </div>
+          </Col>
+        </Row>
       </Page>
     );
   }
-  */
 }
-export default withRoot(withStyles(styles)(Index));
+export default withRoot(withStyles(styles)(IndexPage));
 
-Index.propTypes = {
-  artworks: PropTypes.array
-};
+IndexPage.propTypes = {};

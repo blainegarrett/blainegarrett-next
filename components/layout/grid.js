@@ -23,7 +23,7 @@ const styles = (theme) => {
       padding: '8px',
 
       [theme.breakpoints.only('xs')]: {
-        width: theme.breakpoints.width('xs')
+        //width: theme.breakpoints.width('xs')
         //width: '100%'
       },
       [theme.breakpoints.only('sm')]: {
