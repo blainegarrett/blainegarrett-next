@@ -7,13 +7,20 @@
     "@material-ui/core": "^1.5.1",
     "classnames": "^2.2.5",
     "express": "^4.16.2",
+    "isomorphic-fetch": "^2.2.1",
     "isomorphic-unfetch": "^2.0.0",
     "jss": "^9.8.1",
+    "lodash.isequal": "^4.5.0",
     "next": "^6.1.1",
     "prop-types": "^15.6.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-jss": "^8.3.5"
+    "react-jss": "^8.3.5",
+    "react-redux": "^5.0.1",
+    "redux": "^3.6.0",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.1.0",
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
@@ -26,7 +33,7 @@
     "start": "NODE_ENV=production node server.js",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gcloud --project blaine-garrett app deploy app.yaml --version nextjs"
+    "deploy": "gcloud --project blaine-garrett app deploy app.yaml --version nextjs2"
   },
   "repository": {
     "type": "git",

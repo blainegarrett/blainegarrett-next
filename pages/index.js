@@ -1,20 +1,31 @@
 import React from 'react';
-import Head from 'next/head';
 import Page from '../components/Page';
 import { withStyles } from '@material-ui/core/styles';
-import withRoot from '../theming/withRoot';
 import {Row, Col} from './../components/layout/grid';
+import {connect} from 'react-redux';
 
 const styles = {};
 
-class IndexPage extends React.Component {
-  render () {
-    return (
-      <Page title="Welcome" activePage="home">
-        <Head>
-          <title>Blaine Garrett | Minneapolis Artist, Software Engineer & Tinkerer</title>
-        </Head>
+function mapStateToProps(state, ownProps) {
+  return {};
+}
 
+function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+class IndexPage extends React.Component {
+  static async getInitialProps ({}) {
+    return {};
+  }
+
+  render () {
+    let meta = {
+      title: 'Welcome',
+      description: 'My Homepage'
+    };
+    return (
+      <Page title="Welcome" activePage="home" meta={meta}>
         <Row>
           <Col xs={12}>
             <div>Returning soon. I'm rebuilding my site from the ground up to be be more 2018 friendly:
@@ -36,6 +47,6 @@ class IndexPage extends React.Component {
     );
   }
 }
-export default withRoot(withStyles(styles)(IndexPage));
-
 IndexPage.propTypes = {};
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(IndexPage));

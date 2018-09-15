@@ -15,11 +15,17 @@ app.prepare().then(() => {
   //server.get(/webpack/, (req,res)=> { handle(req,res); });
 
   // { year: '_next', month: '-', day: 'page', slug: '_error.js' }
+  /*
   server.get('/_next/-/page/_error.js', (req, res) => {
     return handle(req, res);
   });
 
   server.get('/_next/-/page/_error.js.map', (req, res) => {
+    return handle(req, res);
+  });
+  */
+
+  server.get('/_next/-/page/*', (req, res) => {
     return handle(req, res);
   });
 

@@ -21,7 +21,7 @@ const styles = (theme) => ({
   flex: { flex: 1 },
 
   titleImage: {
-    marginLeft: '-20px', // Note this is due to my goofy logo having padding
+    marginLeft: '-35px', // Note this is due to my goofy logo having padding
     [theme.breakpoints.down('sm')]: {
       maxWidth:'200px',
     }

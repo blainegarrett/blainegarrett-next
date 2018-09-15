@@ -26,17 +26,18 @@ function Breadcrumbs(props) {
   const { classes, children } = props;
   return (
     <div className={classes.root}>
-        <Grid>
-            <Row>
-                <Col xs={12}><h2 className={classes.title}>{children}</h2></Col>
-            </Row>
-        </Grid>
+      <Grid>
+        <Row>
+          <Col xs={12}><h2 className={classes.title}>{children}</h2></Col>
+        </Row>
+      </Grid>
     </div>
   );
 }
 
 Breadcrumbs.propTypes = {
   classes: PropTypes.object.isRequired,
+  children: PropTypes.node,
 };
 
 export default withStyles(styles)(Breadcrumbs);

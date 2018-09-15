@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MainAppBar from '../components/layout/MainAppBar';
-import Footer from './layout/footer';
-import Breadcrumbs from './layout/breadcrumbs';
+
+import Meta from './Meta';
 import {Grid} from './layout/grid';
+import MainAppBar from '../components/layout/MainAppBar';
+import Breadcrumbs from './layout/breadcrumbs';
 import MenuDialog from './layout/MenuDialog';
+
 
 export default class Page extends React.Component {
   constructor(props) {
@@ -23,14 +25,20 @@ export default class Page extends React.Component {
   }
 
   render() {
-    var { children, activePage, title } = this.props;
+    var { children, activePage, title, meta } = this.props;
 
     if (!activePage) {
       activePage = 'blog';
     }
 
+    // Account for meta not populated - default to page title if we have one
+    if (!meta && title) {
+      meta = {title: title};
+    }
+
     return (
       <div>
+        <Meta meta={meta} />
         <MainAppBar activePage={activePage} onMenuToggle={this.onMenuToggle} />
         {title && (<Breadcrumbs>{title}</Breadcrumbs>)}
         <Grid>{ children }</Grid>
@@ -44,5 +52,6 @@ export default class Page extends React.Component {
 Page.propTypes = {
   activePage: PropTypes.string,
   title: PropTypes.string,
+  meta: PropTypes.object,
   children: PropTypes.node,
 };

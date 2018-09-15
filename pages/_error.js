@@ -4,7 +4,6 @@ import Head from 'next/head';
 
 import Page from '../components/Page';
 import { withStyles } from '@material-ui/core/styles';
-import withRoot from '../theming/withRoot';
 import {Row, Col} from './../components/layout/grid';
 
 const styles = {};
@@ -37,6 +36,6 @@ class ErrorPage extends React.Component {
   }
 }
 
-export default withRoot(withStyles(styles)(ErrorPage));
+export default withStyles(styles)(ErrorPage);
 
 ErrorPage.propTypes = {};

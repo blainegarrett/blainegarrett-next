@@ -1,25 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import 'isomorphic-unfetch';
-import Head from 'next/head';
 import Page from '../components/Page';
 import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
-import withRoot from '../theming/withRoot';
 import {Grid, Row, Col} from '../components/layout/grid';
 import SideBar from '../components/layout/SideBar';
-
 
 const styles = {};
 
 class AboutPage extends React.Component {
   render () {
-    return (
-      <Page title="About Me" activePage="about">
-        <Head>
-          <title>About Blaine Garrett | Minneapolis Artist, Software Engineer & Tinkerer</title>
-        </Head>
 
+    let meta = {
+      title: 'About Me',
+      description: 'Learn About Me',
+    };
+
+    return (
+      <Page title="About Me" activePage="about" meta={meta}>
         <Row>
           <Col xs={12} lg={9}>
 
@@ -46,8 +45,6 @@ class AboutPage extends React.Component {
     );
   }
 }
-export default withRoot(withStyles(styles)(AboutPage));
+AboutPage.propTypes = {};
 
-AboutPage.propTypes = {
-  artworks: PropTypes.array
-};
+export default withStyles(styles)(AboutPage);

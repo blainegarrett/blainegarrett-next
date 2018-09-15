@@ -1,34 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import 'isomorphic-unfetch';
-import Head from 'next/head';
-import Page from '../../components/Page';
-import Link from 'next/link';
-import { withStyles } from '@material-ui/core/styles';
-import withRoot from '../../theming/withRoot';
-import moment from 'moment';
-import getConfig from 'next/config';
-import {Row, Col} from './../../components/layout/grid';
+import {connect} from 'react-redux';
 
-//let host = getConfig().publicRuntimeConfig.API_HOST;
+import moment from 'moment';
+import { withStyles } from '@material-ui/core/styles';
+
+import Link from 'next/link';
+import Page from '../../components/Page';
+
+import {Row, Col} from './../../components/layout/grid';
+import { bindActionCreators } from 'redux';
+import { commands as articleCommands } from '../../modules/articles/redux';
+import { selectors as articleSelectors } from '../../modules/articles/redux';
+import { constants as articleConstants } from '../../modules/articles/redux';
+
+let paginationKey = 'all';
+let LIMIT = 10;
+
+const makeMapState = () => {
+  const selectPagedResources = articleSelectors.makeSelectPagedResources();
+  function mapState(state, ownProps) {
+    return selectPagedResources(state, articleConstants.REDUCER_NAMESPACE, paginationKey); // resources, more, nextCursor
+  };
+  return mapState;
+};
+
+function mapDispatch(dispatch) {
+  return {
+    loadMoreArticles: bindActionCreators((nextCursor) => articleCommands.loadArticles({limit: LIMIT, verbose:false}, nextCursor, paginationKey), dispatch),
+  };
+};
+
 
 const styles = {};
 class BlogIndexPage extends React.Component {
-  static async getInitialProps () {
-    //const res = await fetch(host + '/api/rest/v1.0/posts?limit=100&verbose=false');
-    //const json = await res.json();
-    //return { resources: json.results };
-    return { resources: []};
+  static async getInitialProps ({reduxStore, ...rest}) {
+    await reduxStore.dispatch(articleCommands.loadArticles({limit: LIMIT, verbose:false}, null, paginationKey));
+    return {reduxStore};
   }
 
   render () {
-    const { resources } = this.props;
+    const { resources, more, nextCursor, loadMoreArticles } = this.props;
+
+    let meta = {
+      title: 'Blog',
+      description: 'My Blog',
+    };
 
     return (
-      <Page title="Blog" activePage='blog'>
-        <Head>
-          <title>Blog | Blaine Garrett</title>
-        </Head>
+      <Page title="Blog" activePage="blog" meta={meta}>
 
         <Row>
           <Col xs={12}>
@@ -45,14 +65,23 @@ class BlogIndexPage extends React.Component {
                 })
               }
             </ol>
+
+            {/*
+              <span onClick={()=>loadMoreArticles(nextCursor)}>more</span>
+              [({more.toString()}, {nextCursor})]
+            */}
           </Col>
         </Row>
       </Page>
     );
   }
 }
-export default withRoot(withStyles(styles)(BlogIndexPage));
+
+export default withStyles(styles)(connect(makeMapState, mapDispatch)(BlogIndexPage));
 
 BlogIndexPage.propTypes = {
-  resources: PropTypes.array
+  resources: PropTypes.array,
+  more: PropTypes.bool,
+  nextCursor: PropTypes.string,
+  loadMoreArticles: PropTypes.func
 };

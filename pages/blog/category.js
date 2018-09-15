@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import 'isomorphic-unfetch';
-import Head from 'next/head';
 import Page from '../../components/Page';
 import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
-import withRoot from '../../theming/withRoot';
 import {Row, Col} from './../../components/layout/grid';
 
 const styles = {};
@@ -27,11 +25,13 @@ class BlogCategoryPage extends React.Component {
     let activePage = slug == 'programming' || slug == 'art' ? slug : 'blog';
     let capSlug = slug.charAt(0).toUpperCase() + slug.slice(1);
 
+    let meta = {
+      title: capSlug,
+      description: 'Articles pertaining to ' + capSlug
+    };
+
     return (
-      <Page title={capSlug} activePage={activePage}>
-        <Head>
-          <title>{slug} | Blaine Garrett | Minneapolis Artist, Software Engineer & Tinkerer</title>
-        </Head>
+      <Page title={capSlug} activePage={activePage} meta={meta}>
 
         <Row>
           <Col xs={12}>
@@ -42,7 +42,7 @@ class BlogCategoryPage extends React.Component {
     );
   }
 }
-export default withRoot(withStyles(styles)(BlogCategoryPage));
+export default withStyles(styles)(BlogCategoryPage);
 
 BlogCategoryPage.propTypes = {
   resources: PropTypes.array,
