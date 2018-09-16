@@ -3,10 +3,10 @@ import App, { Container } from 'next/app';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import JssProvider from 'react-jss/lib/JssProvider';
-import getPageContext from '../theming/context';
-import GlobalStyles from '../theming/GlobalStyles';
+import getPageContext from '../src/theming/context';
+import GlobalStyles from '../src/theming/GlobalStyles';
 import { Provider as ReduxProvider } from 'react-redux';
-import withReduxStore from '../redux/withReduxStore';
+import withReduxStore from '../src/redux/withReduxStore';
 
 class MyApp extends App {
   constructor(props) {

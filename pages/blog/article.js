@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import Head from 'next/head';
-import Page from '../../components/Page';
+import Page from '../../src/components/Page';
 
 import { withStyles } from '@material-ui/core/styles';
-import {Grid, Row, Col} from '../../components/layout/grid';
-import ArticleRenderer from '../../components/blog/ArticleRenderer';
-import SideBar from '../../components/layout/SideBar';
+import {Grid, Row, Col} from '../../src/components/layout/grid';
+import ArticleRenderer from '../../src/components/blog/ArticleRenderer';
+import SideBar from '../../src/components/layout/SideBar';
 import Router from 'next/router';
 
-import { commands as articleCommands } from '../../modules/articles/redux';
-import { selectors as articleSelectors } from '../../modules/articles/redux';
+import { commands as articleCommands } from '../../src/modules/articles/redux';
+import { selectors as articleSelectors } from '../../src/modules/articles/redux';
 
 const makeMapState = () => {
   const selectArticleResourceBySlug = articleSelectors.makeSelectArticleResourceBySlug();

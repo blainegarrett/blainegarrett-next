@@ -33,7 +33,7 @@
     "start": "NODE_ENV=production node server.js",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gcloud --project blaine-garrett app deploy app.yaml --version nextjs2"
+    "deploy": "gcloud --verbosity=info --project blaine-garrett app deploy app.yaml --version nextjs2"
   },
   "repository": {
     "type": "git",

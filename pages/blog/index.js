@@ -6,13 +6,13 @@ import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 
 import Link from 'next/link';
-import Page from '../../components/Page';
+import Page from '../../src/components/Page';
 
-import {Row, Col} from './../../components/layout/grid';
+import {Row, Col} from './../../src/components/layout/grid';
 import { bindActionCreators } from 'redux';
-import { commands as articleCommands } from '../../modules/articles/redux';
-import { selectors as articleSelectors } from '../../modules/articles/redux';
-import { constants as articleConstants } from '../../modules/articles/redux';
+import { commands as articleCommands } from '../../src/modules/articles/redux';
+import { selectors as articleSelectors } from '../../src/modules/articles/redux';
+import { constants as articleConstants } from '../../src/modules/articles/redux';
 
 let paginationKey = 'all';
 let LIMIT = 10;

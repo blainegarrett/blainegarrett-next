@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import 'isomorphic-unfetch';
-import Page from '../../components/Page';
+import Page from '../../src/components/Page';
 import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
-import {Row, Col} from './../../components/layout/grid';
+import {Row, Col} from './../../src/components/layout/grid';
 
 const styles = {};
 

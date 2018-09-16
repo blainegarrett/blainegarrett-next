@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import 'isomorphic-unfetch';
-import Page from '../components/Page';
+import Page from '../src/components/Page';
 import Link from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
-import {Grid, Row, Col} from '../components/layout/grid';
-import SideBar from '../components/layout/SideBar';
+import {Grid, Row, Col} from '../src/components/layout/grid';
+import SideBar from '../src/components/layout/SideBar';
 
 const styles = {};
 

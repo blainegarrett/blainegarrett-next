@@ -2,9 +2,9 @@
 import React from 'react';
 import Head from 'next/head';
 
-import Page from '../components/Page';
+import Page from '../src/components/Page';
 import { withStyles } from '@material-ui/core/styles';
-import {Row, Col} from './../components/layout/grid';
+import {Row, Col} from './../src/components/layout/grid';
 
 const styles = {};
 class ErrorPage extends React.Component {
