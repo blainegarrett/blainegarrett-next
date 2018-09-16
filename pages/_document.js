@@ -1,4 +1,3 @@
-// Note: This is basically stock version of https://github.com/mui-org/material-ui/blob/v1-beta/examples/nextjs/pages/_document.js
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import flush from 'styled-jsx/server';
@@ -52,21 +51,6 @@ MyDocument.getInitialProps = ctx => {
   // On the client
   // 1. page.getInitialProps
   // 3. page.render
-
-  // Get the context of the page to collected side effects.
-
-  /*
-  const pageContext = getPageContext();
-
-  const page = ctx.renderPage(Component => props => (
-    <JssProvider
-      registry={pageContext.sheetsRegistry}
-      generateClassName={pageContext.generateClassName}
-    >
-      <Component pageContext={pageContext} {...props} />
-    </JssProvider>
-  ));
-  */
 
   // Render app and page and get the context of the page with collected side effects.
   let pageContext;
