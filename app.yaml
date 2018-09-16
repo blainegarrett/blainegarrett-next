@@ -1,7 +1,6 @@
 runtime: nodejs8
 
 # what follows will be optional in the future:
-threadsafe: true
 service: default
 handlers:
 - url: /.*
