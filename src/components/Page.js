@@ -25,7 +25,7 @@ export default class Page extends React.Component {
   }
 
   render() {
-    var { children, activePage, title, meta } = this.props;
+    var { children, activePage, title, meta, isFluid } = this.props;
 
     if (!activePage) {
       activePage = 'blog';
@@ -41,7 +41,7 @@ export default class Page extends React.Component {
         <Meta meta={meta} />
         <MainAppBar activePage={activePage} onMenuToggle={this.onMenuToggle} />
         {title && (<Breadcrumbs>{title}</Breadcrumbs>)}
-        <Grid>{ children }</Grid>
+        <Grid fluid={isFluid}>{ children }</Grid>
         <MenuDialog activePage={activePage}  open={this.state.menuOpen} onMenuToggle={this.onMenuToggle}/>
         {/* <Footer /> */}
       </div>
@@ -53,5 +53,6 @@ Page.propTypes = {
   activePage: PropTypes.string,
   title: PropTypes.string,
   meta: PropTypes.object,
+  isFluid: PropTypes.bool,
   children: PropTypes.node,
 };

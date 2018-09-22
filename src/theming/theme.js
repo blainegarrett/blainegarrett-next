@@ -21,6 +21,7 @@ const muiTheme = createMuiTheme({
     },
   },
   appBarHeight: {'default': 60, 'sm': 50}, // TODO: Do we need/want different heights?
+  gutterSpacing: 32
 });
 
 export default muiTheme;

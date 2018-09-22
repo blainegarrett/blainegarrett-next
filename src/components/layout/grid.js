@@ -2,12 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MuiGrid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import classnames from 'classnames';
 
 const styles = (theme) => {
-  // console.log(theme.spacing.unit);
-  // theme.spacing.unit * 2
-
   return {
     fluidContainer: {
       width:'100%',
@@ -18,53 +15,51 @@ const styles = (theme) => {
       marginLeft: 'auto',
       width: '100%', // xs,sm
       flexGrow: 1,
-      paddingRight: '8px',
-      paddingLeft: '8px',
-      padding: '8px',
+      paddingRight: theme.gutterSpacing / 2,
+      paddingLeft: theme.gutterSpacing / 2,
 
       [theme.breakpoints.only('xs')]: {
-        //width: theme.breakpoints.width('xs')
-        //width: '100%'
+        width: '100%'
       },
       [theme.breakpoints.only('sm')]: {
-        //width: theme.breakpoints.width('sm')
         width: '100%'
       },
       [theme.breakpoints.only('md')]: {
         width: theme.breakpoints.width('md')
       },
       [theme.breakpoints.only('lg')]: {
-        width: '1170px'
+        width: theme.breakpoints.width('lg')
       },
       [theme.breakpoints.only('xl')]: { // force width of lg
-        width: '1170px' //theme.breakpoints.width('lg')
+        width: theme.breakpoints.width('lg')
       },
     },
+    alignRight: { marginRight: 0 },
+    alignLeft: { marginLeft: 0 },
+    typeContainer: {},
+    typeItem : {}
+  };
+};
 
-    typeContainer: {
-      /* width:'100%', */
-      //border: '1px solid green'
-    },
-    typeItem : {
-      //border: '1px solid red',
-      //paddingRight: theme.spacing.unit * 2,
-      //paddingLeft: theme.spacing.unit * 2,
+function _Grid({classes, align, className, theme, children, fluid, ...rest}) {
+  let collectedClasses = [className];
 
-      [theme.breakpoints.up('md')]: {
-        //paddingRight: theme.spacing.unit * 5,
-        //paddingLeft: theme.spacing.unit * 5,
-      },
+  if (fluid) {
+    collectedClasses.push(classes.fluidContainer);
+  }
+  else {
+    collectedClasses.push(classes.legacyContainer);
+
+    if (align) {
+      if (align == 'right') {
+        collectedClasses.push(classes.alignRight);
+      }
+      else if (align == 'left') {
+        collectedClasses.push(classes.alignLeft);
+      }
     }
   }
-}
-
-function _Grid({classes, theme, className, children, fluid, ...rest}) {
-  let containerClass = classes.legacyContainer
-  if (fluid) {
-    containerClass = classes.fluidContainer;
-  }
-
-  return (<div className={classNames(containerClass, className)} {...rest}>{ children }</div>)
+  return (<div className={classnames(collectedClasses)} {...rest}>{ children }</div>);
 }
 // prop definitions
 _Grid.propTypes = {
@@ -72,11 +67,12 @@ _Grid.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object,
   fluid: PropTypes.bool,
+  align: PropTypes.oneOf(['left', 'right'])
 };
 
 
-function _Row({classes, theme, className, children, ...rest}) {
-  return (<MuiGrid spacing={Number(theme.spacing.unit * 2)} container={true} className={classNames(classes.typeContainer, className)} {...rest}>{ children }</MuiGrid>);
+function _Row({classes, className, theme, children, ...rest}) {
+  return (<MuiGrid spacing={Number(theme.gutterSpacing)} container={true} className={classnames(classes.typeContainer, className)} {...rest}>{ children }</MuiGrid>);
 }
 // prop definitions
 _Row.propTypes = {
@@ -87,10 +83,10 @@ _Row.propTypes = {
 
 
 function _Col(props) {
-  let {classes, className, children, theme, ...rest} = props;
-  return (<MuiGrid item={true} {...rest} className={classNames(classes.typeItem, className)}>{ children }</MuiGrid>);
+  let {classes, className, theme, children, ...rest} = props;
+  return (<MuiGrid item={true} {...rest} className={classnames(classes.typeItem, className)}>{ children }</MuiGrid>);
 }
-// prop definitions
+
 _Col.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,

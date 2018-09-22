@@ -91,15 +91,8 @@ class ArticlePage extends React.Component {
     };
 
     return (
-      <Page title={article.title} meta={meta}>
-        <Grid>
-          <Row>
-            <Col xs={9}>
-              <ArticleRenderer article={article} />
-            </Col>
-            <Col xs={3}><SideBar /></Col>
-          </Row>
-        </Grid>
+      <Page isFluid meta={meta}>
+        <ArticleRenderer article={article} />
       </Page>
     );
   }

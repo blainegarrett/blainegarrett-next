@@ -24,6 +24,7 @@ const styles = (theme) => ({
     marginLeft: '-35px', // Note this is due to my goofy logo having padding
     [theme.breakpoints.down('sm')]: {
       maxWidth:'200px',
+      marginLeft: '0px'
     }
   },
   menuButton: {
