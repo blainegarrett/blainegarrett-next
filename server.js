@@ -1,10 +1,11 @@
-// server.js is required entry for GAE (vs. start script) - This will likely not be the case post EAP
+// server.js is required entry for GAE
 const express = require('express');
 const next = require('next');
 
 const dev = process.env.NODE_ENV !== 'production';
+const port = process.env.PORT ? process.env.PORT : 8080;
 const app = next({ dev });
-const port = dev ? 3000 : 8080;
+
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
