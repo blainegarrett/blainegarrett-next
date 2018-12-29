@@ -6,10 +6,15 @@ const globalStyles = (theme) => {
   return {
     '@global': {
       'html': {
-        'font-family': 'sans-serif',
-        '-webkit-font-smoothing': 'unset',
-        '-moz-osx-font-smoothing': 'unset',
-        'font-size': '13px',
+        'font-size': '14px',
+      },
+      'body': {
+        'font-size': '1rem',
+        'line-height': 1.6,
+        'font-weight': 400,
+        'color': '#555',
+        'text-rendering': 'optimizelegibility',
+        'font-family': '"Open Sans", Helvetica, Arial, sans-serif',
       },
       'a': {
         color: theme.palette.primary[500],

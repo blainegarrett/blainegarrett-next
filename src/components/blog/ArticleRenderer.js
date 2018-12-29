@@ -134,42 +134,44 @@ const styles = (theme) => ({
 });
 
 const ArticleRenderer = ({classes, article}) => {
-  let image;
+  let image_url = 'https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg';
   if (article.legacy_image_resource) {
-    image = (
-      <Row>
-        <Col xs={12}>
-          <div className={classes.headerImageRoot}>
-            <div className={classes.headerImage} style={{backgroundImage: 'url("http://commondatastorage.googleapis.com/blaine-garrett/' + article.legacy_image_resource.gcs_filename + '")'}} />
+    image_url = 'http://commondatastorage.googleapis.com/blaine-garrett/' + article.legacy_image_resource.gcs_filename;
+  }
+  let image = (
+    <Row>
+      <Col xs={12}>
+        <div className={classes.headerImageRoot}>
+          <div className={classes.headerImage} style={{backgroundImage: 'url("' + image_url + '")'}} />
 
-            <div className={classes.headerImageContentWrapper}>
-              <div className={classes.headerImageContent}>
+          <div className={classes.headerImageContentWrapper}>
+            <div className={classes.headerImageContent}>
 
-                <Grid>
-                  <Row>
-                    <Col xs={12}>
-                      <div className={classes.headerImageContentInner}>
-                        <h1>{article.title}</h1>
-                        <p>{article.summary || 'I will think of something good to put here'}</p>
+              <Grid>
+                <Row>
+                  <Col xs={12}>
+                    <div className={classes.headerImageContentInner}>
+                      <h1>{article.title}</h1>
+                      <p>{article.summary || 'I will think of something good to put here'}</p>
 
-                        <div className={classes.breadcrumbsroot}>
-                          <ul className={classes.breadcrumbslist}>
-                            <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>event</Icon> { moment(article.published_date).format('MMMM Do, YYYY')}</li>
-                            <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>person</Icon> Blaine Garrett</li>
-                            {/* <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>local_offer</Icon> Posted in <a href="/dim-media/">DIM Media</a>, <a href="/art/">Art</a></li> */}
-                          </ul>
-                        </div>
+                      <div className={classes.breadcrumbsroot}>
+                        <ul className={classes.breadcrumbslist}>
+                          <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>event</Icon> { moment(article.published_date).format('MMMM Do, YYYY')}</li>
+                          <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>person</Icon> Blaine Garrett</li>
+                          {/* <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>local_offer</Icon> Posted in <a href="/dim-media/">DIM Media</a>, <a href="/art/">Art</a></li> */}
+                        </ul>
                       </div>
-                    </Col>
-                  </Row>
-                </Grid>
-              </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Grid>
             </div>
           </div>
-        </Col>
-      </Row>
-    );
-  }
+        </div>
+      </Col>
+    </Row>
+  );
+
 
   return (
     <div className="blog">
