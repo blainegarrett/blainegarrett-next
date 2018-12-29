@@ -1,5 +1,6 @@
 import React from 'react';
 import App, { Container } from 'next/app';
+import Head from 'next/head'
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import JssProvider from 'react-jss/lib/JssProvider';
@@ -7,6 +8,7 @@ import getPageContext from '../src/theming/context';
 import GlobalStyles from '../src/theming/GlobalStyles';
 import { Provider as ReduxProvider } from 'react-redux';
 import withReduxStore from '../src/redux/withReduxStore';
+
 
 class MyApp extends App {
   constructor(props) {
@@ -28,6 +30,10 @@ class MyApp extends App {
     const { Component, pageProps, reduxStore } = this.props;
     return (
       <Container>
+        <Head>
+          <title>Blaine Garrett | Minneapolis Artist & Software Engineer</title>
+        </Head>
+
         {/* Wrap every page in Jss and Theme providers */}
         <JssProvider
           registry={this.pageContext.sheetsRegistry}

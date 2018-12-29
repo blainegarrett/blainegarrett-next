@@ -11,7 +11,6 @@ import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
-import Typography from '@material-ui/core/Typography';
 import {Grid, Row} from '../../components/layout/grid';
 
 
@@ -81,9 +80,9 @@ function ButtonAppBar(props) {
         <Grid>
           <Toolbar className={classes.toolbar}>
 
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <div className={classes.flex}>
               <Link href="/index" as="/"><a title="Home"><img src="https://storage.googleapis.com/blaine-garrett/theme/v2/logo.png" alt="Blaine Garrett Logo" className={classes.titleImage} /></a></Link>
-            </Typography>
+            </div>
 
             <Hidden mdUp>
               <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={() => onMenuToggle()}>

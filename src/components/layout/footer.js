@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
 
@@ -93,12 +92,12 @@ class Footer extends React.Component {
   <div className={classes.container}>
     <Grid container>
       <Grid item xs={6}>
-        <Typography variant="caption">
+        <b variant="caption">
           <span className={classes.copyrightSpace}>
             &copy; Blaine Garrett unless otherwise noted
             <a className={classes.copyrightLink} href="/contact/">Contact</a>
           </span>
-        </Typography>
+        </b>
       </Grid>
       <Grid item xs={6}>
       </Grid>

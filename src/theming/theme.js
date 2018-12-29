@@ -4,6 +4,7 @@ import { green, pink, red } from './colors';
 
 const muiTheme = createMuiTheme({
   typography: {
+    useNextVariants: true,
     //fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     button: {
       fontWeight: 400,
