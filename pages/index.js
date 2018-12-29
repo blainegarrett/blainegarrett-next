@@ -28,7 +28,7 @@ class IndexPage extends React.Component {
       <Page title="Welcome" activePage="home" meta={meta}>
         <Row>
           <Col xs={12}>
-            <div>Returning soon. I'm rebuilding my site from the ground up to be be more 2018 friendly:
+            <div>Returning soon. I'm rebuilding the site from the ground up to be be more 2018 friendly:
 
               <ul>
                 <li>Material Design</li>
