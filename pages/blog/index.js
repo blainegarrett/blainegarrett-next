@@ -4,18 +4,20 @@ import {connect} from 'react-redux';
 
 import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
-import Link from 'next/link';
 import Page from '../../src/components/Page';
 
 import {Row, Col} from './../../src/components/layout/grid';
+import ArticleCard from './../../src/components/blog/ArticleCard';
 import { bindActionCreators } from 'redux';
 import { commands as articleCommands } from '../../src/modules/articles/redux';
 import { selectors as articleSelectors } from '../../src/modules/articles/redux';
 import { constants as articleConstants } from '../../src/modules/articles/redux';
 
+
 let paginationKey = 'all';
-let LIMIT = 10;
+let LIMIT = 12;
 
 const makeMapState = () => {
   const selectPagedResources = articleSelectors.makeSelectPagedResources();
@@ -53,23 +55,23 @@ class BlogIndexPage extends React.Component {
         <Row>
           <Col xs={12}>
             <p>Returning soon after a revamp.</p>
-            <ol>
+
+            <Row>
               {
                 resources.map((resource) => {
-                  let id = resource.resource_id;
-                  let slug_prefix = moment(resource.published_date).format('YYYY/MM/DD');
-
-                  return (
-                    <li key={id}><Link href={`/blog/article?slug=${resource.slug}`} as={`${slug_prefix}/${resource.slug}`}><a title={resource.slug} className="permalink">{ resource.title }</a></Link></li>
-                  );
+                  return (<Col key={resource.resource_id}  xs={12} sm={6} md={4}><ArticleCard resource={resource} /></Col>);
                 })
               }
-            </ol>
+            </Row>
 
             {/*
-              <span onClick={()=>loadMoreArticles(nextCursor)}>more</span>
-              [({more.toString()}, {nextCursor})]
+            <Row>
+              <Col xs={12}>
+                {more && <Button style={{width:'100%'}} variant="contained" onClick={()=>loadMoreArticles(nextCursor)}>more articles</Button>}
+              </Col>
+            </Row>
             */}
+            {/* [({more.toString()}, {nextCursor})] */}
           </Col>
         </Row>
       </Page>

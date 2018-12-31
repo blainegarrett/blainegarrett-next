@@ -132,6 +132,9 @@ export function updateAuthor({resource_id, data}) {
 */
 
 export function fetchArticles({nextCursor, params}) {
+  if (params.is_published == undefined) {
+    params.is_published = true;
+  }
   return callApi('/api/rest/v1.0/posts', {cursor: cleanCursor(nextCursor), ...params}, {}, 'GET', true);
 }
 
