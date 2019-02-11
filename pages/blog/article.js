@@ -85,9 +85,21 @@ class ArticlePage extends React.Component {
     }
 
 
+    // Determine meta
+    let image_url = 'https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg';
+    if (article.legacy_image_resource) {
+      image_url = 'http://commondatastorage.googleapis.com/blaine-garrett/' + article.legacy_image_resource.gcs_filename;
+    }
+
+
     let meta = {
       title: article.title,
-      description: 'This is an article...'
+      description: article.summary,
+      image: image_url,
+      imageHeight: 472,
+      imageWidth: 900,
+      type: 'article',
+      author: 'Blaine Garrett'
     };
 
     return (

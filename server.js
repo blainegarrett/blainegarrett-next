@@ -26,6 +26,11 @@ app.prepare().then(() => {
   });
   */
 
+  // Favicon
+  server.get('/favicon.ico', (req, res) => (
+    res.status(200).sendFile('favicon.ico', {root: __dirname + '/static/'})
+  ));
+
   server.get('/_next/-/page/*', (req, res) => {
     return handle(req, res);
   });
