@@ -1,15 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import Head from 'next/head';
 import Page from '../../src/components/Page';
-
-import { withStyles } from '@material-ui/core/styles';
-import {Grid, Row, Col} from '../../src/components/layout/grid';
 import ArticleRenderer from '../../src/components/blog/ArticleRenderer';
-import SideBar from '../../src/components/layout/SideBar';
-import Router from 'next/router';
 
 import { commands as articleCommands } from '../../src/modules/articles/redux';
 import { selectors as articleSelectors } from '../../src/modules/articles/redux';
@@ -19,14 +13,12 @@ const makeMapState = () => {
   function mapState(state, ownProps) {
     //return {article: selectArticleResourceBySlug(state, ownProps.slug)};
     return {};
-  };
+  }
   return mapState;
 };
 
-let styles = {};
-
 class ArticlePage extends React.Component {
-  static async getInitialProps ({res, reduxStore, query}) {
+  static async getInitialProps({ res, reduxStore, query }) {
     // Async load the article if it is not in store. On server throw 404. Redirect if slug not exact.
     let slug = query.slug;
 
@@ -47,24 +39,29 @@ class ArticlePage extends React.Component {
 
     // Step 4: If still no article, then throw 404 on server
     if (!article) {
-      if (res) { // Only on the server...
+      if (res) {
+        // Only on the server...
         res.statusCode = 404;
       }
-      return {slug: query.slug, article: article};
+      return { slug: query.slug, article: article };
     }
 
     // Step 5: Ensure query url is in the desired published date format
-    if (res) { // Note: We're not passing query.year, month, date, so they're undefined on client
+    if (res) {
+      // Note: We're not passing query.year, month, date, so they're undefined on client
       let expectedPrefix = `20${query.year}-${query.month}-${query.day}`;
       if (!article.published_date.startsWith(expectedPrefix)) {
         // Redirect to the actual url
         let bits = article.published_date.split('T')[0].split('-');
 
-        if (res) { // Server
-          res.writeHead(302, {Location: `/${bits[0]}/${bits[1]}/${bits[2]}/${article.slug}`})
+        if (res) {
+          // Server
+          res.writeHead(302, {
+            Location: `/${bits[0]}/${bits[1]}/${bits[2]}/${article.slug}`
+          });
           res.end();
-        }
-        else { // Client
+        } else {
+          // Client
           console.log('client 302... but not redirecting yet');
           console.log([expectedPrefix, article.published_date]);
           //Router.push(`/${bits[0]}/${bits[1]}/${bits[2]}/${article.slug}`);
@@ -74,23 +71,28 @@ class ArticlePage extends React.Component {
     }
 
     // Step
-    return {slug: query.slug, article: article};
+    return { slug: query.slug, article: article };
   }
 
-  render () {
+  render() {
     const { article } = this.props;
 
     if (!article) {
-      return (<Page title="Article Not Found"><h2>Article Not Found</h2></Page>);
+      return (
+        <Page title="Article Not Found">
+          <h2>Article Not Found</h2>
+        </Page>
+      );
     }
-
 
     // Determine meta
-    let image_url = 'https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg';
+    let image_url =
+      'https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg';
     if (article.legacy_image_resource) {
-      image_url = 'http://commondatastorage.googleapis.com/blaine-garrett/' + article.legacy_image_resource.gcs_filename;
+      image_url =
+        'https://commondatastorage.googleapis.com/blaine-garrett/' +
+        article.legacy_image_resource.gcs_filename;
     }
-
 
     let meta = {
       title: article.title,
@@ -110,7 +112,7 @@ class ArticlePage extends React.Component {
   }
 }
 
-export default withStyles(styles)(connect()(ArticlePage));
+export default connect()(ArticlePage);
 
 ArticlePage.propTypes = {
   article: PropTypes.object

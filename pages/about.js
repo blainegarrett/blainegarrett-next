@@ -1,15 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import Page from '../src/components/Page';
-import Link from 'next/link';
-import { withStyles } from '@material-ui/core/styles';
-import { Grid, Row, Col } from '../src/components/layout/grid';
+import { Row, Col } from '../src/components/layout/grid';
 import SideBar from '../src/components/layout/SideBar';
 
-const styles = {};
-
-class AboutPage extends React.Component {
+export default class AboutPage extends React.Component {
   render() {
     let meta = {
       title: 'About Me',
@@ -60,5 +54,3 @@ class AboutPage extends React.Component {
   }
 }
 AboutPage.propTypes = {};
-
-export default withStyles(styles)(AboutPage);

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import Icon from '@material-ui/core/Icon';
 import moment from 'moment';
-import {Grid, Row, Col} from './../layout/grid';
+import { Grid, Row, Col } from './../layout/grid';
 
-const styles = (theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {},
   btn: {
     color: 'black'
@@ -21,25 +21,25 @@ const styles = (theme) => ({
     'font-family': '"Open Sans", sans-serif'
   },
   breadcrumbsroot: {
-    'padding': '5px 0 8px',
-    'margin-bottom': '10px',
+    padding: '5px 0 8px',
+    'margin-bottom': '10px'
     /*'border-top': 'solid 1px #eee',
     'border-bottom': 'solid 1px #eee',
     */
   },
   breadcrumbslist: {
-    'color': '#fff',
+    color: '#fff',
     'margin-bottom': '3px',
     'padding-left': 0,
     'list-style': 'none',
-    'margin-top': 0,
+    'margin-top': 0
   },
   breadcrumbslistitem: {
     'font-size': '12px',
     display: 'inline-block',
     'padding-right': '16px',
-    'color': 'rgba(255, 255, 255, 0.6) !important',
-    'line-height': '1.6',
+    color: 'rgba(255, 255, 255, 0.6) !important',
+    'line-height': '1.6'
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.6) !important',
@@ -49,19 +49,18 @@ const styles = (theme) => ({
   },
   summary: {
     fontWeight: 'bolder',
-    fontSize:'16px'
+    fontSize: '16px'
   },
 
   headerImageRoot: {
     position: 'relative',
-    overflow:'hidden',
+    overflow: 'hidden',
     marginBottom: '40px'
   },
 
   headerImage: {
-    width:'100%',
-    transition: '0.6s ease',
     width: '100%',
+    transition: '0.6s ease',
     height: 0,
     display: 'block',
     padding: '30% 0 0 0',
@@ -74,27 +73,26 @@ const styles = (theme) => ({
 
     [theme.breakpoints.down('sm')]: {
       padding: '100% 0 0 0',
-      filter: 'blur(.25rem) brightness(75%)', // width is narrower so don't blur so much
+      filter: 'blur(.25rem) brightness(75%)' // width is narrower so don't blur so much
     }
   },
   headerImageContentWrapper: {
-    position:'absolute',
-    bottom:0,
-    width:'100%',
-    height:'100%',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: '100%'
   },
   headerImageContent: {
-    position:'absolute',
-    bottom:0,
+    position: 'absolute',
+    bottom: 0,
     color: '#fff',
 
     background: 'linear-gradient(transparent, black)',
-    width:'100%',
-    color: '#fff',
+    width: '100%',
     padding: '16px',
 
     [theme.breakpoints.up('lg')]: {
-      padding: theme.gutterSpacing,
+      padding: theme.gutterSpacing
     },
 
     '& h1': {
@@ -107,7 +105,7 @@ const styles = (theme) => ({
       'line-height': '1.1',
 
       [theme.breakpoints.up('lg')]: {
-        'margin-bottom': theme.gutterSpacing,
+        'margin-bottom': theme.gutterSpacing
       }
     },
     '& p': {
@@ -116,48 +114,65 @@ const styles = (theme) => ({
 
       [theme.breakpoints.up('lg')]: {
         'margin-bottom': theme.gutterSpacing / 2,
-        fontSize: '1.25rem',
+        fontSize: '1.25rem'
       }
     }
   },
   headerImageContentInner: {
     [theme.breakpoints.up('lg')]: {
-      width: theme.gutterSpacing * 21
-    },
+      width: '672px'
+    }
   },
 
   legacyContainer: {
     '& img': {
-      width: '100% !important',
+      width: '100% !important'
     }
   }
-});
+}));
 
-const ArticleRenderer = ({classes, article}) => {
-  let image_url = 'https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg';
+export default function ArticleRenderer({ article }) {
+  const classes = useStyles();
+  let image_url =
+    'https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg';
   if (article.legacy_image_resource) {
-    image_url = 'http://commondatastorage.googleapis.com/blaine-garrett/' + article.legacy_image_resource.gcs_filename;
+    image_url =
+      'https://commondatastorage.googleapis.com/blaine-garrett/' +
+      article.legacy_image_resource.gcs_filename;
   }
   let image = (
     <Row>
       <Col xs={12}>
         <div className={classes.headerImageRoot}>
-          <div className={classes.headerImage} style={{backgroundImage: 'url("' + image_url + '")'}} />
+          <div
+            className={classes.headerImage}
+            style={{ backgroundImage: 'url("' + image_url + '")' }}
+          />
 
           <div className={classes.headerImageContentWrapper}>
             <div className={classes.headerImageContent}>
-
               <Grid>
                 <Row>
                   <Col xs={12}>
                     <div className={classes.headerImageContentInner}>
                       <h1>{article.title}</h1>
-                      <p>{article.summary || 'I will think of something good to put here'}</p>
+                      <p>
+                        {article.summary ||
+                          'I will think of something good to put here'}
+                      </p>
 
                       <div className={classes.breadcrumbsroot}>
                         <ul className={classes.breadcrumbslist}>
-                          <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>event</Icon> { moment(article.published_date).format('MMMM Do, YYYY')}</li>
-                          <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>person</Icon> Blaine Garrett</li>
+                          <li className={classes.breadcrumbslistitem}>
+                            <Icon className={classes.icon}>event</Icon>{' '}
+                            {moment(article.published_date).format(
+                              'MMMM Do, YYYY'
+                            )}
+                          </li>
+                          <li className={classes.breadcrumbslistitem}>
+                            <Icon className={classes.icon}>person</Icon> Blaine
+                            Garrett
+                          </li>
                           {/* <li className={classes.breadcrumbslistitem}><Icon className={classes.icon}>local_offer</Icon> Posted in <a href="/dim-media/">DIM Media</a>, <a href="/art/">Art</a></li> */}
                         </ul>
                       </div>
@@ -172,7 +187,6 @@ const ArticleRenderer = ({classes, article}) => {
     </Row>
   );
 
-
   return (
     <div className="blog">
       {image}
@@ -181,18 +195,16 @@ const ArticleRenderer = ({classes, article}) => {
         <Row>
           <Col xs={12} lg={8}>
             <div className={classes.legacyContainer}>
-              <div dangerouslySetInnerHTML={{__html: article.content}} />
+              <div dangerouslySetInnerHTML={{ __html: article.content }} />
             </div>
           </Col>
         </Row>
       </Grid>
     </div>
   );
-};
+}
 
 ArticleRenderer.propTypes = {
   classes: PropTypes.object,
   article: PropTypes.object
 };
-
-export default withStyles(styles)(ArticleRenderer);

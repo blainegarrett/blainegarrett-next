@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import {Grid, Row, Col} from '../../components/layout/grid';
+import { Grid, Row, Col } from '../../components/layout/grid';
+import { makeStyles } from '@material-ui/styles';
 
-const styles = {
+const useStyles = makeStyles(theme => ({
   root: {
     padding: '10px 0 6px',
     boxShadow: 'inset 0 0 4px #eee',
-    background: 'url(https://storage.googleapis.com/cdn.mplsart.com/blainestuff/breadcrumbs.png) repeat',
-    marginBottom: '40px'
+    background:
+      'url(https://storage.googleapis.com/cdn.mplsart.com/blainestuff/breadcrumbs.png) repeat',
+    marginBottom: '40px',
+    [theme.breakpoints.down('md')]: {
+      marginBottom: 0
+    }
   },
   title: {
     color: '#686868',
@@ -20,15 +24,19 @@ const styles = {
     'margin-bottom': '10px',
     'line-height': '1.1'
   }
-};
+}));
 
-function Breadcrumbs(props) {
-  const { classes, children } = props;
+export default function Breadcrumbs(props) {
+  const { children } = props;
+  const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <Grid>
         <Row>
-          <Col xs={12}><h2 className={classes.title}>{children}</h2></Col>
+          <Col xs={12}>
+            <h2 className={classes.title}>{children}</h2>
+          </Col>
         </Row>
       </Grid>
     </div>
@@ -36,8 +44,5 @@ function Breadcrumbs(props) {
 }
 
 Breadcrumbs.propTypes = {
-  classes: PropTypes.object.isRequired,
-  children: PropTypes.node,
+  children: PropTypes.node
 };
-
-export default withStyles(styles)(Breadcrumbs);

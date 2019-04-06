@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import moment from 'moment';
 
 import Card from '@material-ui/core/Card';
@@ -12,10 +12,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
 
-
-const NextLink = (props) => {
-  let {href, as, prefetch, passHref, linkComponent, ...rest} = props;
-  return (<Link href={href} as={as} prefetch={prefetch} passHref={passHref}><props.linkComponent {...rest}></props.linkComponent></Link>);
+const NextLink = props => {
+  let { href, as, prefetch, passHref, linkComponent, ...rest } = props;
+  return (
+    <Link href={href} as={as} prefetch={prefetch} passHref={passHref}>
+      <props.linkComponent {...rest} />
+    </Link>
+  );
 };
 
 NextLink.propTypes = {
@@ -23,18 +26,14 @@ NextLink.propTypes = {
   as: PropTypes.string,
   prefetch: PropTypes.bool,
   passHref: PropTypes.bool,
-  linkComponent: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]),
+  linkComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 };
 
-const styles = (theme) => {
+const useStyles = makeStyles(theme => {
   return {
     card: {
-      //margin: theme.spacing.unit* 2,
-      float:'left',
-      width:'100%'
+      float: 'left',
+      width: '100%'
     },
     media: {
       // ⚠️ object-fit is not supported by IE 11.
@@ -43,21 +42,23 @@ const styles = (theme) => {
       width: '100%'
     },
     actionButton: {
-      padding: theme.spacing.unit*2,
+      padding: theme.spacing(2),
       display: 'flex',
       'justify-content': 'flex-end'
     }
   };
-};
+});
 
+export default function ArticleCard(props) {
+  const { resource } = props;
+  const classes = useStyles();
 
-
-const ArticleCard = (props) => {
-  const { classes, resource } = props;
-
-  let image_url = 'https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg';
+  let image_url =
+    'https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg';
   if (resource.legacy_image_resource) {
-    image_url = 'http://commondatastorage.googleapis.com/blaine-garrett/' + resource.legacy_image_resource.gcs_filename;
+    image_url =
+      'https://commondatastorage.googleapis.com/blaine-garrett/' +
+      resource.legacy_image_resource.gcs_filename;
   }
 
   let slug_prefix = moment(resource.published_date).format('YYYY/MM/DD');
@@ -83,10 +84,10 @@ const ArticleCard = (props) => {
           title="Contemplative Reptile"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">{resource.title}</Typography>
-          <Typography component="p">
-            {resource.summary}
+          <Typography gutterBottom variant="h5" component="h2">
+            {resource.title}
           </Typography>
+          <Typography component="p">{resource.summary}</Typography>
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.actionButton}>
@@ -98,10 +99,10 @@ const ArticleCard = (props) => {
           linkComponent={'button'}
           href={`/blog/article?slug=${resource.slug}`}
           as={`${slug_prefix}/${resource.slug}`}
-        >Read More</Button>
+        >
+          Read More
+        </Button>
       </CardActions>
     </Card>
   );
 }
-
-export default withStyles(styles)(ArticleCard);

@@ -1,20 +1,13 @@
-import React from 'react';
-
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => {
   return {
     '@global': {
       html: {
-        'font-size': '14px'
-      },
-      body: {
-        'font-size': '1rem',
-        'line-height': 1.6,
-        'font-weight': 400,
-        color: '#555',
-        'text-rendering': 'optimizelegibility',
-        'font-family': '"Open Sans", Helvetica, Arial, sans-serif'
+        'font-family': 'sans-serif',
+        '-webkit-font-smoothing': 'unset',
+        '-moz-osx-font-smoothing': 'unset',
+        'font-size': '16px'
       },
       a: {
         color: theme.palette.primary[500],

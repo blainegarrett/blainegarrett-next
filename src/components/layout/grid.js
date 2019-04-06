@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MuiGrid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import classnames from 'clsx';
 
-const styles = theme => {
+const useStyles = makeStyles(theme => {
   return {
     fluidContainer: {
       width: '100%',
@@ -15,8 +15,8 @@ const styles = theme => {
       marginLeft: 'auto',
       width: '100%', // xs,sm
       flexGrow: 1,
-      paddingRight: theme.gutterSpacing / 2,
-      paddingLeft: theme.gutterSpacing / 2,
+      paddingRight: theme.spacing(2), // 16
+      paddingLeft: theme.spacing(2), // 16
 
       [theme.breakpoints.only('xs')]: {
         width: '100%'
@@ -40,9 +40,10 @@ const styles = theme => {
     typeContainer: {},
     typeItem: {}
   };
-};
+});
 
-function _Grid({ classes, align, className, theme, children, fluid, ...rest }) {
+export function Grid({ align, className, children, fluid, ...rest }) {
+  let classes = useStyles();
   let collectedClasses = [className];
 
   if (fluid) {
@@ -64,8 +65,8 @@ function _Grid({ classes, align, className, theme, children, fluid, ...rest }) {
     </div>
   );
 }
-// prop definitions
-_Grid.propTypes = {
+
+Grid.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   classes: PropTypes.object,
@@ -73,10 +74,13 @@ _Grid.propTypes = {
   align: PropTypes.oneOf(['left', 'right'])
 };
 
-function _Row({ classes, className, theme, children, ...rest }) {
+export function Row({ className, children, ...rest }) {
+  let classes = useStyles();
+
+  // TODO: What is spacing these days?
   return (
     <MuiGrid
-      spacing={Number(theme.gutterSpacing)}
+      spacing={Number(1)}
       container={true}
       className={classnames(classes.typeContainer, className)}
       {...rest}
@@ -86,14 +90,16 @@ function _Row({ classes, className, theme, children, ...rest }) {
   );
 }
 // prop definitions
-_Row.propTypes = {
+Row.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   classes: PropTypes.object
 };
 
-function _Col(props) {
-  let { classes, className, theme, children, ...rest } = props;
+export function Col(props) {
+  let classes = useStyles();
+
+  let { className, children, ...rest } = props;
   return (
     <MuiGrid
       item={true}
@@ -105,14 +111,8 @@ function _Col(props) {
   );
 }
 
-_Col.propTypes = {
+Col.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   classes: PropTypes.object
 };
-
-const Row = withStyles(styles, { withTheme: true })(_Row);
-const Col = withStyles(styles, { withTheme: true })(_Col);
-const Grid = withStyles(styles, { withTheme: true })(_Grid);
-
-export { Grid, Row, Col };

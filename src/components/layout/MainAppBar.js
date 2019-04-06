@@ -22,7 +22,7 @@ const styles = theme => ({
     marginLeft: '-35px', // Note this is due to my goofy logo having padding
     [theme.breakpoints.down('sm')]: {
       maxWidth: '200px',
-      marginLeft: '0px'
+      marginLeft: '-24px'
     }
   },
   menuButton: {
@@ -31,6 +31,7 @@ const styles = theme => ({
   },
   menuLink: {
     color: '#687074',
+    borderRadius: 0,
     lineHeight: 1.6,
     fontSize: '15px',
     fontWeight: '400',
