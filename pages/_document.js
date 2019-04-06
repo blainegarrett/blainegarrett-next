@@ -22,11 +22,14 @@ class MyDocument extends Document {
           {/* PWA primary color */}
           <meta name="theme-color" content={pageContext.theme.palette.primary[500]} />
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+          <link rel="stylesheet" href="/static/hexagon.css" />
           <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
         </Head>
         <body>
           <Main />
           <NextScript />
+
+
         </body>
       </html>
     );
