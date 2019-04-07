@@ -17,22 +17,37 @@ export default class AboutPage extends React.Component {
             <Row>
               <Col xs={12} md={6}>
                 <p>
-                  I'm a Minneapolis based artist, software engineer, and
-                  tinkerer. By day, I am a staff engineer and by night I am an
-                  artist for the{' '}
-                  <a href="http://www.dimmedia.com">
-                    Dim Media Artist Collaborative
-                  </a>{' '}
-                  and co-owner of{' '}
-                  <a href="https://www.mplsart.com">MPLSART.COM</a>.
+                  Hi, I'm Blaine: a Minneapolis based artist, software engineer,
+                  and tinkerer.
                 </p>
+
                 <p>
                   I'm married to a wonderful human being named Katie (
                   <a href="http://www.usuallypolite.com">@UsuallyPolite</a>) who
                   happens to be brilliant. We make art together.
+                  <br />
+                  <br />
+                  Things I'm involved with
                 </p>
-
-                <b>I'll think of other things to put here later.</b>
+                <ul>
+                  <li>
+                    <a href="http://pollywog.xyz">Project Pollywog</a> -- A cool
+                    startup I'm honored to be a part of
+                  </li>
+                  <li>
+                    <a href="https://www.mplsart.com">MPLSART.COM</a> -- Twin
+                    Cities visual arts calendar I co-run with my wife Katie.
+                  </li>
+                  <li>
+                    <a href="http://www.dimmedia.com">Dim Media</a> - Twin
+                    Cities Artist Collaborative
+                  </li>
+                  <li>
+                    <a href="https://www.localm.org">Local Music Online</a> --
+                    Archive of the NW Wisconsin Music Scene 1998-2003 (returning
+                    soon)
+                  </li>
+                </ul>
               </Col>
               <Col xs={12} md={6}>
                 <img

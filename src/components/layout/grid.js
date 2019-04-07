@@ -38,13 +38,16 @@ const useStyles = makeStyles(theme => {
     alignRight: { marginRight: 0 },
     alignLeft: { marginLeft: 0 },
     typeContainer: {},
-    typeItem: {}
+    typeItem: {},
+    gridWrapper: {
+      overflow: 'hidden'
+    }
   };
 });
 
 export function Grid({ align, className, children, fluid, ...rest }) {
   let classes = useStyles();
-  let collectedClasses = [className];
+  let collectedClasses = [classes.gridWrapper, className];
 
   if (fluid) {
     collectedClasses.push(classes.fluidContainer);
@@ -80,7 +83,7 @@ export function Row({ className, children, ...rest }) {
   // TODO: What is spacing these days?
   return (
     <MuiGrid
-      spacing={Number(1)}
+      spacing={Number(4)} // theme.gutter.gutterSpacing
       container={true}
       className={classnames(classes.typeContainer, className)}
       {...rest}
