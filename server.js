@@ -4,8 +4,10 @@ const next = require('next');
 const compression = require('compression');
 
 const dev = process.env.NODE_ENV !== 'production';
-const port = process.env.PORT ? process.env.PORT : 8080;
 const app = next({ dev });
+
+// GAE passes the port the app will run on via process.env.PORT
+const port = process.env.PORT ? process.env.PORT : 8080;
 
 const handle = app.getRequestHandler();
 

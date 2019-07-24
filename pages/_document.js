@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { ServerStyleSheets } from '@material-ui/styles';
 import Document, { Head, Main, NextScript } from 'next/document';
 import flush from 'styled-jsx/server';
+import theme from '../src/theming/theme';
 
 class MyDocument extends Document {
   render() {
-    const { pageContext } = this.props;
-
     return (
       <html lang="en" dir="ltr">
         <Head>
@@ -25,12 +24,7 @@ class MyDocument extends Document {
             }
           />
           {/* PWA primary color */}
-          <meta
-            name="theme-color"
-            content={
-              pageContext ? pageContext.theme.palette.primary.main : '#551A8B'
-            }
-          />
+          <meta name="theme-color" content={theme.palette.primary.main} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -48,8 +42,7 @@ class MyDocument extends Document {
     );
   }
 }
-
-MyDocument.getInitialProps = ctx => {
+MyDocument.getInitialProps = async ctx => {
   // Resolution order
   //
   // On the server:
@@ -73,37 +66,22 @@ MyDocument.getInitialProps = ctx => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  let pageContext;
-  const page = ctx.renderPage(Component => {
-    const WrappedComponent = props => {
-      pageContext = props.pageContext;
-      return <Component {...props} />;
-    };
+  const sheets = new ServerStyleSheets();
+  const originalRenderPage = ctx.renderPage;
 
-    WrappedComponent.propTypes = {
-      pageContext: PropTypes.object.isRequired
-    };
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: App => props => sheets.collect(<App {...props} />)
+    });
 
-    return WrappedComponent;
-  });
-
-  let css;
-  // It might be undefined, e.g. after an error.
-  if (pageContext) {
-    css = pageContext.sheetsRegistry.toString();
-  }
+  const initialProps = await Document.getInitialProps(ctx);
 
   return {
-    ...page,
-    pageContext,
+    ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
     styles: (
       <React.Fragment>
-        <style
-          id="jss-server-side"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: css }}
-        />
+        {sheets.getStyleElement()}
         {flush() || null}
       </React.Fragment>
     )

@@ -12,14 +12,15 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
 
-const NextLink = props => {
+const NextLink = React.forwardRef((props, ref) => {
   let { href, as, prefetch, passHref, linkComponent, ...rest } = props;
   return (
-    <Link href={href} as={as} prefetch={prefetch} passHref={passHref}>
+    <Link href={href} as={as} prefetch={prefetch} passHref={passHref} ref={ref}>
       <props.linkComponent {...rest} />
     </Link>
   );
-};
+});
+NextLink.displayName = 'NextLink';
 
 NextLink.propTypes = {
   href: PropTypes.string,
@@ -106,3 +107,7 @@ export default function ArticleCard(props) {
     </Card>
   );
 }
+
+ArticleCard.propTypes = {
+  resources: PropTypes.object
+};
