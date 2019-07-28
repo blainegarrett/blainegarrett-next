@@ -17,22 +17,22 @@ export default class AboutPage extends React.Component {
             <Row>
               <Col xs={12} md={6}>
                 <p>
-                  Hi, I'm Blaine: a Minneapolis based artist, software engineer,
-                  and tinkerer.
+                  Hi, I am Blaine: a Minneapolis based artist, software
+                  engineer, and tinkerer.
                 </p>
 
                 <p>
-                  I'm married to a wonderful human being named Katie (
+                  I am married to a wonderful human being named Katie (
                   <a href="http://www.usuallypolite.com">@UsuallyPolite</a>) who
                   happens to be brilliant. We make art together.
                   <br />
                   <br />
-                  Things I'm involved with
+                  Things I am involved with
                 </p>
                 <ul>
                   <li>
-                    <a href="http://pollywog.xyz">Project Pollywog</a> -- A cool
-                    startup I'm honored to be a part of
+                    <a href="https://getparallax.xyz">Parallax</a> -- A cool
+                    startup I am honored to be a part of
                   </li>
                   <li>
                     <a href="https://www.mplsart.com">MPLSART.COM</a> -- Twin

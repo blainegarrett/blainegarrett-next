@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { initializeStore } from './store';
 
 const isServer = typeof window === 'undefined';
@@ -18,7 +19,7 @@ function getOrCreateStore(initialState) {
 }
 
 export default App => {
-  return class AppWithRedux extends React.Component {
+  class AppWithRedux extends React.Component {
     static async getInitialProps(appContext) {
       // Get or Create the store with `undefined` as initialState
       // This allows you to set a custom default initialState
@@ -46,5 +47,7 @@ export default App => {
     render() {
       return <App {...this.props} reduxStore={this.reduxStore} />;
     }
-  };
+  }
+  AppWithRedux.propTypes = { initialReduxState: PropTypes.object };
+  return AppWithRedux;
 };

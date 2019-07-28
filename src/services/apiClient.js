@@ -45,8 +45,7 @@ function callApi(endpoint, params, data, method, skip_auth_header = false) {
     .then(response => {
       return { json: response.data, response };
     })
-    .then(({ json, response }) => {
-      console.log(response);
+    .then(({ json }) => {
       //if (!response.ok) {
       //  return Promise.reject(json);
       //}
