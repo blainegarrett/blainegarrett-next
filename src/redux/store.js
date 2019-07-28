@@ -11,29 +11,33 @@ export const actionTypes = {
 };
 
 // ACTIONS
-export const serverRenderClock = (isServer) => dispatch => {
-  return dispatch({ type: actionTypes.TICK, light: !isServer, ts: Date.now() })
-}
+export const serverRenderClock = isServer => dispatch => {
+  return dispatch({ type: actionTypes.TICK, light: !isServer, ts: Date.now() });
+};
 
 export const startClock = dispatch => {
   return setInterval(() => {
     // Dispatch `TICK` every 1 second
-    dispatch({ type: actionTypes.TICK, light: true, ts: Date.now() })
-  }, 1000)
-}
+    dispatch({ type: actionTypes.TICK, light: true, ts: Date.now() });
+  }, 1000);
+};
 
 export const incrementCount = () => dispatch => {
-  return dispatch({ type: actionTypes.INCREMENT })
-}
+  return dispatch({ type: actionTypes.INCREMENT });
+};
 
 export const decrementCount = () => dispatch => {
-  return dispatch({ type: actionTypes.DECREMENT })
-}
+  return dispatch({ type: actionTypes.DECREMENT });
+};
 
 export const resetCount = () => dispatch => {
-  return dispatch({ type: actionTypes.RESET })
-}
+  return dispatch({ type: actionTypes.RESET });
+};
 
-export function initializeStore (initialState = {}) {
-  return createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+export function initializeStore(initialState = {}) {
+  return createStore(
+    rootReducer,
+    initialState,
+    composeWithDevTools(applyMiddleware(thunkMiddleware))
+  );
 }

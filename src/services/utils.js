@@ -34,11 +34,13 @@ export function buildQueryParamHash(url, params) {
 
 function _hashCode(string) {
   // Given a string, hash it into a 32bit int
-  var hash = 0, i, chr;
+  var hash = 0,
+    i,
+    chr;
   if (string.length === 0) return hash;
   for (i = 0; i < string.length; i++) {
-    chr   = string.charCodeAt(i);
-    hash  = ((hash << 5) - hash) + chr;
+    chr = string.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
     hash |= 0; // Convert to 32bit integer
   }
   return hash;

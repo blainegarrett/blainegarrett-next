@@ -15,7 +15,7 @@ export const blue = {
   A200: '#c8e1ff',
   A400: '#95c5ff',
   A700: '#7bb8ff',
-  contrastDefaultColor: 'light',
+  contrastDefaultColor: 'light'
 };
 
 // Base color #72c02c
@@ -35,9 +35,8 @@ export const green = {
   A400: '#8be639',
   A700: '#7ed72f',
   contrastText: '#fff',
-  contrastDefaultColor: 'light',
-}
-
+  contrastDefaultColor: 'light'
+};
 
 // Base color #fd0595
 export const pink = {
@@ -56,7 +55,7 @@ export const pink = {
   A400: '#ffbcd3',
   A700: '#ffa2c2',
   contrastText: '#fff',
-  contrastDefaultColor: 'light',
+  contrastDefaultColor: 'light'
 };
 
 // Base color #e06666
@@ -75,5 +74,5 @@ export const red = {
   A200: '#fee1e1',
   A400: '#f38686',
   A700: '#e87777',
-  contrastDefaultColor: 'dark',
+  contrastDefaultColor: 'dark'
 };
