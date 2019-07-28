@@ -1,4 +1,3 @@
-// server.js is required entry for GAE
 const express = require('express');
 const next = require('next');
 const compression = require('compression');
@@ -6,10 +5,10 @@ const compression = require('compression');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 
-// GAE passes the port the app will run on via process.env.PORT
-const port = process.env.PORT ? process.env.PORT : 8080;
-
 const handle = app.getRequestHandler();
+
+// GAE passes the port the app will run on via process.env.PORT
+const port = process.env.PORT ? process.env.PORT : 3000;
 
 app
   .prepare()
@@ -73,7 +72,9 @@ app
 
     server.listen(port, err => {
       if (err) throw err;
-      console.log(`> Ready on http://localhost:${port}`);
+      console.log(
+        `> Ready on http://localhost:${port} NODE_ENV: ${process.env.NODE_ENV}`
+      );
     });
   })
   .catch(ex => {

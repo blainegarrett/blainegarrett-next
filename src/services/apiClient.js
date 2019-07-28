@@ -1,7 +1,7 @@
 // Main Api client for MPLSART services
 // Note: If you need to talk to a different service, probably make a new service
 
-import 'isomorphic-fetch';
+import axios from 'axios';
 
 import getConfig from 'next/config';
 
@@ -41,12 +41,15 @@ function callApi(endpoint, params, data, method, skip_auth_header = false) {
   if (method !== 'GET') options['body'] = JSON.stringify(data);
 
   // Make request and call appropriate callbacks
-  return fetch(fullUrl, options)
-    .then(response => response.json().then(json => ({ json, response })))
+  return axios(fullUrl, options)
+    .then(response => {
+      return { json: response.data, response };
+    })
     .then(({ json, response }) => {
-      if (!response.ok) {
-        return Promise.reject(json);
-      }
+      console.log(response);
+      //if (!response.ok) {
+      //  return Promise.reject(json);
+      //}
       return {
         results: json.results,
         cursor: json.cursor,

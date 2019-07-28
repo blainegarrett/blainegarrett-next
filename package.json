@@ -33,8 +33,8 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "node server.js",
-    "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-local": "NODE_ENV=production PORT=8080 node server.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
