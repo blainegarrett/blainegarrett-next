@@ -31,7 +31,7 @@ export default class AboutPage extends React.Component {
                 </p>
                 <ul>
                   <li>
-                    <a href="https://getparallax.xyz">Parallax</a> -- A cool
+                    <a href="https://getparallax.com">Parallax</a> -- A cool
                     startup I am honored to be a part of
                   </li>
                   <li>
