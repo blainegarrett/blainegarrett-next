@@ -11,7 +11,7 @@ import { selectors as articleSelectors } from '../../src/modules/articles/redux'
 const makeMapState = () => {
   const selectArticleResourceBySlug = articleSelectors.makeSelectArticleResourceBySlug();
   function mapState(state, ownProps) {
-    //return {article: selectArticleResourceBySlug(state, ownProps.slug)};
+    return { article: selectArticleResourceBySlug(state, ownProps.slug) };
     return {};
   }
   return mapState;

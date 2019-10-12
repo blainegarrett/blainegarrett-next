@@ -34,15 +34,25 @@ const paginated = paginate({
 
 function articleSlugIndex(state = {}, action) {
   // Index of article slugs to resource_ids
+
   switch (action.type) {
+    case LOAD_ARTICLES.SUCCESS: {
+      let results = action.response.results;
+      let newResources = state;
+      results.forEach(r => {
+        newResources[r.slug] = r.resource_id;
+      });
+
+      return Object.assign({}, state, newResources);
+    }
     case LOAD_ARTICLE.SUCCESS: {
       // TODO: Account for the big list as well...
       // single article
       let results = action.response.results;
-      let new_resources = {};
-      new_resources[results.slug] = results.resource_id;
+      let newResources = {};
+      newResources[results.slug] = results.resource_id;
 
-      return Object.assign({}, state, new_resources);
+      return Object.assign({}, state, newResources);
     }
     default: {
       return state;
@@ -53,8 +63,9 @@ function articleSlugIndex(state = {}, action) {
 /***********************************
  Section 4: Selectors
 ************************************/
-const selectArticleBySlug = (state, slug) =>
-  state[REDUCER_NAMESPACE].articleSlugIndex[slug];
+const selectArticleBySlug = (state, slug) => {
+  return state[REDUCER_NAMESPACE].articleSlugIndex[slug];
+};
 
 const makeSelectArticleResourceBySlug = () => {
   return createDeepEqualSelector(
