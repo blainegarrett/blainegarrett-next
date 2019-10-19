@@ -1,5 +1,5 @@
 import React from 'react';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import Head from 'next/head';
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,7 +21,7 @@ class MyApp extends App {
   render() {
     const { Component, pageProps, reduxStore } = this.props;
     return (
-      <Container>
+      <React.Fragment>
         <Head>
           <title>Blaine Garrett | Minneapolis Artist & Software Engineer</title>
         </Head>
@@ -39,7 +39,7 @@ class MyApp extends App {
             </ReduxProvider>
           </ThemeProvider>
         </StylesProvider>
-      </Container>
+      </React.Fragment>
     );
   }
 }
