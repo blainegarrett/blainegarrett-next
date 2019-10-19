@@ -1,15 +1,17 @@
 import React from 'react';
-import App from 'next/app';
+import NextApp from 'next/app';
 import Head from 'next/head';
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import GlobalStyles from '../src/theming/GlobalStyles';
 import theme from '../src/theming/theme';
 
+// TODO: App Context Provider
+
 import { Provider as ReduxProvider } from 'react-redux';
 import withReduxStore from '../src/redux/withReduxStore';
 
-class MyApp extends App {
+class App extends NextApp {
   componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -22,9 +24,6 @@ class MyApp extends App {
     const { Component, pageProps, reduxStore } = this.props;
     return (
       <React.Fragment>
-        <Head>
-          <title>Blaine Garrett | Minneapolis Artist & Software Engineer</title>
-        </Head>
         {/* Wrap every page in Styles and Theme providers */}
         <StylesProvider injectFirst={true}>
           {/* MuiThemeProvider makes the theme available down the React
@@ -44,4 +43,4 @@ class MyApp extends App {
   }
 }
 
-export default withReduxStore(MyApp);
+export default withReduxStore(App);
