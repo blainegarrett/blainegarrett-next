@@ -1,61 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import PageLayoutContainer from './layout/PageLayoutContainer';
 import Meta from './Meta';
-import { Grid } from './layout/grid';
-import MainAppBar from '../components/layout/MainAppBar';
-import Breadcrumbs from './layout/breadcrumbs';
-import MenuDialog from './layout/MenuDialog';
+import analytics from '../analytics';
 
-export default class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onMenuToggle = this.onMenuToggle.bind(this);
-    this.state = { menuOpen: false };
-  }
+/**
+ * Wrapper Component for Page that is Assumed to be only loaded once per "pageLoad"
+ * This allows useEffect to only be called once regardless of state changes within that page.
+ */
+export default function PageContainer({ children, meta, ...props }) {
+  // Record Google Analytic Page View
+  useEffect(() => {
+    // Only run on the client...
+    console.log('RECORD PAGELOAD...?');
+    //analytics.recordPageViewFromMeta(window.location.pathname, meta);
+  });
 
-  onMenuToggle = force => {
-    // Optional force param should be bool
-    let newMenuOpen = !this.state.menuOpen;
-    if (force != undefined) {
-      newMenuOpen = force;
-    }
-    this.setState({ menuOpen: newMenuOpen });
-  };
-
-  render() {
-    var { children, activePage, title, meta, isFluid } = this.props;
-
-    if (!activePage) {
-      activePage = 'blog';
-    }
-
-    // Account for meta not populated - default to page title if we have one
-    if (!meta && title) {
-      meta = { title: title };
-    }
-
-    return (
-      <div>
-        <Meta meta={meta} />
-        <MainAppBar activePage={activePage} onMenuToggle={this.onMenuToggle} />
-        {title && <Breadcrumbs>{title}</Breadcrumbs>}
-        <Grid fluid={isFluid}>{children}</Grid>
-        <MenuDialog
-          activePage={activePage}
-          open={this.state.menuOpen}
-          onMenuToggle={this.onMenuToggle}
-        />
-        {/* <Footer /> */}
-      </div>
-    );
-  }
+  return (
+    <React.Fragment>
+      <Meta meta={meta} />
+      <PageLayoutContainer {...props}>{children}</PageLayoutContainer>
+    </React.Fragment>
+  );
 }
 
-Page.propTypes = {
-  activePage: PropTypes.string,
-  title: PropTypes.string,
-  meta: PropTypes.object,
-  isFluid: PropTypes.bool,
-  children: PropTypes.node
+PageContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+  meta: PropTypes.object.isRequired
+};
+
+PageContainer.defaultProps = {
+  meta: {}
 };
