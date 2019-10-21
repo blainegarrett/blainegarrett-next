@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Page from '../src/components/Page';
-import { Grid, Row, Col } from './../src/components/layout/grid';
-import HomepageHeader from './../src/components/HomepageHeader';
+import { Row, Col } from './../src/components/layout/grid';
+import ContentWrapper from './../src/components/layout/ContentWrapper';
 
 function mapStateToProps(state, ownProps) {
   return {};
@@ -25,30 +25,28 @@ class IndexPage extends React.Component {
 
     return (
       <Page isFluid activePage="home" meta={meta}>
-        <Row>
-          <Col xs={12}>
-            <HomepageHeader />
-
-            <Grid>
-              <Row>
-                <Col xs={12} lg={12}>
-                  <div>
-                    Returning soon. I'm rebuilding the site from the ground up
-                    to be be more 2019 friendly:
-                    <ul>
-                      <li>Material Design</li>
-                      <li>React/Redux</li>
-                      <li>NextJS</li>
-                      <li>REST</li>
-                      <li>NodeJS on Google App Engine Standard.</li>
-                    </ul>
-                    Stay tuned.
-                  </div>
-                </Col>
-              </Row>
-            </Grid>
-          </Col>
-        </Row>
+        <ContentWrapper
+          title={'Welcome'}
+          image="https://legacy-dot-blaine-garrett.appspot.com/static/drips1.jpg"
+          headerLarge
+        >
+          <Row>
+            <Col xs={12}>
+              <div style={{ padding: 16 }}>
+                Returning soon. I'm rebuilding the site from the ground up to be
+                be more 2019 friendly:
+                <ul>
+                  <li>Material Design</li>
+                  <li>React/Redux</li>
+                  <li>NextJS</li>
+                  <li>REST</li>
+                  <li>NodeJS on Google App Engine Standard.</li>
+                </ul>
+                Stay tuned.
+              </div>
+            </Col>
+          </Row>
+        </ContentWrapper>
       </Page>
     );
   }

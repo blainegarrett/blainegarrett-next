@@ -1,12 +1,10 @@
 import React from 'react';
 import NextApp from 'next/app';
-import Head from 'next/head';
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import GlobalStyles from '../src/theming/GlobalStyles';
 import theme from '../src/theming/theme';
-
-// TODO: App Context Provider
+import AppContextProvider from '../src/contexts/AppContext';
 
 import { Provider as ReduxProvider } from 'react-redux';
 import withReduxStore from '../src/redux/withReduxStore';
@@ -34,7 +32,9 @@ class App extends NextApp {
             <GlobalStyles />
 
             <ReduxProvider store={reduxStore}>
-              <Component {...pageProps} />
+              <AppContextProvider>
+                <Component {...pageProps} />
+              </AppContextProvider>
             </ReduxProvider>
           </ThemeProvider>
         </StylesProvider>

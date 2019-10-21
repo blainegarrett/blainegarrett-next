@@ -33,17 +33,13 @@ NextLink.propTypes = {
 const useStyles = makeStyles(theme => {
   return {
     card: {
-      //float: 'left',
-      borderTop: 0,
-      width: '100%',
-      borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-      boxShadow: 'none',
-      borderRadius: 0
+      float: 'left',
+      width: '100%'
     },
     media: {
       // ⚠️ object-fit is not supported by IE 11.
       objectFit: 'cover',
-      maxHeight: 250,
+      height: '100%',
       width: '100%'
     },
     actionButton: {
@@ -84,8 +80,9 @@ export default function ArticleCard(props) {
           component="img"
           alt={resource.title}
           className={classes.media}
+          height="140"
           image={image_url}
-          title={resource.title}
+          title="Contemplative Reptile"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -94,7 +91,6 @@ export default function ArticleCard(props) {
           <Typography component="p">{resource.summary}</Typography>
         </CardContent>
       </CardActionArea>
-      {/*
       <CardActions className={classes.actionButton}>
         <Button
           size="small"
@@ -108,7 +104,6 @@ export default function ArticleCard(props) {
           Read More
         </Button>
       </CardActions>
-      */}
     </Card>
   );
 }

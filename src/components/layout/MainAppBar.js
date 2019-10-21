@@ -15,7 +15,7 @@ import { Grid, Row } from '../../components/layout/grid';
 
 const styles = theme => ({
   root: { flexGrow: 1 },
-  appBar: { backgroundColor: '#000' },
+  appBar: { backgroundColor: '#000000' },
   flex: { flex: 1 },
 
   titleImage: {
@@ -101,48 +101,46 @@ function ButtonAppBar(props) {
               </IconButton>
             </Hidden>
 
-            <Hidden smDown>
-              <MenuOption
-                classes={classes}
-                href="/about"
-                as="/about"
-                active={activePage == 'about'}
-              >
-                About
-              </MenuOption>
-              <MenuOption
-                classes={classes}
-                href="/blog"
-                as="/blog"
-                active={activePage == 'blog'}
-              >
-                Blog
-              </MenuOption>
-              <MenuOption
-                classes={classes}
-                href="/blog/category?slug=art"
-                as="/art"
-                active={activePage == 'art'}
-              >
-                Art
-              </MenuOption>
-              <MenuOption
-                classes={classes}
-                href="/blog/category?slug=programming"
-                as="/programming"
-                active={activePage == 'programming'}
-              >
-                Programming
-              </MenuOption>
-              <MenuOption
-                classes={classes}
-                href="/links"
-                as="/links"
-                active={activePage == 'links'}
-              >
-                Links
-              </MenuOption>
-            </Hidden>
+            <MenuOption
+              classes={classes}
+              href="/about"
+              as="/about"
+              active={activePage == 'about'}
+            >
+              About
+            </MenuOption>
+            <MenuOption
+              classes={classes}
+              href="/blog"
+              as="/blog"
+              active={activePage == 'blog'}
+            >
+              Blog
+            </MenuOption>
+            <MenuOption
+              classes={classes}
+              href="/blog/category?slug=art"
+              as="/art"
+              active={activePage == 'art'}
+            >
+              Art
+            </MenuOption>
+            <MenuOption
+              classes={classes}
+              href="/blog/category?slug=programming"
+              as="/programming"
+              active={activePage == 'programming'}
+            >
+              Programming
+            </MenuOption>
+            <MenuOption
+              classes={classes}
+              href="/links"
+              as="/links"
+              active={activePage == 'links'}
+            >
+              Links
+            </MenuOption>
           </Toolbar>
         </Grid>
       </AppBar>

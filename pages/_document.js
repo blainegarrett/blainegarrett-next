@@ -33,6 +33,31 @@ class Document extends NextDocument {
             href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
             rel="stylesheet"
           />
+          <link
+            href="/static/prism.css"
+            rel="stylesheet"
+            media="screen"
+            type="text/css"
+          />
+          <style>
+            {`
+          .videoWrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+    margin: 0 -16px;
+}
+.videoWrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+}
+`}
+          </style>
         </Head>
         <body>
           <Main />

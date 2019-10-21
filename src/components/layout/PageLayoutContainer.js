@@ -1,58 +1,65 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import Meta from '../Meta';
 import { Grid } from './grid';
 import MainAppBar from './MainAppBar';
-import Breadcrumbs from './breadcrumbs';
-import MenuDialog from './MenuDialog';
 
-export default class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onMenuToggle = this.onMenuToggle.bind(this);
-    this.state = { menuOpen: false };
+import MenuDialog from './MenuDialog';
+import { AppContext } from '../../contexts/AppContext';
+
+export default function PageLayoutContainer({
+  children,
+  activePage,
+  title,
+  meta,
+  isFluid
+}) {
+  let appCtx = useContext(AppContext);
+  let { menuActive, setMenuActive } = appCtx;
+
+  function handleClick(force) {
+    // Currently a toggle...
+    if (force == undefined) {
+      force = !menuActive;
+    }
+    setMenuActive(force);
   }
 
-  onMenuToggle = force => {
+  const onMenuToggle = force => {
     // Optional force param should be bool
     let newMenuOpen = !this.state.menuOpen;
     if (force != undefined) {
       newMenuOpen = force;
     }
-    this.setState({ menuOpen: newMenuOpen });
+    //this.setState({ menuOpen: newMenuOpen });
   };
 
-  render() {
-    var { children, activePage, title, meta, isFluid } = this.props;
-
-    if (!activePage) {
-      activePage = 'blog';
-    }
-
-    // Account for meta not populated - default to page title if we have one
-    if (!meta && title) {
-      meta = { title: title };
-    }
-
-    return (
-      <div>
-        <Meta meta={meta} />
-        <MainAppBar activePage={activePage} onMenuToggle={this.onMenuToggle} />
-        {title && <Breadcrumbs>{title}</Breadcrumbs>}
-        <Grid fluid={isFluid}>{children}</Grid>
-        <MenuDialog
-          activePage={activePage}
-          open={this.state.menuOpen}
-          onMenuToggle={this.onMenuToggle}
-        />
-        {/* <Footer /> */}
-      </div>
-    );
+  if (!activePage) {
+    activePage = 'blog';
   }
+
+  // Account for meta not populated - default to page title if we have one
+  if (!meta && title) {
+    meta = { title: title };
+  }
+
+  return (
+    <React.Fragment>
+      <Meta meta={meta} />
+      <MainAppBar activePage={activePage} onMenuToggle={onMenuToggle} />
+      <Grid fluid={isFluid}>{children}</Grid>
+      <MenuDialog
+        activePage={activePage}
+        open={false}
+        //open={this.state.menuOpen}
+        //onMenuToggle={this.onMenuToggle}
+      />
+    </React.Fragment>
+  );
 }
 
-Page.propTypes = {
+PageLayoutContainer.propTypes = {
   activePage: PropTypes.string,
   title: PropTypes.string,
   meta: PropTypes.object,

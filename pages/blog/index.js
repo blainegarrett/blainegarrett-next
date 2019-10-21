@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Page from '../../src/components/Page';
+import ContentWrapper from './../../src/components/layout/ContentWrapper';
 
 import { Row, Col } from './../../src/components/layout/grid';
 import ArticleCard from './../../src/components/blog/ArticleCard';
@@ -11,8 +12,16 @@ import { commands as articleCommands } from '../../src/modules/articles/redux';
 import { selectors as articleSelectors } from '../../src/modules/articles/redux';
 import { constants as articleConstants } from '../../src/modules/articles/redux';
 
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import LabelIcon from '@material-ui/icons/Label';
+import Button from '@material-ui/core/Button';
+
 let paginationKey = 'all';
-let LIMIT = 12;
+let LIMIT = 10;
 
 const makeMapState = () => {
   const selectPagedResources = articleSelectors.makeSelectPagedResources();
@@ -60,32 +69,84 @@ class BlogIndexPage extends React.Component {
       description: 'My Blog'
     };
 
+    let sideBarContent = (
+      <div style={{ marginTop: '100px', color: '#000000' }}>
+        <List
+          component="nav"
+          aria-label="otherstuff"
+          dense
+          //style={{ backgroundColor: '#eeeeee' }}
+        >
+          <ListItem button component="a" href="/art">
+            <ListItemIcon>
+              <LabelIcon />
+            </ListItemIcon>
+            <ListItemText primary="Art" />
+          </ListItem>
+
+          <ListItem button component="a" href="/programming">
+            <ListItemIcon>
+              <LabelIcon />
+            </ListItemIcon>
+            <ListItemText primary="Programming" />
+          </ListItem>
+
+          <ListItem button component="a" href="/dim-media">
+            <ListItemIcon>
+              <LabelIcon />
+            </ListItemIcon>
+            <ListItemText primary="Dim Media" />
+          </ListItem>
+
+          <ListItem button component="a" href="/interesting-bit-of-the-day">
+            <ListItemIcon>
+              <LabelIcon />
+            </ListItemIcon>
+            <ListItemText primary="Interesting" />
+          </ListItem>
+        </List>
+      </div>
+    );
+
     return (
-      <Page title="Blog" activePage="blog" meta={meta}>
-        <Row>
-          <Col xs={12}>
-            <p>Returning soon after a revamp.</p>
-
-            <Row>
-              {resources.map(resource => {
-                return (
-                  <Col key={resource.resource_id} xs={12} sm={6} md={4}>
-                    <ArticleCard resource={resource} />
-                  </Col>
-                );
-              })}
-            </Row>
-
-            {/*
-            <Row>
-              <Col xs={12}>
-                {more && <Button style={{width:'100%'}} variant="contained" onClick={()=>loadMoreArticles(nextCursor)}>more articles</Button>}
-              </Col>
-            </Row>
-            */}
-            {/* [({more.toString()}, {nextCursor})] */}
-          </Col>
-        </Row>
+      <Page isFluid title="Blog" activePage="blog" meta={meta}>
+        <ContentWrapper
+          title="Blog"
+          image="https://commondatastorage.googleapis.com/blaine-garrett/juniper/old_gods.jpg"
+          sideBarContent={sideBarContent}
+        >
+          <Row>
+            <Col xs={12}>
+              <Row>
+                <Col xs={12}>
+                  {resources.map(resource => {
+                    return (
+                      <div key={resource.resource_id}>
+                        <ArticleCard resource={resource} />
+                      </div>
+                    );
+                  })}
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12}>
+                  <div style={{ padding: 16 }}>
+                    {more && (
+                      <Button
+                        style={{ width: '100%' }}
+                        variant="contained"
+                        onClick={() => loadMoreArticles(nextCursor)}
+                      >
+                        more articles
+                      </Button>
+                    )}
+                  </div>
+                </Col>
+              </Row>
+              {/* [({more.toString()}, {nextCursor})] */}
+            </Col>
+          </Row>
+        </ContentWrapper>
       </Page>
     );
   }

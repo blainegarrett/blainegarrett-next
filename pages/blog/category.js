@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Page from '../../src/components/Page';
+import ContentWrapper from './../../src/components/layout/ContentWrapper';
 
 import { Row, Col } from './../../src/components/layout/grid';
 import ArticleCard from './../../src/components/blog/ArticleCard';
@@ -11,7 +12,7 @@ import { commands as articleCommands } from '../../src/modules/articles/redux';
 import { selectors as articleSelectors } from '../../src/modules/articles/redux';
 import { constants as articleConstants } from '../../src/modules/articles/redux';
 
-let LIMIT = 12;
+let LIMIT = 100;
 
 const makeMapState = () => {
   const selectPagedResources = articleSelectors.makeSelectPagedResources();
@@ -69,40 +70,49 @@ class BlogIndexPage extends React.Component {
     let capSlug =
       category_slug.charAt(0).toUpperCase() + category_slug.slice(1);
 
+    // Image
+    let contentWrapperProps = {};
+    if (category_slug == 'art') {
+      contentWrapperProps.image =
+        'https://commondatastorage.googleapis.com/blaine-garrett/juniper/spraypaint.jpg';
+    } else if (category_slug == 'programming') {
+      contentWrapperProps.image =
+        'https://commondatastorage.googleapis.com/blaine-garrett/juniper/blackhole.png';
+    }
+
     let meta = {
       title: capSlug,
       description: 'Articles pertaining to ' + capSlug
     };
 
     return (
-      <Page title={capSlug} activePage={activePage} meta={meta}>
-        <Row>
-          <Col xs={12}>
-            <p>
-              Returning soon after a revamp and you can read all my rambling
-              about {category_slug}.{' '}
-            </p>
+      <Page isFluid title={capSlug} activePage={activePage} meta={meta}>
+        <ContentWrapper title={capSlug} {...contentWrapperProps}>
+          <Row>
+            <Col xs={12}>
+              <Row>
+                <Col>
+                  {resources.map(resource => {
+                    return (
+                      <div key={resource.resource_id}>
+                        <ArticleCard resource={resource} />
+                      </div>
+                    );
+                  })}
+                </Col>
+              </Row>
 
-            <Row>
-              {resources.map(resource => {
-                return (
-                  <Col key={resource.resource_id} xs={12} sm={6} md={4}>
-                    <ArticleCard resource={resource} />
-                  </Col>
-                );
-              })}
-            </Row>
-
-            {/*
+              {/*
             <Row>
               <Col xs={12}>
                 {more && <Button style={{width:'100%'}} variant="contained" onClick={()=>loadMoreArticles(nextCursor)}>more articles</Button>}
               </Col>
             </Row>
             */}
-            {/* [({more.toString()}, {nextCursor})] */}
-          </Col>
-        </Row>
+              {/* [({more.toString()}, {nextCursor})] */}
+            </Col>
+          </Row>
+        </ContentWrapper>
       </Page>
     );
   }

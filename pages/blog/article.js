@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 
 import Page from '../../src/components/Page';
 import ArticleRenderer from '../../src/components/blog/ArticleRenderer';
-
+import ContentWrapper from './../../src/components/layout/ContentWrapper';
+import Icon from '@material-ui/core/Icon';
+import moment from 'moment';
 import { commands as articleCommands } from '../../src/modules/articles/redux';
 import { selectors as articleSelectors } from '../../src/modules/articles/redux';
+import Toolbar from '@material-ui/core/Toolbar';
 
 const makeMapState = () => {
   const selectArticleResourceBySlug = articleSelectors.makeSelectArticleResourceBySlug();
@@ -85,6 +88,18 @@ class ArticlePage extends React.Component {
       );
     }
 
+    let sideBarContent = null;
+    //<div>{moment(article.published_date).format('MMMM Do, YYYY')}</div>
+
+    let subheadingContent = (
+      <div>
+        {moment(article.published_date).format('MMMM Do, YYYY')}
+        &nbsp; by Blaine Garrett
+      </div>
+    );
+
+    let titleContent = <div>{article.summary}</div>;
+
     // Determine meta
     let image_url =
       'https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg';
@@ -106,7 +121,17 @@ class ArticlePage extends React.Component {
 
     return (
       <Page isFluid meta={meta}>
-        <ArticleRenderer article={article} />
+        <ContentWrapper
+          title={meta.title}
+          image={image_url}
+          headerBlur
+          headerLarge
+          sideBarContent={sideBarContent}
+          subheadingContent={subheadingContent}
+          titleContent={titleContent}
+        >
+          <ArticleRenderer article={article} />
+        </ContentWrapper>
       </Page>
     );
   }
