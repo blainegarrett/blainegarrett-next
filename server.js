@@ -39,7 +39,7 @@ app
 
     // Favicon
     server.get('/favicon.ico', (req, res) =>
-      res.status(200).sendFile('favicon.ico', { root: __dirname + '/static/' })
+      res.status(200).sendFile('favicon.ico', { root: __dirname + '/public/static/' })
     );
 
     server.get('/_next/-/page/*', (req, res) => {

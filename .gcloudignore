@@ -21,6 +21,9 @@ node_modules/
 README.md
 .eslintignore
 .eslintrc
+Makefile
+.DS_Store
+.vscode
 
 # Source code
 /pages/
