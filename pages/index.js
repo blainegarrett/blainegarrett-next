@@ -14,7 +14,7 @@ function mapDispatchToProps(dispatch) {
 
 class IndexPage extends React.Component {
   static async getInitialProps({}) {
-    return {};
+    return {'taco': 1}; // This is to supress the Next.js warning
   }
 
   render() {
