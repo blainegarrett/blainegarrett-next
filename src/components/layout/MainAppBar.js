@@ -20,16 +20,23 @@ const styles = theme => ({
 
   titleImage: {
     marginLeft: '-35px', // Note this is due to my goofy logo having padding
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       maxWidth: '200px',
       marginLeft: '-24px'
     }
   },
   menuButton: {
     marginRight: -12,
-    marginLeft: 20
+    marginLeft: 20,
+    display: 'none',
+    [theme.breakpoints.down('sm')]: {
+      display: 'block'
+    }
   },
   menuLink: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    },
     color: '#687074',
     borderRadius: 0,
     lineHeight: 1.6,
@@ -90,16 +97,14 @@ function ButtonAppBar(props) {
               </Link>
             </div>
 
-            <Hidden mdUp>
-              <IconButton
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="Menu"
-                onClick={() => onMenuToggle()}
-              >
-                <Icon>menu</Icon>
-              </IconButton>
-            </Hidden>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+              onClick={() => onMenuToggle()}
+            >
+              <Icon>menu</Icon>
+            </IconButton>
 
             <MenuOption
               classes={classes}
@@ -133,6 +138,8 @@ function ButtonAppBar(props) {
             >
               Programming
             </MenuOption>
+
+            {/*
             <MenuOption
               classes={classes}
               href="/links"
@@ -141,6 +148,7 @@ function ButtonAppBar(props) {
             >
               Links
             </MenuOption>
+            */}
           </Toolbar>
         </Grid>
       </AppBar>
@@ -212,14 +220,15 @@ function ButtonAppBar(props) {
                     >
                       Programming
                     </MenuOption>
-                    <MenuOption
+
+                    {/*<MenuOption
                       classes={classes}
                       href="/links"
                       as="/link"
                       active={activePage == 'links'}
                     >
                       Links
-                    </MenuOption>
+                    </MenuOption> */}
                   </Hidden>
                 </span>
               </div>

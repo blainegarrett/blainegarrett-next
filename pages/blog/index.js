@@ -70,7 +70,7 @@ class BlogIndexPage extends React.Component {
     };
 
     let sideBarContent = (
-      <div style={{ marginTop: '100px', color: '#000000' }}>
+      <div style={{ color: '#000000' }}>
         <List
           component="nav"
           aria-label="otherstuff"

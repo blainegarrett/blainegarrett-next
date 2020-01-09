@@ -8,9 +8,13 @@ import AppContextProvider from '../src/contexts/AppContext';
 
 import { Provider as ReduxProvider } from 'react-redux';
 import withReduxStore from '../src/redux/withReduxStore';
+import analytics from '../src/analytics';
 
 class App extends NextApp {
   componentDidMount() {
+    // Initialize Google Analytics
+    analytics.init();
+
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {

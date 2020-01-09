@@ -28,11 +28,11 @@ export default function PageLayoutContainer({
 
   const onMenuToggle = force => {
     // Optional force param should be bool
-    let newMenuOpen = !this.state.menuOpen;
+    let newMenuOpen = !appCtx.menuActive;
     if (force != undefined) {
       newMenuOpen = force;
     }
-    //this.setState({ menuOpen: newMenuOpen });
+    appCtx.setMenuActive(newMenuOpen);
   };
 
   if (!activePage) {
@@ -51,9 +51,8 @@ export default function PageLayoutContainer({
       <Grid fluid={isFluid}>{children}</Grid>
       <MenuDialog
         activePage={activePage}
-        open={false}
-        //open={this.state.menuOpen}
-        //onMenuToggle={this.onMenuToggle}
+        open={appCtx.menuActive}
+        onMenuToggle={handleClick}
       />
     </React.Fragment>
   );
