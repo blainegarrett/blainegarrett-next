@@ -5,23 +5,28 @@ import { makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import { Grid, Row, Col } from './grid';
 import classnames from 'clsx';
+import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles(theme => {
   return {
     outerWrap: {
       width: '100%',
       flex: '1 1 auto',
-      height: '100%',
       display: 'flex',
-      position: 'relative',
-      minHeight: '100%',
+      position: 'absolute',
       flexDirection: 'row',
-      backgroundColor: '#fafafa'
+      backgroundColor: '#fafafa',
+      //border: '2px solid red',
+      minHeight: 'calc(100% - 64px)',
+      //overflow: 'auto',
+      [theme.breakpoints.down('md')]: {
+        //height: '100vh'
+      }
     },
 
     // Header image bounding box
     headerImageWrap: {
-      height: 250,
+      height: '25vh', //250,
       width: '100%',
       overflow: 'hidden',
       position: 'absolute',
@@ -29,8 +34,15 @@ const useStyles = makeStyles(theme => {
       left: 0,
       //transition: 'height 0.6s ease', //This doesn't currently work due to new Component tree
 
+      [theme.breakpoints.down('sm')]: {
+        height: '30vh'
+      },
+
       '&.large': {
-        height: 750
+        height: '60vh', //750,
+        [theme.breakpoints.only('xs')]: {
+          height: '100vh'
+        }
       }
     },
 
@@ -88,21 +100,35 @@ const useStyles = makeStyles(theme => {
       'flex-direction': 'column',
       'background-color': '#fff',
       minHeight: '100vh',
-      border: '1px solid rgba(0, 0, 0, 0.12)'
+      border: '1px solid rgba(0, 0, 0, 0.12)',
+
+      [theme.breakpoints.down('sm')]: {
+        'border-radius': 0
+      }
     },
     gooberPadding: {
       verticalAlign: 'bottom',
-      minHeight: 185,
+      minHeight: 'calc(25vh - 64px)', //185,
+      [theme.breakpoints.down('sm')]: {
+        minHeight: 'calc(30vh - 64px)',
+        margin: 16
+      },
       position: 'relative',
       '&.large': {
-        height: 685
+        minHeight: 'calc(60vh - 64px)', //685
+        [theme.breakpoints.only('xs')]: {
+          minHeight: 'calc(70vh - 64px)'
+        }
       }
     },
     gooberPaddingInner: {
       position: 'absolute',
       bottom: 0,
-      marginBottom: 16,
-      width: 672,
+      //marginBottom: 16,
+
+      [theme.breakpoints.up('lg')]: {
+        width: 672
+      },
       fontSize: '1.25rem',
       color: 'rgba(255, 255, 255, 0.6)',
       fontWeight: 100
@@ -130,11 +156,23 @@ const useStyles = makeStyles(theme => {
     },
     sideBarContainer: {
       position: 'relative',
-      top: 185,
+      top: 'calc(25vh)',
       //border: '1px solid red',
       color: '#fff',
+      //[theme.breakpoints.only('md')]: {
+      //  top: 350
+      //},
+      [theme.breakpoints.down('sm')]: {
+        top: 0
+      },
       '&.large': {
-        top: 710
+        top: 710,
+        [theme.breakpoints.only('md')]: {
+          top: 350
+        },
+        [theme.breakpoints.down('sm')]: {
+          top: 0
+        }
       }
     }
   };
@@ -157,6 +195,19 @@ export default function ContentWrapper({
     extraStyles = { backgroundImage: `url(${image})` };
   }
 
+  let sideBarWrapper = (
+    <Col xs={12} md={2}>
+      <div
+        className={classnames({
+          [classes.sideBarContainer]: true,
+          large: headerLarge
+        })}
+      >
+        {sideBarContent}
+      </div>
+    </Col>
+  );
+
   return (
     <div className={classes.outerWrap}>
       <div
@@ -177,16 +228,7 @@ export default function ContentWrapper({
 
       <Grid className={classes.experimentContent} fluid={true}>
         <Row>
-          <Col xs={12} md={2}>
-            <div
-              className={classnames({
-                [classes.sideBarContainer]: true,
-                large: headerLarge
-              })}
-            >
-              {sideBarContent}
-            </div>
-          </Col>
+          <Hidden smDown>{sideBarWrapper}</Hidden>
           <Col xs={12} md={10}>
             <div
               className={classnames({
@@ -203,10 +245,10 @@ export default function ContentWrapper({
               <div className={classes.derp}>
                 {subheadingContent || 'I\'ll find something good to put here...'}{' '}
               </div>
-
               <Col>{children}</Col>
             </div>
           </Col>
+          <Hidden mdUp>{sideBarWrapper}</Hidden>
         </Row>
       </Grid>
     </div>

@@ -143,7 +143,8 @@ class SimpleDialog extends React.Component {
           >
             Programming
           </MenuOption>
-          <MenuOption
+          {/*
+            <MenuOption
             onClick={() => this.handleClose()}
             classes={classes}
             href="/links"
@@ -152,6 +153,7 @@ class SimpleDialog extends React.Component {
           >
             Links
           </MenuOption>
+          */}
         </List>
       </Dialog>
     );

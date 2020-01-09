@@ -12,8 +12,7 @@ export default function PageContainer({ children, meta, ...props }) {
   // Record Google Analytic Page View
   useEffect(() => {
     // Only run on the client...
-    console.log('RECORD PAGELOAD...?');
-    //analytics.recordPageViewFromMeta(window.location.pathname, meta);
+    analytics.recordPageViewFromMeta(window.location.pathname, meta);
   });
   useLayoutEffect(() => {
     Prism.highlightAll();
