@@ -154,6 +154,16 @@ const useStyles = makeStyles(theme => {
       'line-height': '1.1',
       'text-shadow': 'none'
     },
+    summary: {
+      color: 'rgba(255, 255, 255, 0.6)',
+      lineHeight: 1.6,
+      display: 'block',
+      marginBlockStart: '1em',
+      marginBlockEnd: '1em',
+      marginInlineStart: '0px',
+      marginInlineEnd: '0px',
+    
+    },
     sideBarContainer: {
       position: 'relative',
       top: 'calc(25vh)',
@@ -194,6 +204,13 @@ export default function ContentWrapper({
   if (image) {
     extraStyles = { backgroundImage: `url(${image})` };
   }
+
+
+  let titleContentNode;
+  if (titleContent) {
+    titleContentNode = <div className={classes.summary}>{titleContent}</div>;
+  }
+
 
   let sideBarWrapper = (
     <Col xs={12} md={2}>
@@ -238,7 +255,7 @@ export default function ContentWrapper({
             >
               <div className={classes.gooberPaddingInner}>
                 {title && <h1 className={classes.title}>{title}</h1>}
-                {titleContent}
+                {titleContentNode}
               </div>
             </div>
             <div className={classes.experimentContentThing}>

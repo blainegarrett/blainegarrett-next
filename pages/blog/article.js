@@ -98,7 +98,7 @@ class ArticlePage extends React.Component {
       </div>
     );
 
-    let titleContent = <div>{article.summary}</div>;
+    let titleContent = article.summary;
 
     // Determine meta
     let image_url =
