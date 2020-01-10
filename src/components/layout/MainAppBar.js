@@ -91,6 +91,7 @@ function ButtonAppBar(props) {
                   <img
                     src="https://storage.googleapis.com/blaine-garrett/theme/v2/logo.png"
                     alt="Blaine Garrett Logo"
+                    title="Blaine Garrett Logo"
                     className={classes.titleImage}
                   />
                 </a>

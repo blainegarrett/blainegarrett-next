@@ -36,6 +36,10 @@ const shapeMeta = rawdata => {
   metaData['meta'].push({ name: 'image', content: meta.image });
   metaData['meta'].push({ property: 'og:image', content: meta.image });
   metaData['meta'].push({
+    property: 'og:image:url',
+    content: meta.image
+  });
+  metaData['meta'].push({
     property: 'og:image:height',
     content: meta.imageHeight
   });
@@ -73,6 +77,11 @@ const shapeMeta = rawdata => {
   if (metaData.author) {
     metaData['meta'].push({ name: 'author', content: meta.author });
     metaData['meta'].push({ property: 'author', content: meta.author });
+  }
+
+  if (meta.type == 'article') {
+    metaData['meta'].push({ property: 'article:modified_time', content: meta.modifiedTime });
+    metaData['meta'].push({ property: 'article:published_time', content: meta.publishedTime });  
   }
 
   return metaData;

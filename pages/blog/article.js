@@ -116,7 +116,9 @@ class ArticlePage extends React.Component {
       imageHeight: 472,
       imageWidth: 900,
       type: 'article',
-      author: 'Blaine Garrett'
+      author: 'Blaine Garrett',
+      modifiedTime: article.modified_date,
+      publishedTime: article.published_date
     };
 
     return (
