@@ -13,7 +13,13 @@ class Document extends NextDocument {
             name="description"
             content="Blaine Garrett - Minneapolis artist, software engineer, and tinkerer"
           />
+          {/* note if you change the icons, update manifest too */}
+          {/* Use https://favicon.io/favicon-converter/ */}
 
+          <link rel="manifest" href="/static/manifest.json"></link>
+          <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png"></link>
+          <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png"></link>
+          <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png"></link>
           <meta charSet="utf-8" />
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta

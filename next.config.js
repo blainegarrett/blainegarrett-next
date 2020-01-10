@@ -1,4 +1,6 @@
-module.exports = {
+const withOffline = require('next-offline');
+
+const nextConfig = {
   distDir: 'build',
   serverRuntimeConfig: {},
   publicRuntimeConfig: {
@@ -6,3 +8,5 @@ module.exports = {
     GA_PRIMARY_TRACKER_ID: 'UA-150765667-1'
   }
 };
+
+module.exports = withOffline(nextConfig);
