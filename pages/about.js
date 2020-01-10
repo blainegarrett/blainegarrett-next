@@ -120,10 +120,6 @@ export default class AboutPage extends React.Component {
                     </p>
                     <ul>
                       <li>
-                        <a href="https://getparallax.com">Parallax</a> -- A cool
-                        startup I am honored to be a part of
-                      </li>
-                      <li>
                         <a href="https://www.mplsart.com">MPLSART.COM</a> --
                         Twin Cities visual arts calendar I co-run with my wife
                         Katie.
