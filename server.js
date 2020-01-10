@@ -1,3 +1,12 @@
+/**
+ * Custom Express Server for next.js
+ * 
+ * Why we need this still?
+ *  - Next 9 dynamic file routing gets confused on overlapping dynamic routes (i.e. /[category] vs /[year]/[month]/[day]/[slug])
+ *  - GAE passes the PORT via a environment variable that we need to read
+ *  - Things like robots.txt COULD be moved to app.yaml
+ *  - next-offline needs to handle service worker
+ */
 const express = require('express');
 const next = require('next');
 const compression = require('compression');
@@ -38,8 +47,27 @@ app
     });
 
     // Favicon
+    server.get('/service-worker.js', (req, res) => {
+      res.status(200).sendFile('/service-worker.js', { root: __dirname + '/build/' });
+
+      // Note: This the build dir must match what is in the next.config.js
+      //const filePath = join(__dirname, 'build', pathname)
+      //app.serveStatic(req, res, filePath)
+
+    });
+
+    server.get('/manifest.json', (req, res) => {
+      res.status(200).sendFile('manifest.json', { root: __dirname + '/static/' });
+
+      // Note: This the build dir must match what is in the next.config.js
+      //const filePath = join(__dirname, 'build', pathname)
+      //app.serveStatic(req, res, filePath)
+
+    });
+
+    // Service Worker 
     server.get('/favicon.ico', (req, res) =>
-      res.status(200).sendFile('favicon.ico', { root: __dirname + '/public/static/' })
+      res.status(200).sendFile('favicon.ico', { root: __dirname + '/static/' })
     );
 
     server.get('/_next/-/page/*', (req, res) => {

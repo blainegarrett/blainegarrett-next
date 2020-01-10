@@ -1,21 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Page from '../src/components/Page';
 import { Row, Col } from './../src/components/layout/grid';
 import ContentWrapper from './../src/components/layout/ContentWrapper';
 
-function mapStateToProps(state, ownProps) {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return {};
-}
-
-class IndexPage extends React.Component {
-  static async getInitialProps({}) {
-    return {'taco': 1}; // This is to supress the Next.js warning
-  }
+export default class IndexPage extends React.Component {
 
   render() {
     let meta = {
@@ -52,8 +40,3 @@ class IndexPage extends React.Component {
   }
 }
 IndexPage.propTypes = {};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(IndexPage);
