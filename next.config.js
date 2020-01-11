@@ -9,4 +9,11 @@ const nextConfig = {
   }
 };
 
-module.exports = withOffline(nextConfig);
+// Comment out this conditional if you need to debug service worker during dev
+if (process.env.NODE_ENV === 'production') {
+  module.exports = withOffline(nextConfig);
+}
+else {
+  module.exports = nextConfig;
+}
+
