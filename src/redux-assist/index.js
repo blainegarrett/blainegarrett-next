@@ -36,6 +36,7 @@ export function asyncCallMapper(actionGroup) {
 }
 
 // Non-Saga version
+// TODO: This may or may not be in use...
 export function asyncFetch(dispatch, asyncActionMap, apiFunction, ...args) {
   // Type Check args
   if (!apiFunction || typeof apiFunction !== 'function') {
@@ -111,6 +112,8 @@ export const createDeepEqualSelector = createSelectorCreator(
   isEqual
 );
 
+
+// Selectors...
 const selectResoureById = (state, resource_id) => {
   return { resource: state.resourceIndex[resource_id], resource_id };
 };
@@ -141,11 +144,12 @@ export const makeSelectPagedResources = () => {
 
   return createDeepEqualSelector(
     //createSelector(
-    [selectPaginationState, selectResourceIndex],
+    [
+      selectPaginationState, 
+      selectResourceIndex
+    ],
     (
-      { resource_ids, more, nextCursor, sourceStoreName, paginationKey },
-      resourceIndex
-    ) => {
+      {resource_ids, more, nextCursor}, resourceIndex) => {
       // Uncomment to debug selectors
       //console.log('Debug: makeSelectPagedResources called for store: ' + sourceStoreName + '.pagination[' + paginationKey + '] with nextCursor: ' + nextCursor);
       let resources = resource_ids.map(
@@ -163,7 +167,7 @@ export const makeSelectResourceById = () => {
   return createDeepEqualSelector(
     //createSelector(
     [selectResoureById],
-    ({ resource, resource_id }) => {
+    ({ resource }) => { // resource_id
       // Uncomment to debug selectors
       //console.log('Debug: makeSelectResourceById called for id: ' + resource_id);
       return resource;

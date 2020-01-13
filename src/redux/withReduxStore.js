@@ -1,3 +1,4 @@
+// TODO: Rework based on https://github.com/zeit/next.js/blob/canary/examples/with-redux/lib/redux.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import { initializeStore } from './store';

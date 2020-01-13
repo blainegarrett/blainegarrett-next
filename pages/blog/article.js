@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -5,20 +6,9 @@ import { connect } from 'react-redux';
 import Page from '../../src/components/Page';
 import ArticleRenderer from '../../src/components/blog/ArticleRenderer';
 import ContentWrapper from './../../src/components/layout/ContentWrapper';
-import Icon from '@material-ui/core/Icon';
-import moment from 'moment';
 import { commands as articleCommands } from '../../src/modules/articles/redux';
 import { selectors as articleSelectors } from '../../src/modules/articles/redux';
-import Toolbar from '@material-ui/core/Toolbar';
 
-const makeMapState = () => {
-  const selectArticleResourceBySlug = articleSelectors.makeSelectArticleResourceBySlug();
-  function mapState(state, ownProps) {
-    return { article: selectArticleResourceBySlug(state, ownProps.slug) };
-    return {};
-  }
-  return mapState;
-};
 
 class ArticlePage extends React.Component {
   static async getInitialProps({ res, reduxStore, query }) {
@@ -53,18 +43,21 @@ class ArticlePage extends React.Component {
     if (res) {
       // Note: We're not passing query.year, month, date, so they're undefined on client
       let expectedPrefix = `20${query.year}-${query.month}-${query.day}`;
-      if (!article.published_date.startsWith(expectedPrefix)) {
+      let publishedTZ = moment(article.published_date).utc().add(-6, 'hours');
+      
+      if (!publishedTZ.format().startsWith(expectedPrefix)) {
         // Redirect to the actual url
-        let bits = article.published_date.split('T')[0].split('-');
+        let bits = publishedTZ.format().split('T')[0].split('-');
 
         if (res) {
-          // Server
+          // Server Side - redirect...
+          console.log('Redirecting...');
           res.writeHead(302, {
             Location: `/${bits[0]}/${bits[1]}/${bits[2]}/${article.slug}`
           });
           res.end();
         } else {
-          // Client
+          // Client Side -- TODO: Rarely will this happen...
           console.log('client 302... but not redirecting yet');
           console.log([expectedPrefix, article.published_date]);
           //Router.push(`/${bits[0]}/${bits[1]}/${bits[2]}/${article.slug}`);
@@ -88,8 +81,9 @@ class ArticlePage extends React.Component {
       );
     }
 
+    // TODO: Clean this up a bit more...
+
     let sideBarContent = null;
-    //<div>{moment(article.published_date).format('MMMM Do, YYYY')}</div>
 
     let subheadingContent = (
       <div>

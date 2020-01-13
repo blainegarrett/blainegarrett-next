@@ -23,22 +23,9 @@ app
   .prepare()
   .then(() => {
     const server = express();
+
+    // TODO: compression might be on by default in next 9...
     server.use(compression());
-
-    // If you need /:param/ type urls allow next and webpack urls - see: https://github.com/zeit/next.js/issues/1433
-    //server.get(/next/, (req,res)=> { handle(req,res); });
-    //server.get(/webpack/, (req,res)=> { handle(req,res); });
-
-    // { year: '_next', month: '-', day: 'page', slug: '_error.js' }
-    /*
-  server.get('/_next/-/page/_error.js', (req, res) => {
-    return handle(req, res);
-  });
-
-  server.get('/_next/-/page/_error.js.map', (req, res) => {
-    return handle(req, res);
-  });
-  */
 
     // Robots.txt
     server.get('/robots.txt', function(req, res) {
@@ -46,26 +33,17 @@ app
       res.send('User-agent: *\nDisallow: /admin/\nDisallow: /api/');
     });
 
-    // Favicon
+    // Service Worker 
     server.get('/service-worker.js', (req, res) => {
       res.status(200).sendFile('/service-worker.js', { root: __dirname + '/build/' });
-
-      // Note: This the build dir must match what is in the next.config.js
-      //const filePath = join(__dirname, 'build', pathname)
-      //app.serveStatic(req, res, filePath)
-
     });
 
+    // Manifest
     server.get('/manifest.json', (req, res) => {
       res.status(200).sendFile('manifest.json', { root: __dirname + '/static/' });
-
-      // Note: This the build dir must match what is in the next.config.js
-      //const filePath = join(__dirname, 'build', pathname)
-      //app.serveStatic(req, res, filePath)
-
     });
 
-    // Service Worker 
+    // Favicon
     server.get('/favicon.ico', (req, res) =>
       res.status(200).sendFile('favicon.ico', { root: __dirname + '/static/' })
     );
@@ -84,6 +62,7 @@ app
       return app.render(req, res, '/blog', req.params);
     });
 
+    // Category
     server.get('/:slug', (req, res) => {
       return app.render(req, res, '/blog/category', req.params);
     });

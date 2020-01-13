@@ -1,4 +1,5 @@
 // Root Reducer
+// Import and add your reducers here
 import { combineReducers } from 'redux';
 import { resourceIndex } from '../redux-assist';
 import {

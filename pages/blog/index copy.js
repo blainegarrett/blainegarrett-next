@@ -1,15 +1,13 @@
-// Blog Page Index...
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
 
 import Page from '../../src/components/Page';
 import ContentWrapper from './../../src/components/layout/ContentWrapper';
 
 import { Row, Col } from './../../src/components/layout/grid';
 import ArticleCard from './../../src/components/blog/ArticleCard';
+import { bindActionCreators } from 'redux';
 import { commands as articleCommands } from '../../src/modules/articles/redux';
 import { selectors as articleSelectors } from '../../src/modules/articles/redux';
 import { constants as articleConstants } from '../../src/modules/articles/redux';
@@ -24,26 +22,19 @@ import Button from '@material-ui/core/Button';
 let paginationKey = 'all';
 let LIMIT = 10;
 
-// TODO: Add Infinite Scroll https://github.com/larkintuckerllc/hello-pagination/blob/master/infinite-scroll/src/Example/ExampleControl.jsx
-
 const makeMapState = () => {
-  // Allocate a Selector for Paged Resources
   const selectPagedResources = articleSelectors.makeSelectPagedResources();
-
   function mapState(state) {
-    // Initial Load...
     return selectPagedResources(
       state,
       articleConstants.REDUCER_NAMESPACE,
-      paginationKey,
-      null
-    );
+      paginationKey
+    ); // resources, more, nextCursor
   }
   return mapState;
 };
 
 function mapDispatch(dispatch) {
-  // Bind the action creator to get the next page of articles
   return {
     loadMoreArticles: bindActionCreators(
       nextCursor =>
@@ -57,58 +48,20 @@ function mapDispatch(dispatch) {
   };
 }
 
-
 class BlogIndexPage extends React.Component {
-
-  static async getStuff(reduxStore, cursor) {
-    // Step 1: Scope Selector 
-    const selectPagedResources = articleSelectors.makeSelectPagedResources();
-
-    // Step 2: Select articles (only really applies on client)
-    let {resources, more, nextCursor} = selectPagedResources(reduxStore.getState(), articleConstants.REDUCER_NAMESPACE, paginationKey, cursor);
-    // resources, more, nextCursor
-
-    // Step 3: If we don't have articles, async load them
-    if (resources.length == 0) { // TODO: Additionally check if the data was attempted to be fetched
-
-      // Attempt to async load it
-      // TODO: Wrap this in a command?
-      await reduxStore.dispatch(
-        articleCommands.loadArticles(
-          { limit: LIMIT, verbose: false },
-          null,
-          paginationKey
-        )
-      );
-
-      // Step 3.5: Re-attempt to Select results 
-      let stuff = selectPagedResources(reduxStore.getState(), articleConstants.REDUCER_NAMESPACE, paginationKey);      
-      console.log('xxx', stuff);
-
-      return stuff;
-      
-    }
-
-    console.log('???', {resources, more, nextCursor});
-    return { resources, more, nextCursor };
-  }
-
   static async getInitialProps({ reduxStore }) {
-    let jive = await BlogIndexPage.getStuff(reduxStore, null);
-
-    console.log({jive});
-    let gorp = {...jive, loadMoreArticles: (nextCursor) => { 
-      let jive = BlogIndexPage.getStuff(reduxStore, nextCursor);
-    }};
-
-    console.log(gorp);
-    return gorp;
+    await reduxStore.dispatch(
+      articleCommands.loadArticles(
+        { limit: LIMIT, verbose: false },
+        null,
+        paginationKey
+      )
+    );
+    return { reduxStore };
   }
 
   render() {
     const { resources, more, nextCursor, loadMoreArticles } = this.props;
-
-    console.log(this.props);
 
     let meta = {
       title: 'Blog',

@@ -10,6 +10,7 @@ const nextConfig = {
 };
 
 // Comment out this conditional if you need to debug service worker during dev
+// Note: You will also need to unregister the worker to not see the logs
 if (process.env.NODE_ENV === 'production') {
   module.exports = withOffline(nextConfig);
 }

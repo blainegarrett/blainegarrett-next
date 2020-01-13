@@ -1,15 +1,16 @@
 // All things Redux for the Blog Module
 import { combineReducers } from 'redux';
 import {
-  createAsyncActionTypes,
   asyncFetch,
   asyncCallMapper,
+  createAsyncActionTypes,
   createDeepEqualSelector,
+  makeSelectPagedResources,
   selectResourceIndex
 } from '../../redux-assist';
+
 import paginate from '../../redux-assist/paginate';
 import { fetchArticles, fetchArticleBySlug } from '../../services/apiClient';
-import { makeSelectPagedResources } from '../../redux-assist';
 
 /***********************************
     Section 1: Constants
@@ -24,12 +25,19 @@ const REDUCER_NAMESPACE = 'articlesStore';
 const LOAD_ARTICLES = createAsyncActionTypes('LOAD_ARTICLES');
 const LOAD_ARTICLE = createAsyncActionTypes('LOAD_ARTICLE');
 
+// CATEGORIES????
+// const CATEGORY_ITEMS = createAsyncActionTypes('CATEGORY_ITEMS');
+
 /***********************************
  Section 3: Reducers
 ************************************/
 const paginated = paginate({
   mapActionToKey: action => action.paginationKey,
-  types: [LOAD_ARTICLES.REQUEST, LOAD_ARTICLES.SUCCESS, LOAD_ARTICLES.FAILURE]
+  types: [
+    LOAD_ARTICLES.REQUEST, 
+    LOAD_ARTICLES.SUCCESS, 
+    LOAD_ARTICLES.FAILURE
+  ]
 });
 
 function articleSlugIndex(state = {}, action) {
@@ -37,6 +45,7 @@ function articleSlugIndex(state = {}, action) {
 
   switch (action.type) {
     case LOAD_ARTICLES.SUCCESS: {
+      // This fires in addition to pagination so these are cached...
       let results = action.response.results;
       let newResources = state;
       results.forEach(r => {
@@ -60,13 +69,32 @@ function articleSlugIndex(state = {}, action) {
   }
 }
 
+// TODO: Category Slug Index?
+
+
+
 /***********************************
  Section 4: Selectors
 ************************************/
+
+
+// const selectCategoryBySlug = (state, slug) => state[REDUCER_NAMESPACE].categorySlugIndex[slug];
+// const makeSelectCategoryResourceBySlug = () => {
+//   return createDeepEqualSelector(
+//     [selectCategoryBySlug, selectResourceIndex],
+//     (resource_id, resourceIndex) => {
+//       return resourceIndex[resource_id];
+//     }
+//   );
+// };
+
 const selectArticleBySlug = (state, slug) => {
   return state[REDUCER_NAMESPACE].articleSlugIndex[slug];
 };
 
+/**
+ * Create a selector to select article by article slug from resource index
+ */
 const makeSelectArticleResourceBySlug = () => {
   return createDeepEqualSelector(
     [selectArticleBySlug, selectResourceIndex],
@@ -79,6 +107,24 @@ const makeSelectArticleResourceBySlug = () => {
 /***********************************
  Section 5: Commands
 ************************************/
+
+// function loadArticleBySlug(slug, state) {
+//   // Select from the state so as not to reload the data if we already have it
+//   let params = {get_by_slug: slug, verbose:true};
+//   let endpoint = '/api/posts';
+
+//   // build query string
+//   const baseUrl = API_DOMAIN + endpoint;
+//   const fullUrl = baseUrl + makeQueryString(params);
+
+//   return {
+//     types: [ ARTICLE_RESOURCE.REQUEST, ARTICLE_RESOURCE.SUCCESS, ARTICLE_RESOURCE.FAILURE ],
+//     promise: (client) => {
+//       return client.get(fullUrl);
+//     }
+//   };
+// }
+
 function loadArticles(params, cursor, paginationKey) {
   return dispatch => {
     return asyncFetch(dispatch, asyncCallMapper(LOAD_ARTICLES), fetchArticles, {

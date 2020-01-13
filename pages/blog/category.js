@@ -11,10 +11,12 @@ import { bindActionCreators } from 'redux';
 import { commands as articleCommands } from '../../src/modules/articles/redux';
 import { selectors as articleSelectors } from '../../src/modules/articles/redux';
 import { constants as articleConstants } from '../../src/modules/articles/redux';
+import Button from '@material-ui/core/Button';
 
-let LIMIT = 100;
+let LIMIT = 10;
 
 const makeMapState = () => {
+  //TODO: This doesn't seem to select by slug... 
   const selectPagedResources = articleSelectors.makeSelectPagedResources();
   function mapState(state, ownProps) {
     return selectPagedResources(
@@ -29,7 +31,7 @@ const makeMapState = () => {
 function mapDispatch(dispatch) {
   return {
     loadMoreArticles: bindActionCreators(
-      nextCursor =>
+      (nextCursor, category_slug) =>
         articleCommands.loadArticles(
           { limit: LIMIT, verbose: false, category_slug: category_slug },
           nextCursor,
@@ -41,7 +43,7 @@ function mapDispatch(dispatch) {
 }
 
 class BlogIndexPage extends React.Component {
-  static async getInitialProps({ reduxStore, query, ...rest }) {
+  static async getInitialProps({ reduxStore, query }) {
     let category_slug = query.slug;
 
     await reduxStore.dispatch(
@@ -102,14 +104,20 @@ class BlogIndexPage extends React.Component {
                 </Col>
               </Row>
 
-              {/*
-            <Row>
-              <Col xs={12}>
-                {more && <Button style={{width:'100%'}} variant="contained" onClick={()=>loadMoreArticles(nextCursor)}>more articles</Button>}
-              </Col>
-            </Row>
-            */}
-              {/* [({more.toString()}, {nextCursor})] */}
+              <Row>
+                <Col xs={12}>
+                  <div style={{ padding: 16 }}>
+                    {more && (
+                      <Button 
+                        style={{width:'100%'}} 
+                        variant="contained" 
+                        onClick={()=>loadMoreArticles(nextCursor, category_slug)}
+                      >more articles</Button>
+                    )}
+                  </div>
+                </Col>
+              </Row>
+              {/* [({more.toString()}, {nextCursor}, {category_slug})] */}
             </Col>
           </Row>
         </ContentWrapper>
@@ -127,5 +135,6 @@ BlogIndexPage.propTypes = {
   resources: PropTypes.array,
   more: PropTypes.bool,
   nextCursor: PropTypes.string,
-  loadMoreArticles: PropTypes.func
+  loadMoreArticles: PropTypes.func,
+  category_slug: PropTypes.string,
 };

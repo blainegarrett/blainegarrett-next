@@ -8,10 +8,9 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
-import { Grid, Row } from '../../components/layout/grid';
+import { Grid } from '../../components/layout/grid';
 
 const styles = theme => ({
   root: { flexGrow: 1 },
@@ -150,90 +149,6 @@ function ButtonAppBar(props) {
               Links
             </MenuOption>
             */}
-          </Toolbar>
-        </Grid>
-      </AppBar>
-    </div>
-  );
-
-  return (
-    <div className={classes.root}>
-      <AppBar position="static" className={classes.appBar}>
-        <Grid>
-          <Toolbar className={classes.toolbar}>
-            <Row>
-              <div>
-                <span className={classes.flex}>
-                  <Link href="/index" as="/">
-                    <a title="Home">
-                      <img
-                        src="https://storage.googleapis.com/blaine-garrett/theme/v2/logo.png"
-                        alt="Blaine Garrett Logo"
-                        className={classes.titleImage}
-                      />
-                    </a>
-                  </Link>
-                </span>
-
-                <span>
-                  <Hidden mdUp>
-                    <IconButton
-                      className={classes.menuButton}
-                      color="inherit"
-                      aria-label="Menu"
-                    >
-                      <Icon onClick={() => this.props.onMenuToggle()}>
-                        menu
-                      </Icon>
-                    </IconButton>
-                  </Hidden>
-
-                  <Hidden smDown>
-                    <MenuOption
-                      classes={classes}
-                      href="/about"
-                      as="/about"
-                      active={activePage == 'about'}
-                    >
-                      About
-                    </MenuOption>
-                    <MenuOption
-                      classes={classes}
-                      href="/blog"
-                      as="/blog"
-                      active={activePage == 'blog'}
-                    >
-                      Blog
-                    </MenuOption>
-                    <MenuOption
-                      classes={classes}
-                      href="/blog/category?slug=art"
-                      as="/art"
-                      active={activePage == 'art'}
-                    >
-                      Art
-                    </MenuOption>
-                    <MenuOption
-                      classes={classes}
-                      href="/blog/category?slug=programming"
-                      as="/programming"
-                      active={activePage == 'programming'}
-                    >
-                      Programming
-                    </MenuOption>
-
-                    {/*<MenuOption
-                      classes={classes}
-                      href="/links"
-                      as="/link"
-                      active={activePage == 'links'}
-                    >
-                      Links
-                    </MenuOption> */}
-                  </Hidden>
-                </span>
-              </div>
-            </Row>
           </Toolbar>
         </Grid>
       </AppBar>
