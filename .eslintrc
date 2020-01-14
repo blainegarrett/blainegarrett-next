@@ -1,11 +1,16 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
     "es6": true,
     "node": true
   },
-  "extends": ["plugin:react/recommended", "eslint:recommended"],
+  "extends": [
+      "plugin:react/recommended", 
+      "plugin:@typescript-eslint/recommended",
+      "prettier/@typescript-eslint",
+      "plugin:prettier/recommended"
+  ],
   "parserOptions": {
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
@@ -35,6 +40,9 @@
     "eol-last": [0],
     "no-mixed-requires": [0],
     "no-underscore-dangle": [0],
-    "no-console": [0]
+    "no-console": [0],
+  
+    // Typescript
+    "@typescript-eslint/camelcase" : [0]
   }
 }
