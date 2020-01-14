@@ -3,7 +3,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { withRedux } from '../../src/redux/withReduxV2';
 import PropTypes from 'prop-types';
 
 import Page from '../../src/components/Page';
@@ -77,7 +76,7 @@ BlogIndexPage.getInitialProps = async ({ reduxStore, query }) => {
   return {loadMoreArticles, categorySlug};
 };
 
-export default withRedux(BlogIndexPage);
+export default BlogIndexPage;
 
 BlogIndexPage.propTypes = {
   loadMoreArticles: PropTypes.func,

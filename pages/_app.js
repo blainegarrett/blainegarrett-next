@@ -6,6 +6,8 @@ import GlobalStyles from '../src/theming/GlobalStyles';
 import theme from '../src/theming/theme';
 import AppContextProvider from '../src/contexts/AppContext';
 import analytics from '../src/analytics';
+import withReduxStore from '../src/redux/withReduxStore';
+import { Provider as ReduxProvider} from 'react-redux';
 
 class App extends NextApp {
   componentDidMount() {
@@ -20,7 +22,7 @@ class App extends NextApp {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { reduxStore, Component, pageProps } = this.props;
 
     return (
       <React.Fragment>
@@ -32,9 +34,11 @@ class App extends NextApp {
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <GlobalStyles />
-            <AppContextProvider>
-              <Component {...pageProps} />
-            </AppContextProvider>
+            <ReduxProvider store={reduxStore}>
+              <AppContextProvider>
+                <Component {...pageProps} />
+              </AppContextProvider>
+            </ReduxProvider>
           </ThemeProvider>
         </StylesProvider>
       </React.Fragment>
@@ -42,6 +46,4 @@ class App extends NextApp {
   }
 }
 
-export default App;
-
-//export default withReduxStore(App);
+export default withReduxStore(App);

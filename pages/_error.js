@@ -13,8 +13,13 @@ export default class ErrorPage extends React.Component {
   }
 
   render() {
+    let msg;
+    if (this.props.statusCode) {
+      msg = this.props.statusCode.toString();
+    }
+
     return (
-      <Page activePage="" title={'Oops: ' + this.props.statusCode.toString()}>
+      <Page activePage="" title={'Oops: ' + msg}>
         <Head>
           <title>Opps {this.props.statusCode}</title>
         </Head>

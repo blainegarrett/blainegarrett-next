@@ -2,7 +2,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { withRedux } from '../../src/redux/withReduxV2';
 import { commands as articleCommands } from '../../src/modules/articles/redux';
 
 import Page from '../../src/components/Page';
@@ -100,4 +99,4 @@ BlogIndexPage.getInitialProps = async ({ reduxStore }) => {
   return {loadMoreArticles};
 };
 
-export default withRedux(BlogIndexPage);
+export default BlogIndexPage;
