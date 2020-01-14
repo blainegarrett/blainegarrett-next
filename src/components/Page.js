@@ -14,9 +14,10 @@ export default function PageContainer({ children, meta, ...props }) {
     // Only run on the client...
     analytics.recordPageViewFromMeta(window.location.pathname, meta);
   });
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     Prism.highlightAll();
-  });
+  }, []);
 
   return (
     <React.Fragment>
