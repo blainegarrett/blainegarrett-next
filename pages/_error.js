@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 import Page from '../src/components/Page';
-import { Row, Col } from './../src/components/layout/grid';
+import { Row, Col } from '../src/components/layout/grid';
 
 export default class ErrorPage extends React.Component {
   static getInitialProps({ res, err }) {
@@ -34,6 +34,7 @@ export default class ErrorPage extends React.Component {
     );
   }
 }
+
 
 ErrorPage.propTypes = {
   statusCode: PropTypes.any

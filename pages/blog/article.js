@@ -1,8 +1,9 @@
 import moment from 'moment';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
+
+import { withRedux } from '../../src/redux/withReduxV2';
 import Page from '../../src/components/Page';
 import ArticleRenderer from '../../src/components/blog/ArticleRenderer';
 import ContentWrapper from './../../src/components/layout/ContentWrapper';
@@ -133,7 +134,8 @@ class ArticlePage extends React.Component {
   }
 }
 
-export default connect()(ArticlePage);
+export default withRedux(ArticlePage);
+
 
 ArticlePage.propTypes = {
   article: PropTypes.object

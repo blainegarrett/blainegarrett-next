@@ -5,9 +5,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import GlobalStyles from '../src/theming/GlobalStyles';
 import theme from '../src/theming/theme';
 import AppContextProvider from '../src/contexts/AppContext';
-
-import { Provider as ReduxProvider } from 'react-redux';
-import withReduxStore from '../src/redux/withReduxStore';
 import analytics from '../src/analytics';
 
 class App extends NextApp {
@@ -23,7 +20,8 @@ class App extends NextApp {
   }
 
   render() {
-    const { Component, pageProps, reduxStore } = this.props;
+    const { Component, pageProps } = this.props;
+
     return (
       <React.Fragment>
         {/* Wrap every page in Styles and Theme providers */}
@@ -34,12 +32,9 @@ class App extends NextApp {
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <GlobalStyles />
-
-            <ReduxProvider store={reduxStore}>
-              <AppContextProvider>
-                <Component {...pageProps} />
-              </AppContextProvider>
-            </ReduxProvider>
+            <AppContextProvider>
+              <Component {...pageProps} />
+            </AppContextProvider>
           </ThemeProvider>
         </StylesProvider>
       </React.Fragment>
@@ -47,4 +42,6 @@ class App extends NextApp {
   }
 }
 
-export default withReduxStore(App);
+export default App;
+
+//export default withReduxStore(App);

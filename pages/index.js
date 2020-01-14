@@ -7,7 +7,8 @@ export default class IndexPage extends React.Component {
 
   render() {
     let meta = {
-      title: 'Welcome'
+      title: 'Welcome',
+      image: 'https://legacy-dot-blaine-garrett.appspot.com/static/drips1.jpg'
       //description: 'My Homepage'
     };
 
@@ -21,8 +22,8 @@ export default class IndexPage extends React.Component {
           <Row>
             <Col xs={12}>
               <div style={{ padding: 16 }}>
-                Returning soon. I'm rebuilding the site from the ground up to be
-                be more 2019 friendly:
+                Returning soon. I am rebuilding the site from the ground up to be
+                be more 2020 friendly:
                 <ul>
                   <li>Material Design</li>
                   <li>React/Redux</li>

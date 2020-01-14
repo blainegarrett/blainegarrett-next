@@ -1,11 +1,10 @@
 // Content Wrapper
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
-import Typography from '@material-ui/core/Typography';
-import { Grid, Row, Col } from './grid';
 import classnames from 'clsx';
+import { makeStyles } from '@material-ui/styles';
 import Hidden from '@material-ui/core/Hidden';
+import { Grid, Row, Col } from './grid';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -16,12 +15,7 @@ const useStyles = makeStyles(theme => {
       position: 'absolute',
       flexDirection: 'row',
       backgroundColor: '#fafafa',
-      //border: '2px solid red',
-      minHeight: 'calc(100% - 64px)',
-      //overflow: 'auto',
-      [theme.breakpoints.down('md')]: {
-        //height: '100vh'
-      }
+      minHeight: 'calc(100% - 64px)'
     },
 
     // Header image bounding box
@@ -32,7 +26,6 @@ const useStyles = makeStyles(theme => {
       position: 'absolute',
       top: 0,
       left: 0,
-      //transition: 'height 0.6s ease', //This doesn't currently work due to new Component tree
 
       [theme.breakpoints.down('sm')]: {
         height: '30vh'
@@ -55,12 +48,10 @@ const useStyles = makeStyles(theme => {
       width: '100%',
       position: 'relative',
       background: 'linear-gradient(to top, #2D323E 0%, #3C4252 100%)',
-      //background: 'linear-gradient(to top, #072500 0%, #1c8200 100%)',
       pointerEvents: 'none',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       display: 'block',
-      //transition: '0.6s ease', // This doesn't currently work due to new Component tree
 
       // Blur Variant
       '&.blur': {
@@ -93,20 +84,17 @@ const useStyles = makeStyles(theme => {
     experimentContentThing: {
       flex: '1 1 100%',
       display: 'flex',
-      //'box-shadow':
-      //  '0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)',
       'min-height': '0',
       'border-radius': '8px 8px 0 0',
       'flex-direction': 'column',
       'background-color': '#fff',
       minHeight: '100vh',
       border: '1px solid rgba(0, 0, 0, 0.12)',
-
       [theme.breakpoints.down('sm')]: {
         'border-radius': 0
       }
     },
-    gooberPadding: {
+    headerTextContent: {
       verticalAlign: 'bottom',
       minHeight: 'calc(25vh - 64px)', //185,
       [theme.breakpoints.down('sm')]: {
@@ -121,11 +109,9 @@ const useStyles = makeStyles(theme => {
         }
       }
     },
-    gooberPaddingInner: {
+    headerTextContentInner: {
       position: 'absolute',
       bottom: 0,
-      //marginBottom: 16,
-
       [theme.breakpoints.up('lg')]: {
         width: 672
       },
@@ -133,7 +119,7 @@ const useStyles = makeStyles(theme => {
       color: 'rgba(255, 255, 255, 0.6)',
       fontWeight: 100
     },
-    derp: {
+    subheadingWrapper: {
       height: '64px',
       display: 'flex',
       'min-height': '64px',
@@ -143,9 +129,6 @@ const useStyles = makeStyles(theme => {
     },
 
     title: {
-      //fontFamily: 'Muli,Roboto,Helvetica Neue,Arial,sans-serif',
-      //
-
       color: '#ffffff',
       'font-size': 32,
       margin: '12px 0',
@@ -167,11 +150,7 @@ const useStyles = makeStyles(theme => {
     sideBarContainer: {
       position: 'relative',
       top: 'calc(25vh)',
-      //border: '1px solid red',
       color: '#fff',
-      //[theme.breakpoints.only('md')]: {
-      //  top: 350
-      //},
       [theme.breakpoints.down('sm')]: {
         top: 0
       },
@@ -198,20 +177,22 @@ export default function ContentWrapper({
   titleContent,
   children
 }) {
-  let classes = useStyles();
 
+  let classes = useStyles();
   let extraStyles = {};
+
+  // Image Node
   if (image) {
     extraStyles = { backgroundImage: `url(${image})` };
   }
 
-
+  // Title Node
   let titleContentNode;
   if (titleContent) {
     titleContentNode = <div className={classes.summary}>{titleContent}</div>;
   }
 
-
+  // Side Bar
   let sideBarWrapper = (
     <Col xs={12} md={2}>
       <div
@@ -245,21 +226,22 @@ export default function ContentWrapper({
 
       <Grid className={classes.experimentContent} fluid={true}>
         <Row>
+          {/* TODO: This is causing a repaint...*/}
           <Hidden smDown>{sideBarWrapper}</Hidden>
           <Col xs={12} md={10}>
             <div
               className={classnames({
-                [classes.gooberPadding]: true,
+                [classes.headerTextContent]: true,
                 large: headerLarge
               })}
             >
-              <div className={classes.gooberPaddingInner}>
+              <div className={classes.headerTextContentInner}>
                 {title && <h1 className={classes.title}>{title}</h1>}
                 {titleContentNode}
               </div>
             </div>
             <div className={classes.experimentContentThing}>
-              <div className={classes.derp}>
+              <div className={classes.subheadingWrapper}>
                 {subheadingContent || 'I\'ll find something good to put here...'}{' '}
               </div>
               <Col>{children}</Col>
@@ -271,3 +253,14 @@ export default function ContentWrapper({
     </div>
   );
 }
+
+ContentWrapper.propTypes = {
+  title : PropTypes.string,
+  image: PropTypes.string,
+  headerBlur: PropTypes.bool,
+  headerLarge: PropTypes.bool,
+  sideBarContent: PropTypes.node,
+  subheadingContent: PropTypes.node,
+  titleContent: PropTypes.string,
+  children: PropTypes.node
+};

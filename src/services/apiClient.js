@@ -69,7 +69,7 @@ function callApi(endpoint, params, data, method, skip_auth_header = false) {
 // Clean a cursor for use in the api - empty string is fine but not null
 const cleanCursor = cursor => (!cursor ? '' : cursor);
 
-export function fetchArticles({ nextCursor, params }) {
+export function fetchArticles({ nextCursor, params }) {  
   if (params.is_published == undefined) {
     params.is_published = true;
   }

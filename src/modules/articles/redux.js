@@ -11,6 +11,7 @@ import {
 
 import paginate from '../../redux-assist/paginate';
 import { fetchArticles, fetchArticleBySlug } from '../../services/apiClient';
+import { createSelector } from 'reselect';
 
 /***********************************
     Section 1: Constants
@@ -104,6 +105,14 @@ const makeSelectArticleResourceBySlug = () => {
   );
 };
 
+
+const selectStuff = createSelector(
+  makeSelectPagedResources(),
+  ({...state}) => {
+    return state;    
+  }
+);
+
 /***********************************
  Section 5: Commands
 ************************************/
@@ -125,11 +134,11 @@ const makeSelectArticleResourceBySlug = () => {
 //   };
 // }
 
-function loadArticles(params, cursor, paginationKey) {
+function loadArticles(params, nextCursor, paginationKey) {
   return dispatch => {
     return asyncFetch(dispatch, asyncCallMapper(LOAD_ARTICLES), fetchArticles, {
       params,
-      nextCursor: cursor,
+      nextCursor,
       paginationKey
     });
   };
@@ -170,10 +179,11 @@ const reducers = combineReducers({
 
 const selectors = {
   makeSelectArticleResourceBySlug, // for article
-  makeSelectPagedResources // for lists of articles
+  makeSelectPagedResources, // for lists of articles
   //selectSlugInStore,
   //makeSelectResourceById, // for author
-  //makeSelectCategoryResourceBySlug // for category
+  //makeSelectCategoryResourceBySlug // for category,
+  selectStuff
 };
 
 const commands = {

@@ -127,6 +127,10 @@ export const selectPaginationState = (
   let resource_ids = [];
   let more, nextCursor;
 
+  if (!sourceStoreName) {
+    throw new Error('Pagination Selector did not have a sourceStoreName argument.');
+  }
+
   let paginator = state[sourceStoreName].paginated[paginationKey];
   if (paginator) {
     resource_ids = paginator.ids;
@@ -149,6 +153,10 @@ export const makeSelectPagedResources = () => {
       selectResourceIndex
     ],
     (
+      //{ resource_ids, more, nextCursor }, // sourceStoreName, paginationKey
+      //resourceIndex
+      //) => {
+
       {resource_ids, more, nextCursor}, resourceIndex) => {
       // Uncomment to debug selectors
       //console.log('Debug: makeSelectPagedResources called for store: ' + sourceStoreName + '.pagination[' + paginationKey + '] with nextCursor: ' + nextCursor);
