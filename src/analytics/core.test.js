@@ -6,12 +6,12 @@ import { logClickEvent, logEvent, initTracker } from './core';
 jest.mock('react-ga', () => ({
   event: jest.fn(),
   initialize: jest.fn(),
-  ga: jest.fn()
+  ga: jest.fn(),
 }));
 
 // Set up the import mock for Next.js Config
 jest.mock('next/config', () => () => ({
-  publicRuntimeConfig: { GA_PRIMARY_TRACKER_ID: 'test-tracker-id' }
+  publicRuntimeConfig: { GA_PRIMARY_TRACKER_ID: 'test-tracker-id' },
 }));
 
 // Require ReactGA which will be the mock setup above
@@ -25,7 +25,7 @@ describe('calling initTracker', () => {
 
   test('calls init with tracker id', () => {
     // Run Code to Test
-    let result = initTracker();
+    const result = initTracker();
 
     // Check Results
     expect(result).toEqual(true);
@@ -42,7 +42,7 @@ describe('calling logClickEvent', () => {
 
   test('calls event with expected data', () => {
     // Set Up Test
-    let e = jest.mock();
+    const e = jest.mock();
     e.text = 'Link Text';
     e.attributes = [
       { name: 'data-ga-category', value: 'links' },
@@ -50,11 +50,11 @@ describe('calling logClickEvent', () => {
       { name: 'data-ga-cd-ad-client', value: 'Wet Paint' },
       { name: 'data-ga-cd-ad-campaign', value: 'Summer 2019' },
       { name: 'data-ga-not-custom-dimension', value: 'True' },
-      { name: 'href', value: '#' }
+      { name: 'href', value: '#' },
     ];
 
     // Run Code to Test
-    let result = logClickEvent(e);
+    const result = logClickEvent(e);
 
     // Check Results
     expect(result).toEqual(true);
@@ -65,18 +65,18 @@ describe('calling logClickEvent', () => {
       eventLabel: 'Link Text',
       eventValue: 1,
       dimension1: 'Wet Paint',
-      dimension2: 'Summer 2019'
+      dimension2: 'Summer 2019',
     });
   });
 
   test('calls event with default values', () => {
     // Set Up Test
-    let e = jest.mock();
+    const e = jest.mock();
     e.attributes = [];
     e.text = undefined; // mock is being wierd.
 
     // Run Code to Test
-    let result = logClickEvent(e);
+    const result = logClickEvent(e);
 
     // Check Results
     expect(result).toEqual(true);
@@ -85,7 +85,7 @@ describe('calling logClickEvent', () => {
       eventAction: 'click',
       eventCategory: 'link',
       eventLabel: undefined,
-      eventValue: 1
+      eventValue: 1,
     });
   });
 });
@@ -96,12 +96,12 @@ describe('calling logEvent', () => {
     // Set Up Test
 
     // Run Code to Test
-    let result = logEvent({
+    const result = logEvent({
       eventAction: 'impression',
       eventCategory: 'blog-posts',
       eventLabel: undefined,
       eventValue: 1,
-      adClient: 'wetpaint'
+      adClient: 'wetpaint',
     });
 
     expect(result).toEqual(true);
@@ -111,17 +111,17 @@ describe('calling logEvent', () => {
       eventCategory: 'blog-posts',
       eventLabel: undefined,
       eventValue: 1,
-      dimension1: 'wetpaint'
+      dimension1: 'wetpaint',
     });
   });
 
   test('does not call event id category is missing', () => {
     // Run Code to Test
-    let result = logEvent({
+    const result = logEvent({
       eventAction: 'impression',
       eventLabel: undefined,
       eventValue: 1,
-      adClient: 'wetpaint'
+      adClient: 'wetpaint',
     });
 
     // Check Results

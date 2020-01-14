@@ -8,15 +8,9 @@ import MainAppBar from './MainAppBar';
 import MenuDialog from './MenuDialog';
 import { AppContext } from '../../contexts/AppContext';
 
-export default function PageLayoutContainer({
-  children,
-  activePage,
-  title,
-  meta,
-  isFluid
-}) {
-  let appCtx = useContext(AppContext);
-  let { menuActive, setMenuActive } = appCtx;
+export default function PageLayoutContainer({ children, activePage, title, meta, isFluid }) {
+  const appCtx = useContext(AppContext);
+  const { menuActive, setMenuActive } = appCtx;
 
   function handleClick(force) {
     // Currently a toggle...
@@ -49,11 +43,7 @@ export default function PageLayoutContainer({
       <Meta meta={meta} />
       <MainAppBar activePage={activePage} onMenuToggle={onMenuToggle} />
       <Grid fluid={isFluid}>{children}</Grid>
-      <MenuDialog
-        activePage={activePage}
-        open={appCtx.menuActive}
-        onMenuToggle={handleClick}
-      />
+      <MenuDialog activePage={activePage} open={appCtx.menuActive} onMenuToggle={handleClick} />
     </React.Fragment>
   );
 }
@@ -63,5 +53,5 @@ PageLayoutContainer.propTypes = {
   title: PropTypes.string,
   meta: PropTypes.object,
   isFluid: PropTypes.bool,
-  children: PropTypes.node
+  children: PropTypes.node,
 };

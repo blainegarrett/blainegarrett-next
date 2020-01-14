@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 
 export const AppContext = React.createContext();
 
-let initialState = {
-  menuActive: false
+const initialState = {
+  menuActive: false,
 };
 
 export default function AppContextProvider({ children }) {
-  let [menuActive, setMenuActive] = useState(initialState.menuActive);
+  const [menuActive, setMenuActive] = useState(initialState.menuActive);
 
-  let value = {
+  const value = {
     menuActive,
-    setMenuActive
+    setMenuActive,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 AppContextProvider.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };

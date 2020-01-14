@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 
-let defaultMeta = {
+const defaultMeta = {
   title: 'Blaine Garrett',
   description: 'Art, Tech, and more from Blaine Garrett',
-  keywords:
-    'minneapolis, art, tech, minnesota, react, python, google app engine'
+  keywords: 'minneapolis, art, tech, minnesota, react, python, google app engine',
   //image: DEFAULT_META.CARD_IMAGE,
   //imageHeight: DEFAULT_META.CARD_HEIGHT,
   //imageWidth: DEFAULT_META.CARD_WIDTH,
@@ -14,10 +13,10 @@ let defaultMeta = {
 };
 
 const shapeMeta = rawdata => {
-  let meta = Object.assign({}, defaultMeta, rawdata);
+  const meta = Object.assign({}, defaultMeta, rawdata);
 
   // Setup Meta Tags ....
-  let metaData = { title: null, meta: [] };
+  const metaData = { title: null, meta: [] };
 
   // Title
   metaData['title'] = meta.title;
@@ -28,7 +27,7 @@ const shapeMeta = rawdata => {
   metaData['meta'].push({ name: 'description', content: meta.description });
   metaData['meta'].push({
     property: 'og:description',
-    content: meta.description
+    content: meta.description,
   });
   metaData['meta'].push({ itemProp: 'description', content: meta.description });
 
@@ -37,15 +36,15 @@ const shapeMeta = rawdata => {
   metaData['meta'].push({ property: 'og:image', content: meta.image });
   metaData['meta'].push({
     property: 'og:image:url',
-    content: meta.image
+    content: meta.image,
   });
   metaData['meta'].push({
     property: 'og:image:height',
-    content: meta.imageHeight
+    content: meta.imageHeight,
   });
   metaData['meta'].push({
     property: 'og:image:width',
-    content: meta.imageWidth
+    content: meta.imageWidth,
   });
 
   //Keywords - TODO: Not currently dynamic
@@ -54,13 +53,13 @@ const shapeMeta = rawdata => {
   // Twitter Specific - Note: Twitter summary card with large image must be at least 280x150px
   metaData['meta'].push({
     name: 'twitter:card',
-    content: 'summary_large_image'
+    content: 'summary_large_image',
   });
   metaData['meta'].push({ name: 'twitter:site', content: '@blainegarrett' });
   metaData['meta'].push({ name: 'twitter:title', content: meta.title });
   metaData['meta'].push({
     name: 'twitter:description',
-    content: meta.description
+    content: meta.description,
   });
   metaData['meta'].push({ name: 'twitter:creator', content: '@blainegarrett' });
   metaData['meta'].push({ name: 'twitter:image:src', content: meta.image });
@@ -70,7 +69,7 @@ const shapeMeta = rawdata => {
   metaData['meta'].push({ property: 'og:type', content: meta.type });
   metaData['meta'].push({
     property: 'og:site_name',
-    content: 'BlaineGarrett.com'
+    content: 'BlaineGarrett.com',
   });
   metaData['meta'].push({ property: 'og:locale', content: 'en_US' });
 
@@ -81,7 +80,7 @@ const shapeMeta = rawdata => {
 
   if (meta.type == 'article') {
     metaData['meta'].push({ property: 'article:modified_time', content: meta.modifiedTime });
-    metaData['meta'].push({ property: 'article:published_time', content: meta.publishedTime });  
+    metaData['meta'].push({ property: 'article:published_time', content: meta.publishedTime });
   }
 
   return metaData;
@@ -103,25 +102,22 @@ const shapeMeta = rawdata => {
 };
 
 const Meta = ({ meta }) => {
-  let preppedMetaData = shapeMeta(meta);
+  const preppedMetaData = shapeMeta(meta);
 
   // Convert prepped data to actual tags required for next/Head
   // Render the tags
-  let renderedTags = preppedMetaData.meta.map((data, i) => {
+  const renderedTags = preppedMetaData.meta.map((data, i) => {
     return <meta key={i} {...data} />;
   });
 
   return (
     <Head>
-      <title>
-        {preppedMetaData.title} | Blaine Garrett - MPLS artist, software
-        engineer, and tinkerer
-      </title>
+      <title>{preppedMetaData.title} | Blaine Garrett - MPLS artist, software engineer, and tinkerer</title>
       {renderedTags}
     </Head>
   );
 };
 Meta.propTypes = {
-  meta: PropTypes.object
+  meta: PropTypes.object,
 };
 export default Meta;

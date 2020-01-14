@@ -14,25 +14,20 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import LabelIcon from '@material-ui/icons/Label';
 
-let loadMoreFunc = (dispatch) => async (nextCursor) => {
-  await dispatch(articleCommands.loadArticles(
-    { limit: 10, verbose: false },
-    nextCursor,
-    'all'
-  ));
+const loadMoreFunc = dispatch => async nextCursor => {
+  await dispatch(articleCommands.loadArticles({ limit: 10, verbose: false }, nextCursor, 'all'));
 };
 
 const BlogIndexPage = () => {
+  const dispatch = useDispatch();
+  const loadMoreArticles = loadMoreFunc(dispatch);
 
-  let dispatch = useDispatch();
-  let loadMoreArticles = loadMoreFunc(dispatch);
-
-  let meta = {
+  const meta = {
     title: 'Blog',
-    description: 'My Blog'
+    description: 'My Blog',
   };
 
-  let sideBarContent = (
+  const sideBarContent = (
     <div style={{ color: '#000000' }}>
       <List
         component="nav"
@@ -71,8 +66,6 @@ const BlogIndexPage = () => {
     </div>
   );
 
-
-
   return (
     <Page isFluid title="Blog" activePage="blog" meta={meta}>
       <ContentWrapper
@@ -80,7 +73,7 @@ const BlogIndexPage = () => {
         image="https://commondatastorage.googleapis.com/blaine-garrett/juniper/old_gods.jpg"
         sideBarContent={sideBarContent}
       >
-        <IndexPageComponent loadMoreArticles={loadMoreArticles} paginationKey="all"/>
+        <IndexPageComponent loadMoreArticles={loadMoreArticles} paginationKey="all" />
       </ContentWrapper>
     </Page>
   );
@@ -91,12 +84,12 @@ BlogIndexPage.getInitialProps = async ({ reduxStore }) => {
   // valid time before first render
   const { dispatch } = reduxStore;
   const loadMoreArticles = loadMoreFunc(dispatch);
-  
+
   // Kick off The Initial Load...
   await loadMoreArticles(null);
 
   // Return the
-  return {loadMoreArticles};
+  return { loadMoreArticles };
 };
 
 export default BlogIndexPage;

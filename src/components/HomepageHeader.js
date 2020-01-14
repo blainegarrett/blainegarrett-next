@@ -6,7 +6,7 @@ import { Grid, Row, Col } from './layout/grid';
 const useStyles = makeStyles(theme => ({
   root: {},
   btn: {
-    color: 'black'
+    color: 'black',
   },
   subheader: {
     color: '#555',
@@ -16,11 +16,11 @@ const useStyles = makeStyles(theme => ({
     'margin-top': '5px',
     'text-shadow': 'none',
     'font-weight': 'normal !important',
-    'font-family': '"Open Sans", sans-serif'
+    'font-family': '"Open Sans", sans-serif',
   },
   breadcrumbsroot: {
     padding: '5px 0 8px',
-    'margin-bottom': '10px'
+    'margin-bottom': '10px',
     /*'border-top': 'solid 1px #eee',
     'border-bottom': 'solid 1px #eee',
     */
@@ -30,30 +30,30 @@ const useStyles = makeStyles(theme => ({
     'margin-bottom': '3px',
     'padding-left': 0,
     'list-style': 'none',
-    'margin-top': 0
+    'margin-top': 0,
   },
   breadcrumbslistitem: {
     'font-size': '12px',
     display: 'inline-block',
     'padding-right': '16px',
     color: 'rgba(255, 255, 255, 0.6) !important',
-    'line-height': '1.6'
+    'line-height': '1.6',
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.6) !important',
     width: '1.25em',
     'font-size': '12px',
-    marginBottom: -2
+    marginBottom: -2,
   },
   summary: {
     fontWeight: 'bolder',
-    fontSize: '16px'
+    fontSize: '16px',
   },
 
   headerImageRoot: {
     position: 'relative',
     overflow: 'hidden',
-    marginBottom: '40px'
+    marginBottom: '40px',
   },
 
   headerImage: {
@@ -73,14 +73,14 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       padding: '50% 0 0 0',
       filter: 'blur(0) brightness(100%)', // width is narrower so don't blur so much
-      backgroundSize: 'cover'
-    }
+      backgroundSize: 'cover',
+    },
   },
   headerImageContentWrapper: {
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   headerImageContent: {
     position: 'absolute',
@@ -92,7 +92,7 @@ const useStyles = makeStyles(theme => ({
     padding: '16px',
 
     [theme.breakpoints.up('lg')]: {
-      padding: theme.gutterSpacing
+      padding: theme.gutterSpacing,
     },
 
     '& h1': {
@@ -105,8 +105,8 @@ const useStyles = makeStyles(theme => ({
       'line-height': '1.1',
 
       [theme.breakpoints.up('lg')]: {
-        'margin-bottom': theme.gutterSpacing
-      }
+        'margin-bottom': theme.gutterSpacing,
+      },
     },
     '& p': {
       color: 'rgba(255, 255, 255, 0.6) !important',
@@ -114,37 +114,33 @@ const useStyles = makeStyles(theme => ({
 
       [theme.breakpoints.up('lg')]: {
         'margin-bottom': theme.gutterSpacing / 2,
-        fontSize: '1.25rem'
-      }
-    }
+        fontSize: '1.25rem',
+      },
+    },
   },
   headerImageContentInner: {
     [theme.breakpoints.up('lg')]: {
-      width: '672px'
-    }
+      width: '672px',
+    },
   },
 
   legacyContainer: {
     '& img': {
-      width: '100% !important'
-    }
-  }
+      width: '100% !important',
+    },
+  },
 }));
 
-export default function ArticleRenderer({ article }) {
+export default function ArticleRenderer({}) {
   const classes = useStyles();
 
-  let image_url =
-    'https://legacy-dot-blaine-garrett.appspot.com/static/drips1.jpg';
+  const image_url = 'https://legacy-dot-blaine-garrett.appspot.com/static/drips1.jpg';
 
-  let image = (
+  const image = (
     <Row>
       <Col xs={12}>
         <div className={classes.headerImageRoot}>
-          <div
-            className={classes.headerImage}
-            style={{ backgroundImage: 'url("' + image_url + '")' }}
-          />
+          <div className={classes.headerImage} style={{ backgroundImage: 'url("' + image_url + '")' }} />
 
           <div className={classes.headerImageContentWrapper}>
             <div className={classes.headerImageContent}>
@@ -186,5 +182,4 @@ export default function ArticleRenderer({ article }) {
 
 ArticleRenderer.propTypes = {
   classes: PropTypes.object,
-  article: PropTypes.object
 };

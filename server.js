@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * Custom Express Server for next.js
- * 
+ *
  * Why we need this still?
  *  - Next 9 dynamic file routing gets confused on overlapping dynamic routes (i.e. /[category] vs /[year]/[month]/[day]/[slug])
  *  - GAE passes the PORT via a environment variable that we need to read
@@ -33,7 +34,7 @@ app
       res.send('User-agent: *\nDisallow: /admin/\nDisallow: /api/');
     });
 
-    // Service Worker 
+    // Service Worker
     server.get('/service-worker.js', (req, res) => {
       res.status(200).sendFile('/service-worker.js', { root: __dirname + '/build/' });
     });
@@ -44,9 +45,7 @@ app
     });
 
     // Favicon
-    server.get('/favicon.ico', (req, res) =>
-      res.status(200).sendFile('favicon.ico', { root: __dirname + '/static/' })
-    );
+    server.get('/favicon.ico', (req, res) => res.status(200).sendFile('favicon.ico', { root: __dirname + '/static/' }));
 
     server.get('/_next/-/page/*', (req, res) => {
       return handle(req, res);
@@ -79,9 +78,7 @@ app
 
     server.listen(port, err => {
       if (err) throw err;
-      console.log(
-        `> Ready on http://localhost:${port} NODE_ENV: ${process.env.NODE_ENV}`
-      );
+      console.log(`> Ready on http://localhost:${port} NODE_ENV: ${process.env.NODE_ENV}`);
     });
   })
   .catch(ex => {

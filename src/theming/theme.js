@@ -8,9 +8,9 @@ const muiTheme = createMuiTheme({
     //fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     button: {
       fontWeight: 400,
-      textTransform: 'none'
+      textTransform: 'none',
       //fontSize: '1.25rem',
-    }
+    },
   },
   palette: {
     contrastThreshold: 3,
@@ -18,11 +18,11 @@ const muiTheme = createMuiTheme({
     primary: green,
     accent: pink,
     error: {
-      main: red[500]
-    }
+      main: red[500],
+    },
   },
   appBarHeight: { default: 60, sm: 50 }, // TODO: Do we need/want different heights?
-  gutterSpacing: 4
+  gutterSpacing: 4,
 });
 
 export default muiTheme;

@@ -4,24 +4,24 @@ import { getDataAttributes, getCustomDimensions } from './utils';
 
 describe('getDataAttributes', () => {
   test('returns only data attributes', () => {
-    let e = jest.mock();
+    const e = jest.mock();
     e.attributes = [
       { name: 'data-resource-id', value: 'asdf' },
       { name: 'data-title', value: 'Resource Name' },
-      { name: 'href', value: '#' }
+      { name: 'href', value: '#' },
     ];
 
-    let result = getDataAttributes(e);
+    const result = getDataAttributes(e);
 
     // href isn't a data- attribute
     expect(result).toEqual({ title: 'Resource Name', resourceId: 'asdf' });
   });
 
   test('returns empty when no attributes', () => {
-    let e = jest.mock();
+    const e = jest.mock();
     e.attributes = [];
 
-    let result = getDataAttributes(e);
+    const result = getDataAttributes(e);
     expect(result).toEqual({});
   });
 });
@@ -41,7 +41,7 @@ describe('getCustomDimensions', () => {
   test('object with matches returns expected value', () => {
     expect(getCustomDimensions({ gaCdTest: 'test' })).toEqual({ test: 'test' });
     expect(getCustomDimensions({ gaCdTestMultipleWords: 'test' })).toEqual({
-      testMultipleWords: 'test'
+      testMultipleWords: 'test',
     });
   });
 });

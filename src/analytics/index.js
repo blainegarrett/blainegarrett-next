@@ -1,12 +1,6 @@
 // Analytics Package
 
-import {
-  initTracker,
-  logEvent,
-  logClickEvent,
-  mapToCustomDimensions,
-  DIMENSIONS
-} from './core';
+import { initTracker, logEvent, logClickEvent, mapToCustomDimensions, DIMENSIONS } from './core';
 
 import { recordPageViewFromMeta } from './helpers';
 
@@ -16,5 +10,5 @@ export default {
   logClickEvent,
   mapToCustomDimensions,
   recordPageViewFromMeta,
-  DIMENSIONS
+  DIMENSIONS,
 };

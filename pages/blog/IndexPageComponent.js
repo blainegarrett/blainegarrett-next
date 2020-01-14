@@ -15,8 +15,8 @@ function useArticles(paginationKey) {
   return useSelector(state => selector(state, articleConstants.REDUCER_NAMESPACE, paginationKey, null));
 }
 
-export default function IndexPageComponent({loadMoreArticles, paginationKey}) {
-  let {resources, more, nextCursor} = useArticles(paginationKey);
+export default function IndexPageComponent({ loadMoreArticles, paginationKey }) {
+  const { resources, more, nextCursor } = useArticles(paginationKey);
 
   return (
     <Row>
@@ -42,7 +42,7 @@ export default function IndexPageComponent({loadMoreArticles, paginationKey}) {
                   color="primary"
                   onClick={() => loadMoreArticles(nextCursor)}
                 >
-                      more articles
+                  more articles
                 </Button>
               )}
             </div>
@@ -56,6 +56,5 @@ export default function IndexPageComponent({loadMoreArticles, paginationKey}) {
 
 IndexPageComponent.propTypes = {
   loadMoreArticles: PropTypes.func,
-  paginationKey: PropTypes.string
+  paginationKey: PropTypes.string,
 };
-

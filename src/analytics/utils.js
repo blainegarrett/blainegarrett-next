@@ -8,14 +8,12 @@
  */
 export function getDataAttributes(e) {
   // Returns an obj with keys of an elements' data attributes in camelcase
-  var data = {};
+  const data = {};
   [].forEach.call(e.attributes, function(attr) {
     if (/^data-/.test(attr.name)) {
-      var camelCaseName = attr.name
-        .substr(5)
-        .replace(/-(.)/g, function($0, $1) {
-          return $1.toUpperCase();
-        });
+      const camelCaseName = attr.name.substr(5).replace(/-(.)/g, function($0, $1) {
+        return $1.toUpperCase();
+      });
       data[camelCaseName] = attr.value;
     }
   });
@@ -33,7 +31,7 @@ export function getCustomDimensions(obj) {
     return {};
   }
 
-  let data = {};
+  const data = {};
   Object.keys(obj).forEach(function(key) {
     if (/^gaCd/.test(key)) {
       let cleanKey = key.replace(/^gaCd/g, '');

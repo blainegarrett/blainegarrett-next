@@ -8,12 +8,12 @@ import { recordPageViewFromMeta } from './helpers';
 jest.mock('react-ga', () => ({
   event: jest.fn(),
   initialize: jest.fn(),
-  ga: jest.fn()
+  ga: jest.fn(),
 }));
 
 // Set up the import mock for Next.js Config
 jest.mock('next/config', () => () => ({
-  publicRuntimeConfig: { GA_PRIMARY_TRACKER_ID: 'test-tracker-id' }
+  publicRuntimeConfig: { GA_PRIMARY_TRACKER_ID: 'test-tracker-id' },
 }));
 
 // Require ReactGA which will be the mock setup above
@@ -27,11 +27,11 @@ describe('calling recordPageViewFromMeta', () => {
 
   test('calls event with expected arguments', () => {
     // Run Code to Test
-    let url = 'https://www.example.com';
-    let rawPayload = { gaCdAdClient: 'wetpaint', title: 'Blog Post' };
+    const url = 'https://www.example.com';
+    const rawPayload = { gaCdAdClient: 'wetpaint', title: 'Blog Post' };
 
     // Run Code to Test
-    let result = recordPageViewFromMeta(url, rawPayload);
+    const result = recordPageViewFromMeta(url, rawPayload);
 
     // Check Results
     expect(result).toEqual(true);
@@ -39,7 +39,7 @@ describe('calling recordPageViewFromMeta', () => {
     expect(ReactGA.ga).toBeCalledWith('send', 'pageView', {
       page: 'https://www.example.com',
       title: 'Blog Post',
-      dimension1: 'wetpaint'
+      dimension1: 'wetpaint',
     });
   });
 });

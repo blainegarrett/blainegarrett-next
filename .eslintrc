@@ -41,6 +41,7 @@
     "no-mixed-requires": [0],
     "no-underscore-dangle": [0],
     "no-console": [0],
+    "prefer-const": [0], // This makes rest spread insufferable...
   
     // Typescript
     "@typescript-eslint/camelcase" : [0]

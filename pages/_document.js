@@ -9,10 +9,7 @@ class Document extends NextDocument {
     return (
       <html lang="en" dir="ltr">
         <Head>
-          <meta
-            name="description"
-            content="Blaine Garrett - Minneapolis artist, software engineer, and tinkerer"
-          />
+          <meta name="description" content="Blaine Garrett - Minneapolis artist, software engineer, and tinkerer" />
           {/* note if you change the icons, update manifest too */}
           {/* Use https://favicon.io/favicon-converter/ */}
 
@@ -24,27 +21,13 @@ class Document extends NextDocument {
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
             name="viewport"
-            content={
-              'user-scalable=0, initial-scale=1, ' +
-              'minimum-scale=1, width=device-width, height=device-height'
-            }
+            content={'user-scalable=0, initial-scale=1, ' + 'minimum-scale=1, width=device-width, height=device-height'}
           />
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          />
-          <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
-            rel="stylesheet"
-          />
-          <link
-            href="/static/prism.css"
-            rel="stylesheet"
-            media="screen"
-            type="text/css"
-          />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+          <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
+          <link href="/static/prism.css" rel="stylesheet" media="screen" type="text/css" />
           <style>
             {`
           .videoWrapper {
@@ -102,7 +85,7 @@ Document.getInitialProps = async ctx => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: App => props => sheets.collect(<App {...props} />)
+      enhanceApp: App => props => sheets.collect(<App {...props} />),
     });
 
   const initialProps = await NextDocument.getInitialProps(ctx);
@@ -115,7 +98,7 @@ Document.getInitialProps = async ctx => {
         {sheets.getStyleElement()}
         {flush() || null}
       </React.Fragment>
-    )
+    ),
   };
 };
 

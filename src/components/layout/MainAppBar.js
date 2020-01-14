@@ -21,20 +21,20 @@ const styles = theme => ({
     marginLeft: '-35px', // Note this is due to my goofy logo having padding
     [theme.breakpoints.down('md')]: {
       maxWidth: '200px',
-      marginLeft: '-24px'
-    }
+      marginLeft: '-24px',
+    },
   },
   menuButton: {
     marginRight: -12,
     marginLeft: 20,
     display: 'none',
     [theme.breakpoints.down('sm')]: {
-      display: 'block'
-    }
+      display: 'block',
+    },
   },
   menuLink: {
     [theme.breakpoints.down('sm')]: {
-      display: 'none'
+      display: 'none',
     },
     color: '#687074',
     borderRadius: 0,
@@ -46,13 +46,13 @@ const styles = theme => ({
     borderBottom: 'solid 2px transparent',
     '&.active': {
       borderBottom: 'solid 2px #72c02c',
-      color: '#72c02c'
+      color: '#72c02c',
     },
     '&:hover': {
       borderBottom: 'solid 2px #72c02c',
-      color: '#72c02c'
-    }
-  }
+      color: '#72c02c',
+    },
+  },
 });
 
 const MenuOption = ({ classes, active, href, as, ...props }) => {
@@ -73,7 +73,7 @@ MenuOption.propTypes = {
   active: PropTypes.bool,
   href: PropTypes.string,
   as: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 function ButtonAppBar(props) {
@@ -97,37 +97,17 @@ function ButtonAppBar(props) {
               </Link>
             </div>
 
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-              onClick={() => onMenuToggle()}
-            >
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={() => onMenuToggle()}>
               <Icon>menu</Icon>
             </IconButton>
 
-            <MenuOption
-              classes={classes}
-              href="/about"
-              as="/about"
-              active={activePage == 'about'}
-            >
+            <MenuOption classes={classes} href="/about" as="/about" active={activePage == 'about'}>
               About
             </MenuOption>
-            <MenuOption
-              classes={classes}
-              href="/blog"
-              as="/blog"
-              active={activePage == 'blog'}
-            >
+            <MenuOption classes={classes} href="/blog" as="/blog" active={activePage == 'blog'}>
               Blog
             </MenuOption>
-            <MenuOption
-              classes={classes}
-              href="/blog/category?slug=art"
-              as="/art"
-              active={activePage == 'art'}
-            >
+            <MenuOption classes={classes} href="/blog/category?slug=art" as="/art" active={activePage == 'art'}>
               Art
             </MenuOption>
             <MenuOption
@@ -159,7 +139,7 @@ function ButtonAppBar(props) {
 ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
   activePage: PropTypes.string,
-  onMenuToggle: PropTypes.func
+  onMenuToggle: PropTypes.func,
 };
 
 export default withStyles(styles)(ButtonAppBar);

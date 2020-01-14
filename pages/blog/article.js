@@ -8,11 +8,10 @@ import ContentWrapper from './../../src/components/layout/ContentWrapper';
 import { commands as articleCommands } from '../../src/modules/articles/redux';
 import { selectors as articleSelectors } from '../../src/modules/articles/redux';
 
-
 class ArticlePage extends React.Component {
   static async getInitialProps({ res, reduxStore, query }) {
     // Async load the article if it is not in store. On server throw 404. Redirect if slug not exact.
-    let slug = query.slug;
+    const slug = query.slug;
 
     // Step 1: Scope Selector
     const selectArticleResourceBySlug = articleSelectors.makeSelectArticleResourceBySlug();
@@ -41,18 +40,23 @@ class ArticlePage extends React.Component {
     // Step 5: Ensure query url is in the desired published date format
     if (res) {
       // Note: We're not passing query.year, month, date, so they're undefined on client
-      let expectedPrefix = `20${query.year}-${query.month}-${query.day}`;
-      let publishedTZ = moment(article.published_date).utc().add(-6, 'hours');
-      
+      const expectedPrefix = `20${query.year}-${query.month}-${query.day}`;
+      const publishedTZ = moment(article.published_date)
+        .utc()
+        .add(-6, 'hours');
+
       if (!publishedTZ.format().startsWith(expectedPrefix)) {
         // Redirect to the actual url
-        let bits = publishedTZ.format().split('T')[0].split('-');
+        const bits = publishedTZ
+          .format()
+          .split('T')[0]
+          .split('-');
 
         if (res) {
           // Server Side - redirect...
           console.log('Redirecting...');
           res.writeHead(302, {
-            Location: `/${bits[0]}/${bits[1]}/${bits[2]}/${article.slug}`
+            Location: `/${bits[0]}/${bits[1]}/${bits[2]}/${article.slug}`,
           });
           res.end();
         } else {
@@ -82,27 +86,25 @@ class ArticlePage extends React.Component {
 
     // TODO: Clean this up a bit more...
 
-    let sideBarContent = null;
+    const sideBarContent = null;
 
-    let subheadingContent = (
+    const subheadingContent = (
       <div>
         {moment(article.published_date).format('MMMM Do, YYYY')}
         &nbsp; by Blaine Garrett
       </div>
     );
 
-    let titleContent = article.summary;
+    const titleContent = article.summary;
 
     // Determine meta
-    let image_url =
-      'https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg';
+    let image_url = 'https://storage.googleapis.com/blaine-garrett/theme/v2/about_wedding.jpg';
     if (article.legacy_image_resource) {
       image_url =
-        'https://commondatastorage.googleapis.com/blaine-garrett/' +
-        article.legacy_image_resource.gcs_filename;
+        'https://commondatastorage.googleapis.com/blaine-garrett/' + article.legacy_image_resource.gcs_filename;
     }
 
-    let meta = {
+    const meta = {
       title: article.title,
       description: article.summary,
       image: image_url,
@@ -111,7 +113,7 @@ class ArticlePage extends React.Component {
       type: 'article',
       author: 'Blaine Garrett',
       modifiedTime: article.modified_date,
-      publishedTime: article.published_date
+      publishedTime: article.published_date,
     };
 
     return (
@@ -134,7 +136,6 @@ class ArticlePage extends React.Component {
 
 export default ArticlePage;
 
-
 ArticlePage.propTypes = {
-  article: PropTypes.object
+  article: PropTypes.object,
 };

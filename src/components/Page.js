@@ -28,9 +28,9 @@ export default function PageContainer({ children, meta, ...props }) {
 
 PageContainer.propTypes = {
   children: PropTypes.node.isRequired,
-  meta: PropTypes.object.isRequired
+  meta: PropTypes.object.isRequired,
 };
 
 PageContainer.defaultProps = {
-  meta: {}
+  meta: {},
 };
