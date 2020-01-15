@@ -6,17 +6,17 @@ const defaultMeta = {
   title: 'Blaine Garrett',
   description: 'Art, Tech, and more from Blaine Garrett',
   keywords: 'minneapolis, art, tech, minnesota, react, python, google app engine',
-  //image: DEFAULT_META.CARD_IMAGE,
-  //imageHeight: DEFAULT_META.CARD_HEIGHT,
-  //imageWidth: DEFAULT_META.CARD_WIDTH,
-  //type: PAGE_TYPES.WEBSITE
+  image: 'https://www.blainegarrett.com/static/drips1.jpg',
+  imageHeight: 485,
+  imageWidth: 1656,
+  type: 'website',
 };
 
 const shapeMeta = rawdata => {
   const meta = Object.assign({}, defaultMeta, rawdata);
 
   // Setup Meta Tags ....
-  const metaData = { title: null, meta: [] };
+  const metaData = { title: null, meta: [], link: [] };
 
   // Title
   metaData['title'] = meta.title;
@@ -30,6 +30,12 @@ const shapeMeta = rawdata => {
     content: meta.description,
   });
   metaData['meta'].push({ itemProp: 'description', content: meta.description });
+
+  // Canonical Url
+  if (meta.url) {
+    metaData['link'].push({ rel: 'canonical', href: meta.url });
+    metaData['meta'].push({ property: 'og:url', content: meta.url });
+  }
 
   // Images
   metaData['meta'].push({ name: 'image', content: meta.image });
@@ -106,13 +112,19 @@ const Meta = ({ meta }) => {
 
   // Convert prepped data to actual tags required for next/Head
   // Render the tags
-  const renderedTags = preppedMetaData.meta.map((data, i) => {
-    return <meta key={i} {...data} />;
+  let renderedTags = preppedMetaData.meta.map((data, i) => {
+    return <meta key={'meta' + i} {...data} />;
   });
+
+  renderedTags = renderedTags.concat(
+    preppedMetaData.link.map((data, i) => {
+      return <link key={'link' + i} {...data} />;
+    })
+  );
 
   return (
     <Head>
-      <title>{preppedMetaData.title} | Blaine Garrett - MPLS artist, software engineer, and tinkerer</title>
+      <title>{preppedMetaData.title} | Blaine Garrett</title>
       {renderedTags}
     </Head>
   );
@@ -120,4 +132,5 @@ const Meta = ({ meta }) => {
 Meta.propTypes = {
   meta: PropTypes.object,
 };
+
 export default Meta;

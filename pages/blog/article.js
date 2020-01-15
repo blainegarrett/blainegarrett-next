@@ -84,6 +84,16 @@ class ArticlePage extends React.Component {
       );
     }
 
+    // Gross: Update permalink on the backend...
+    const publishedTZ = moment(article.published_date)
+      .utc()
+      .add(-6, 'hours');
+    const bits = publishedTZ
+      .format()
+      .split('T')[0]
+      .split('-');
+    let permalink = `/${bits[0]}/${bits[1]}/${bits[2]}/${article.slug}`;
+
     // TODO: Clean this up a bit more...
 
     const sideBarContent = null;
@@ -114,6 +124,7 @@ class ArticlePage extends React.Component {
       author: 'Blaine Garrett',
       modifiedTime: article.modified_date,
       publishedTime: article.published_date,
+      url: 'https://www.blainegarrett.com' + permalink,
     };
 
     return (

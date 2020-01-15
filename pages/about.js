@@ -18,17 +18,14 @@ import EmailIcon from '@material-ui/icons/Email';
 export default class AboutPage extends React.Component {
   render() {
     const meta = {
-      title: 'About',
-      description: 'Very useful information',
+      title: 'About Blaine Garrett',
+      description: 'Minneapolis Based Artist, Software Engineer, and Tinkerer',
+      url: 'https://www.blainegarrett.com/about',
     };
 
     const sideBarContent = (
       <div style={{ color: '#000000' }}>
-        <List
-          component="nav"
-          aria-label="otherstuff"
-          //style={{ backgroundColor: '#eeeeee' }}
-        >
+        <List component="nav" aria-label="otherstuff">
           <ListItem button component="a" href="https://github.com/blainegarrett" target="_blank" rel="noopener">
             <ListItemIcon>
               <GitHubIcon />

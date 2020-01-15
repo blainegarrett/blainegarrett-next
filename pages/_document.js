@@ -9,7 +9,6 @@ class Document extends NextDocument {
     return (
       <html lang="en" dir="ltr">
         <Head>
-          <meta name="description" content="Blaine Garrett - Minneapolis artist, software engineer, and tinkerer" />
           {/* note if you change the icons, update manifest too */}
           {/* Use https://favicon.io/favicon-converter/ */}
 

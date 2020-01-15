@@ -9,6 +9,7 @@ export default class LinksPage extends React.Component {
     const meta = {
       title: 'Links',
       description: 'Some links to my other projects and things I think you should check out',
+      url: 'https://www.blainegarrett.com/links',
     };
     return (
       <Page isFluid title="Links" activePage="links" meta={meta}>

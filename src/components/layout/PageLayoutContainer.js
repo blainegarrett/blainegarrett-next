@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import Meta from '../Meta';
 import { Grid } from './grid';
 import MainAppBar from './MainAppBar';
 
 import MenuDialog from './MenuDialog';
 import { AppContext } from '../../contexts/AppContext';
 
-export default function PageLayoutContainer({ children, activePage, title, meta, isFluid }) {
+export default function PageLayoutContainer(props) {
+  let { children, activePage, isFluid } = props;
   const appCtx = useContext(AppContext);
   const { menuActive, setMenuActive } = appCtx;
 
@@ -33,14 +33,8 @@ export default function PageLayoutContainer({ children, activePage, title, meta,
     activePage = 'blog';
   }
 
-  // Account for meta not populated - default to page title if we have one
-  if (!meta && title) {
-    meta = { title: title };
-  }
-
   return (
     <React.Fragment>
-      <Meta meta={meta} />
       <MainAppBar activePage={activePage} onMenuToggle={onMenuToggle} />
       <Grid fluid={isFluid}>{children}</Grid>
       <MenuDialog activePage={activePage} open={appCtx.menuActive} onMenuToggle={handleClick} />
@@ -50,8 +44,6 @@ export default function PageLayoutContainer({ children, activePage, title, meta,
 
 PageLayoutContainer.propTypes = {
   activePage: PropTypes.string,
-  title: PropTypes.string,
-  meta: PropTypes.object,
   isFluid: PropTypes.bool,
   children: PropTypes.node,
 };

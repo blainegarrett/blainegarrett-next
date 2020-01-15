@@ -23,18 +23,15 @@ const BlogIndexPage = () => {
   const loadMoreArticles = loadMoreFunc(dispatch);
 
   const meta = {
-    title: 'Blog',
+    title: 'Musings',
     description: 'My Blog',
+    url: 'https://www.blainegarrett.com/blog',
   };
 
   const sideBarContent = (
     <div style={{ color: '#000000' }}>
-      <List
-        component="nav"
-        aria-label="otherstuff"
-        dense
-        //style={{ backgroundColor: '#eeeeee' }}
-      >
+      <List component="nav" aria-label="otherlinks" dense>
+        {/* TODO: Convert these to Next Links */}
         <ListItem button component="a" href="/art">
           <ListItemIcon>
             <LabelIcon />

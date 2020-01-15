@@ -7,17 +7,13 @@ export default class IndexPage extends React.Component {
   render() {
     const meta = {
       title: 'Welcome',
-      image: 'https://legacy-dot-blaine-garrett.appspot.com/static/drips1.jpg',
-      //description: 'My Homepage'
+      url: 'https://www.blainegarrett.com',
+      description: 'Portfolio and Blog of Minneapolis Artist, Software Engineer and Tinkerer Blaine Garrett.',
     };
 
     return (
       <Page isFluid activePage="home" meta={meta}>
-        <ContentWrapper
-          title={'Welcome'}
-          image="https://legacy-dot-blaine-garrett.appspot.com/static/drips1.jpg"
-          headerLarge
-        >
+        <ContentWrapper title={'Welcome'} loading="lazy" image="/static/drips2.jpf" headerLarge>
           <Row>
             <Col xs={12}>
               <div style={{ padding: 16 }}>

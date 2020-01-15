@@ -1,4 +1,5 @@
 // Helper Methods
+// See reference at: https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#location
 
 import { getCustomDimensions } from './utils';
 import { mapToCustomDimensions } from './core';
@@ -10,7 +11,7 @@ import ReactGA from 'react-ga';
  * @return {[type]}          [description]
  */
 export function recordPageViewFromMeta(pageUrl, metaData) {
-  const gaPayload = { page: pageUrl };
+  const gaPayload = { page: pageUrl, location: pageUrl }; // Note: Page Should have domain...
 
   // Title
   if (metaData.title) {

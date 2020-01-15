@@ -11,6 +11,7 @@
 const express = require('express');
 const next = require('next');
 const compression = require('compression');
+const url = require('url');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -20,6 +21,21 @@ const handle = app.getRequestHandler();
 // GAE passes the port the app will run on via process.env.PORT
 const port = process.env.PORT ? process.env.PORT : 3000;
 
+// Middleware for redirecting naked domain to www
+let nakedMiddleware = function(force_url, isDev) {
+  let force_host = url.parse(force_url).host;
+
+  return function(req, res, next) {
+    let requested_host = req.header('host');
+
+    if (isDev || requested_host === force_host) {
+      next();
+    } else {
+      res.redirect(301, force_url + req.path);
+    }
+  };
+};
+
 app
   .prepare()
   .then(() => {
@@ -27,6 +43,9 @@ app
 
     // TODO: compression might be on by default in next 9...
     server.use(compression());
+
+    // TODO: This should be a constant or env var?
+    server.use(nakedMiddleware('https://www.blainegarrett.com', dev));
 
     // Robots.txt
     server.get('/robots.txt', function(req, res) {

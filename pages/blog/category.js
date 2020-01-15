@@ -41,6 +41,7 @@ const BlogIndexPage = ({ categorySlug }) => {
   const meta = {
     title: prettySlug,
     description: 'Articles pertaining to ' + prettySlug,
+    url: 'https://www.blainegarrett.com/' + categorySlug,
   };
 
   return (
