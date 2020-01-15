@@ -14,17 +14,17 @@ const styles = {
   menuBackground: {
     root: {
       backgroundColor: '#000',
-      color: '#fff'
-    }
+      color: '#fff',
+    },
   },
   listItem: {
     paddingTop: 0,
-    paddingBottom: 8
+    paddingBottom: 8,
   },
   listItemText: {
     '&.active span': {
       borderBottom: 'solid 2px #72c02c',
-      color: '#72c02c'
+      color: '#72c02c',
     },
     '& span': {
       color: '#687074',
@@ -36,33 +36,23 @@ const styles = {
       borderBottom: 'solid 2px transparent',
       '&:hover': {
         borderBottom: 'solid 2px #72c02c',
-        color: '#72c02c'
-      }
-    }
+        color: '#72c02c',
+      },
+    },
   },
 
   title: {
     '& h2': {
-      color: '#72c02c'
-    }
-  }
+      color: '#72c02c',
+    },
+  },
 };
 
 const MenuOption = ({ classes, active, href, as, children, ...props }) => {
   return (
     <Link href={href} as={as}>
-      <ListItem
-        divider
-        button
-        component="a"
-        className={classnames(classes.listItem)}
-        href={as}
-        {...props}
-      >
-        <ListItemText
-          className={classnames(classes.listItemText, active && 'active')}
-          primary={children}
-        />
+      <ListItem divider button component="a" className={classnames(classes.listItem)} href={as} {...props}>
+        <ListItemText className={classnames(classes.listItemText, active && 'active')} primary={children} />
       </ListItem>
     </Link>
   );
@@ -73,7 +63,7 @@ MenuOption.propTypes = {
   active: PropTypes.bool,
   href: PropTypes.string,
   as: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 class SimpleDialog extends React.Component {
@@ -82,7 +72,7 @@ class SimpleDialog extends React.Component {
   };
 
   render() {
-    const { classes, onMenuToggle, activePage, open } = this.props;
+    const { classes, activePage, open } = this.props;
 
     return (
       <Dialog
@@ -90,7 +80,7 @@ class SimpleDialog extends React.Component {
         onClose={this.handleClose}
         open={open}
         PaperProps={{
-          style: { backgroundColor: '#000', color: '#fff', width: '100%' }
+          style: { backgroundColor: '#000', color: '#fff', width: '100%' },
         }}
       >
         <DialogTitle className={classes.title} id="simple-dialog-title">
@@ -164,7 +154,7 @@ SimpleDialog.propTypes = {
   classes: PropTypes.object.isRequired,
   onMenuToggle: PropTypes.func,
   open: PropTypes.bool,
-  activePage: PropTypes.string
+  activePage: PropTypes.string,
 };
 
 export default withStyles(styles)(SimpleDialog);

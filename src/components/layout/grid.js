@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => {
   return {
     fluidContainer: {
       width: '100%',
-      flexGrow: 1
+      flexGrow: 1,
     },
     legacyContainer: {
       marginRight: 'auto',
@@ -19,35 +19,35 @@ const useStyles = makeStyles(theme => {
       paddingLeft: theme.spacing(2), // 16
 
       [theme.breakpoints.only('xs')]: {
-        width: '100%'
+        width: '100%',
       },
       [theme.breakpoints.only('sm')]: {
-        width: '100%'
+        width: '100%',
       },
       [theme.breakpoints.only('md')]: {
-        width: theme.breakpoints.width('md')
+        width: theme.breakpoints.width('md'),
       },
       [theme.breakpoints.only('lg')]: {
-        width: theme.breakpoints.width('lg')
+        width: theme.breakpoints.width('lg'),
       },
       [theme.breakpoints.only('xl')]: {
         // force width of lg
-        width: theme.breakpoints.width('lg')
-      }
+        width: theme.breakpoints.width('lg'),
+      },
     },
     alignRight: { marginRight: 0 },
     alignLeft: { marginLeft: 0 },
     typeContainer: {},
     typeItem: {},
     gridWrapper: {
-      overflow: 'hidden'
-    }
+      overflow: 'hidden',
+    },
   };
 });
 
 export function Grid({ align, className, children, fluid, ...rest }) {
-  let classes = useStyles();
-  let collectedClasses = [classes.gridWrapper, className];
+  const classes = useStyles();
+  const collectedClasses = [classes.gridWrapper, className];
 
   if (fluid) {
     collectedClasses.push(classes.fluidContainer);
@@ -74,11 +74,11 @@ Grid.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object,
   fluid: PropTypes.bool,
-  align: PropTypes.oneOf(['left', 'right'])
+  align: PropTypes.oneOf(['left', 'right']),
 };
 
 export function Row({ className, children, ...rest }) {
-  let classes = useStyles();
+  const classes = useStyles();
 
   // TODO: What is spacing these days?
   return (
@@ -96,19 +96,15 @@ export function Row({ className, children, ...rest }) {
 Row.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
-  classes: PropTypes.object
+  classes: PropTypes.object,
 };
 
 export function Col(props) {
-  let classes = useStyles();
+  const classes = useStyles();
 
-  let { className, children, ...rest } = props;
+  const { className, children, ...rest } = props;
   return (
-    <MuiGrid
-      item={true}
-      {...rest}
-      className={classnames(classes.typeItem, className)}
-    >
+    <MuiGrid item={true} {...rest} className={classnames(classes.typeItem, className)}>
       {children}
     </MuiGrid>
   );
@@ -117,5 +113,5 @@ export function Col(props) {
 Col.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
-  classes: PropTypes.object
+  classes: PropTypes.object,
 };

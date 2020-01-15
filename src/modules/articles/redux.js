@@ -6,7 +6,7 @@ import {
   createAsyncActionTypes,
   createDeepEqualSelector,
   makeSelectPagedResources,
-  selectResourceIndex
+  selectResourceIndex,
 } from '../../redux-assist';
 
 import paginate from '../../redux-assist/paginate';
@@ -34,11 +34,7 @@ const LOAD_ARTICLE = createAsyncActionTypes('LOAD_ARTICLE');
 ************************************/
 const paginated = paginate({
   mapActionToKey: action => action.paginationKey,
-  types: [
-    LOAD_ARTICLES.REQUEST, 
-    LOAD_ARTICLES.SUCCESS, 
-    LOAD_ARTICLES.FAILURE
-  ]
+  types: [LOAD_ARTICLES.REQUEST, LOAD_ARTICLES.SUCCESS, LOAD_ARTICLES.FAILURE],
 });
 
 function articleSlugIndex(state = {}, action) {
@@ -47,8 +43,8 @@ function articleSlugIndex(state = {}, action) {
   switch (action.type) {
     case LOAD_ARTICLES.SUCCESS: {
       // This fires in addition to pagination so these are cached...
-      let results = action.response.results;
-      let newResources = state;
+      const results = action.response.results;
+      const newResources = state;
       results.forEach(r => {
         newResources[r.slug] = r.resource_id;
       });
@@ -58,8 +54,8 @@ function articleSlugIndex(state = {}, action) {
     case LOAD_ARTICLE.SUCCESS: {
       // TODO: Account for the big list as well...
       // single article
-      let results = action.response.results;
-      let newResources = {};
+      const results = action.response.results;
+      const newResources = {};
       newResources[results.slug] = results.resource_id;
 
       return Object.assign({}, state, newResources);
@@ -72,12 +68,9 @@ function articleSlugIndex(state = {}, action) {
 
 // TODO: Category Slug Index?
 
-
-
 /***********************************
  Section 4: Selectors
 ************************************/
-
 
 // const selectCategoryBySlug = (state, slug) => state[REDUCER_NAMESPACE].categorySlugIndex[slug];
 // const makeSelectCategoryResourceBySlug = () => {
@@ -97,21 +90,14 @@ const selectArticleBySlug = (state, slug) => {
  * Create a selector to select article by article slug from resource index
  */
 const makeSelectArticleResourceBySlug = () => {
-  return createDeepEqualSelector(
-    [selectArticleBySlug, selectResourceIndex],
-    (resource_id, resourceIndex) => {
-      return resourceIndex[resource_id];
-    }
-  );
+  return createDeepEqualSelector([selectArticleBySlug, selectResourceIndex], (resource_id, resourceIndex) => {
+    return resourceIndex[resource_id];
+  });
 };
 
-
-const selectStuff = createSelector(
-  makeSelectPagedResources(),
-  ({...state}) => {
-    return state;    
-  }
-);
+const selectStuff = createSelector(makeSelectPagedResources(), ({ ...state }) => {
+  return state;
+});
 
 /***********************************
  Section 5: Commands
@@ -139,19 +125,14 @@ function loadArticles(params, nextCursor, paginationKey) {
     return asyncFetch(dispatch, asyncCallMapper(LOAD_ARTICLES), fetchArticles, {
       params,
       nextCursor,
-      paginationKey
+      paginationKey,
     });
   };
 }
 
 function loadArticleBySlug(slug) {
   return dispatch => {
-    return asyncFetch(
-      dispatch,
-      asyncCallMapper(LOAD_ARTICLE),
-      fetchArticleBySlug,
-      { slug }
-    );
+    return asyncFetch(dispatch, asyncCallMapper(LOAD_ARTICLE), fetchArticleBySlug, { slug });
   };
 }
 
@@ -174,7 +155,7 @@ const actions = {};
 const reducers = combineReducers({
   articleSlugIndex,
   //categorySlugIndex,
-  paginated
+  paginated,
 });
 
 const selectors = {
@@ -183,12 +164,12 @@ const selectors = {
   //selectSlugInStore,
   //makeSelectResourceById, // for author
   //makeSelectCategoryResourceBySlug // for category,
-  selectStuff
+  selectStuff,
 };
 
 const commands = {
   loadArticleBySlug,
-  loadArticles
+  loadArticles,
   //loadCategories,
   //loadAuthors
 };

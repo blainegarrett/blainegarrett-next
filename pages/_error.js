@@ -28,9 +28,7 @@ export default class ErrorPage extends React.Component {
           <Col xs={12}>
             <p>
               {this.props.statusCode
-                ? `A ${
-                  this.props.statusCode
-                } error occurred. You might have a broken link.`
+                ? `A ${this.props.statusCode} error occurred. You might have a broken link.`
                 : 'An error occurred on client'}
             </p>
           </Col>
@@ -40,7 +38,6 @@ export default class ErrorPage extends React.Component {
   }
 }
 
-
 ErrorPage.propTypes = {
-  statusCode: PropTypes.any
+  statusCode: PropTypes.any,
 };

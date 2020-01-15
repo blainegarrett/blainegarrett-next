@@ -18,7 +18,7 @@ export default function paginate({ types, mapActionToKey }) {
       isFetching: false,
       ids: [],
       more: false,
-      cursors: []
+      cursors: [],
     },
     action
   ) {
@@ -44,7 +44,7 @@ export default function paginate({ types, mapActionToKey }) {
         }
 
         let new_cursor_map = {};
-        let startCursor = action.nextCursor || 'start'; // could be undefined for initial page
+        const startCursor = action.nextCursor || 'start'; // could be undefined for initial page
 
         new_cursor_map[startCursor] = Date.now();
 
@@ -66,7 +66,7 @@ export default function paginate({ types, mapActionToKey }) {
           ids: resource_ids,
           cursor: action.response.cursor,
           more: action.response.more,
-          cursors: Object.assign({}, new_cursor_map, state.cursors)
+          cursors: Object.assign({}, new_cursor_map, state.cursors),
         });
         return new_state;
       }
@@ -88,7 +88,7 @@ export default function paginate({ types, mapActionToKey }) {
           throw new Error('Expected key to be a string.');
         }
         return Object.assign({}, state, {
-          [key]: updatePagination(state[key], action)
+          [key]: updatePagination(state[key], action),
         });
       }
       default:

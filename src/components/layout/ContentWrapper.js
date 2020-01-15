@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => {
       position: 'absolute',
       flexDirection: 'row',
       backgroundColor: '#fafafa',
-      minHeight: 'calc(100% - 64px)'
+      minHeight: 'calc(100% - 64px)',
     },
 
     // Header image bounding box
@@ -28,15 +28,15 @@ const useStyles = makeStyles(theme => {
       left: 0,
 
       [theme.breakpoints.down('sm')]: {
-        height: '30vh'
+        height: '30vh',
       },
 
       '&.large': {
         height: '60vh', //750,
         [theme.breakpoints.only('xs')]: {
-          height: '100vh'
-        }
-      }
+          height: '100vh',
+        },
+      },
     },
 
     // Header Background
@@ -57,8 +57,8 @@ const useStyles = makeStyles(theme => {
       '&.blur': {
         filter: 'blur(.5rem) brightness(75%)',
         overflow: 'hidden',
-        transform: 'scale(1.1)'
-      }
+        transform: 'scale(1.1)',
+      },
     },
 
     // Header image dark gradiant overlay
@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => {
       height: '100%',
       position: 'absolute',
       background: 'linear-gradient(to top, rgb(0,0,0,.75) 0%, transparent 75%)',
-      zIndex: 299
+      zIndex: 299,
     },
 
     experimentContent: {
@@ -78,7 +78,7 @@ const useStyles = makeStyles(theme => {
       maxWidth: '1120px',
       //maxWidth: '1280px',
       display: 'flex',
-      zIndex: 300
+      zIndex: 300,
     },
 
     experimentContentThing: {
@@ -91,33 +91,33 @@ const useStyles = makeStyles(theme => {
       minHeight: '100vh',
       border: '1px solid rgba(0, 0, 0, 0.12)',
       [theme.breakpoints.down('sm')]: {
-        'border-radius': 0
-      }
+        'border-radius': 0,
+      },
     },
     headerTextContent: {
       verticalAlign: 'bottom',
       minHeight: 'calc(25vh - 64px)', //185,
       [theme.breakpoints.down('sm')]: {
         minHeight: 'calc(30vh - 64px)',
-        margin: 16
+        margin: 16,
       },
       position: 'relative',
       '&.large': {
         minHeight: 'calc(60vh - 64px)', //685
         [theme.breakpoints.only('xs')]: {
-          minHeight: 'calc(70vh - 64px)'
-        }
-      }
+          minHeight: 'calc(70vh - 64px)',
+        },
+      },
     },
     headerTextContentInner: {
       position: 'absolute',
       bottom: 0,
       [theme.breakpoints.up('lg')]: {
-        width: 672
+        width: 672,
       },
       fontSize: '1.25rem',
       color: 'rgba(255, 255, 255, 0.6)',
-      fontWeight: 100
+      fontWeight: 100,
     },
     subheadingWrapper: {
       height: '64px',
@@ -125,7 +125,7 @@ const useStyles = makeStyles(theme => {
       'min-height': '64px',
       'align-items': 'center',
       'border-bottom': '1px solid rgba(0, 0, 0, 0.12)',
-      padding: 16
+      padding: 16,
     },
 
     title: {
@@ -135,7 +135,7 @@ const useStyles = makeStyles(theme => {
       'font-family': '"Open Sans", sans-serif',
       'font-weight': 'normal !important',
       'line-height': '1.1',
-      'text-shadow': 'none'
+      'text-shadow': 'none',
     },
     summary: {
       color: 'rgba(255, 255, 255, 0.6)',
@@ -145,25 +145,24 @@ const useStyles = makeStyles(theme => {
       marginBlockEnd: '1em',
       marginInlineStart: '0px',
       marginInlineEnd: '0px',
-    
     },
     sideBarContainer: {
       position: 'relative',
       top: 'calc(25vh)',
       color: '#fff',
       [theme.breakpoints.down('sm')]: {
-        top: 0
+        top: 0,
       },
       '&.large': {
         top: 710,
         [theme.breakpoints.only('md')]: {
-          top: 350
+          top: 350,
         },
         [theme.breakpoints.down('sm')]: {
-          top: 0
-        }
-      }
-    }
+          top: 0,
+        },
+      },
+    },
   };
 });
 
@@ -175,10 +174,9 @@ export default function ContentWrapper({
   sideBarContent,
   subheadingContent,
   titleContent,
-  children
+  children,
 }) {
-
-  let classes = useStyles();
+  const classes = useStyles();
   let extraStyles = {};
 
   // Image Node
@@ -193,12 +191,12 @@ export default function ContentWrapper({
   }
 
   // Side Bar
-  let sideBarWrapper = (
+  const sideBarWrapper = (
     <Col xs={12} md={2}>
       <div
         className={classnames({
           [classes.sideBarContainer]: true,
-          large: headerLarge
+          large: headerLarge,
         })}
       >
         {sideBarContent}
@@ -211,13 +209,13 @@ export default function ContentWrapper({
       <div
         className={classnames({
           [classes.headerImageWrap]: true,
-          large: headerLarge
+          large: headerLarge,
         })}
       >
         <div
           className={classnames({
             [classes.headerBackground]: true,
-            blur: headerBlur
+            blur: headerBlur,
           })}
           style={extraStyles}
         />
@@ -232,7 +230,7 @@ export default function ContentWrapper({
             <div
               className={classnames({
                 [classes.headerTextContent]: true,
-                large: headerLarge
+                large: headerLarge,
               })}
             >
               <div className={classes.headerTextContentInner}>
@@ -242,7 +240,7 @@ export default function ContentWrapper({
             </div>
             <div className={classes.experimentContentThing}>
               <div className={classes.subheadingWrapper}>
-                {subheadingContent || 'I\'ll find something good to put here...'}{' '}
+                {subheadingContent || 'I will find something good to put here...'}{' '}
               </div>
               <Col>{children}</Col>
             </div>
@@ -255,12 +253,12 @@ export default function ContentWrapper({
 }
 
 ContentWrapper.propTypes = {
-  title : PropTypes.string,
+  title: PropTypes.string,
   image: PropTypes.string,
   headerBlur: PropTypes.bool,
   headerLarge: PropTypes.bool,
   sideBarContent: PropTypes.node,
   subheadingContent: PropTypes.node,
   titleContent: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 };

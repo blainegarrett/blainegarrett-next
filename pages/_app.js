@@ -7,7 +7,7 @@ import theme from '../src/theming/theme';
 import AppContextProvider from '../src/contexts/AppContext';
 import analytics from '../src/analytics';
 import withReduxStore from '../src/redux/withReduxStore';
-import { Provider as ReduxProvider} from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 
 class App extends NextApp {
   componentDidMount() {

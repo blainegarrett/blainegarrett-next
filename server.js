@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * Custom Express Server for next.js
- * 
+ *
  * Why we need this still?
  *  - Next 9 dynamic file routing gets confused on overlapping dynamic routes (i.e. /[category] vs /[year]/[month]/[day]/[slug])
  *  - GAE passes the PORT via a environment variable that we need to read
@@ -10,6 +11,7 @@
 const express = require('express');
 const next = require('next');
 const compression = require('compression');
+const url = require('url');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -19,6 +21,21 @@ const handle = app.getRequestHandler();
 // GAE passes the port the app will run on via process.env.PORT
 const port = process.env.PORT ? process.env.PORT : 3000;
 
+// Middleware for redirecting naked domain to www
+let nakedMiddleware = function(force_url, isDev) {
+  let force_host = url.parse(force_url).host;
+
+  return function(req, res, next) {
+    let requested_host = req.header('host');
+
+    if (isDev || requested_host === force_host) {
+      next();
+    } else {
+      res.redirect(301, force_url + req.path);
+    }
+  };
+};
+
 app
   .prepare()
   .then(() => {
@@ -27,13 +44,16 @@ app
     // TODO: compression might be on by default in next 9...
     server.use(compression());
 
+    // TODO: This should be a constant or env var?
+    server.use(nakedMiddleware('https://www.blainegarrett.com', dev));
+
     // Robots.txt
     server.get('/robots.txt', function(req, res) {
       res.type('text/plain');
       res.send('User-agent: *\nDisallow: /admin/\nDisallow: /api/');
     });
 
-    // Service Worker 
+    // Service Worker
     server.get('/service-worker.js', (req, res) => {
       res.status(200).sendFile('/service-worker.js', { root: __dirname + '/build/' });
     });
@@ -44,9 +64,7 @@ app
     });
 
     // Favicon
-    server.get('/favicon.ico', (req, res) =>
-      res.status(200).sendFile('favicon.ico', { root: __dirname + '/static/' })
-    );
+    server.get('/favicon.ico', (req, res) => res.status(200).sendFile('favicon.ico', { root: __dirname + '/static/' }));
 
     server.get('/_next/-/page/*', (req, res) => {
       return handle(req, res);
@@ -79,9 +97,7 @@ app
 
     server.listen(port, err => {
       if (err) throw err;
-      console.log(
-        `> Ready on http://localhost:${port} NODE_ENV: ${process.env.NODE_ENV}`
-      );
+      console.log(`> Ready on http://localhost:${port} NODE_ENV: ${process.env.NODE_ENV}`);
     });
   })
   .catch(ex => {

@@ -1,8 +1,9 @@
 // Helper Methods
+// See reference at: https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#location
 
 import { getCustomDimensions } from './utils';
 import { mapToCustomDimensions } from './core';
-const ReactGA = require('react-ga');
+import ReactGA from 'react-ga';
 
 /**
  * Record a "pageView" hit based on metaData
@@ -10,7 +11,7 @@ const ReactGA = require('react-ga');
  * @return {[type]}          [description]
  */
 export function recordPageViewFromMeta(pageUrl, metaData) {
-  let gaPayload = { page: pageUrl };
+  const gaPayload = { page: pageUrl, location: pageUrl }; // Note: Page Should have domain...
 
   // Title
   if (metaData.title) {
@@ -18,7 +19,7 @@ export function recordPageViewFromMeta(pageUrl, metaData) {
   }
 
   // Filter list down into known custom dimensions
-  let customDimensions = mapToCustomDimensions(getCustomDimensions(metaData));
+  const customDimensions = mapToCustomDimensions(getCustomDimensions(metaData));
   ReactGA.ga('send', 'pageView', { ...gaPayload, ...customDimensions });
 
   return true;

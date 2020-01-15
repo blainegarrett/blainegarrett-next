@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PageLayoutContainer from './layout/PageLayoutContainer';
 import Meta from './Meta';
@@ -14,9 +14,10 @@ export default function PageContainer({ children, meta, ...props }) {
     // Only run on the client...
     analytics.recordPageViewFromMeta(window.location.pathname, meta);
   });
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     Prism.highlightAll();
-  });
+  }, []);
 
   return (
     <React.Fragment>
@@ -28,9 +29,9 @@ export default function PageContainer({ children, meta, ...props }) {
 
 PageContainer.propTypes = {
   children: PropTypes.node.isRequired,
-  meta: PropTypes.object.isRequired
+  meta: PropTypes.object.isRequired,
 };
 
 PageContainer.defaultProps = {
-  meta: {}
+  meta: {},
 };

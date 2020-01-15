@@ -17,25 +17,16 @@ import EmailIcon from '@material-ui/icons/Email';
 
 export default class AboutPage extends React.Component {
   render() {
-    let meta = {
-      title: 'About',
-      description: 'Very useful information'
+    const meta = {
+      title: 'About Blaine Garrett',
+      description: 'Minneapolis Based Artist, Software Engineer, and Tinkerer',
+      url: 'https://www.blainegarrett.com/about',
     };
 
-    let sideBarContent = (
+    const sideBarContent = (
       <div style={{ color: '#000000' }}>
-        <List
-          component="nav"
-          aria-label="otherstuff"
-          //style={{ backgroundColor: '#eeeeee' }}
-        >
-          <ListItem
-            button
-            component="a"
-            href="https://github.com/blainegarrett"
-            target="_blank"
-            rel="noopener"
-          >
+        <List component="nav" aria-label="otherstuff">
+          <ListItem button component="a" href="https://github.com/blainegarrett" target="_blank" rel="noopener">
             <ListItemIcon>
               <GitHubIcon />
             </ListItemIcon>
@@ -70,13 +61,7 @@ export default class AboutPage extends React.Component {
             <ListItemText primary="Instagram" />
           </ListItem>
 
-          <ListItem
-            button
-            component="a"
-            href="https://twitter.com/blainegarrett"
-            target="_blank"
-            rel="noopener"
-          >
+          <ListItem button component="a" href="https://twitter.com/blainegarrett" target="_blank" rel="noopener">
             <ListItemIcon>
               <TwitterIcon />
             </ListItemIcon>
@@ -105,33 +90,27 @@ export default class AboutPage extends React.Component {
               <Row>
                 <Col xs={12} md={6}>
                   <div style={{ padding: 16 }}>
-                    <p>
-                      Hi, I am Blaine: a Minneapolis based artist, software
-                      engineer, and tinkerer.
-                    </p>
+                    <p>Hi, I am Blaine: a Minneapolis based artist, software engineer, and tinkerer.</p>
 
                     <p>
                       I am married to a wonderful human being named Katie (
-                      <a href="http://www.usuallypolite.com">@UsuallyPolite</a>)
-                      who happens to be brilliant. We make art together.
+                      <a href="http://www.usuallypolite.com">@UsuallyPolite</a>) who happens to be brilliant. We make
+                      art together.
                       <br />
                       <br />
                       Things I am involved with
                     </p>
                     <ul>
                       <li>
-                        <a href="https://www.mplsart.com">MPLSART.COM</a> --
-                        Twin Cities visual arts calendar I co-run with my wife
-                        Katie.
+                        <a href="https://www.mplsart.com">MPLSART.COM</a> -- Twin Cities visual arts calendar I co-run
+                        with my wife Katie.
                       </li>
                       <li>
-                        <a href="http://www.dimmedia.com">Dim Media</a> - Twin
-                        Cities Artist Collaborative
+                        <a href="http://www.dimmedia.com">Dim Media</a> - Twin Cities Artist Collaborative
                       </li>
                       <li>
-                        <a href="https://www.localm.org">Local Music Online</a>{' '}
-                        -- Archive of the NW Wisconsin Music Scene 1998-2003
-                        (returning soon)
+                        <a href="https://www.localm.org">Local Music Online</a> -- Archive of the NW Wisconsin Music
+                        Scene 1998-2003 (returning soon)
                       </li>
                     </ul>
                   </div>

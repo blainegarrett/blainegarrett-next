@@ -14,32 +14,24 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import LabelIcon from '@material-ui/icons/Label';
 
-let loadMoreFunc = (dispatch) => async (nextCursor) => {
-  await dispatch(articleCommands.loadArticles(
-    { limit: 10, verbose: false },
-    nextCursor,
-    'all'
-  ));
+const loadMoreFunc = dispatch => async nextCursor => {
+  await dispatch(articleCommands.loadArticles({ limit: 10, verbose: false }, nextCursor, 'all'));
 };
 
 const BlogIndexPage = () => {
+  const dispatch = useDispatch();
+  const loadMoreArticles = loadMoreFunc(dispatch);
 
-  let dispatch = useDispatch();
-  let loadMoreArticles = loadMoreFunc(dispatch);
-
-  let meta = {
-    title: 'Blog',
-    description: 'My Blog'
+  const meta = {
+    title: 'Musings',
+    description: 'My Blog',
+    url: 'https://www.blainegarrett.com/blog',
   };
 
-  let sideBarContent = (
+  const sideBarContent = (
     <div style={{ color: '#000000' }}>
-      <List
-        component="nav"
-        aria-label="otherstuff"
-        dense
-        //style={{ backgroundColor: '#eeeeee' }}
-      >
+      <List component="nav" aria-label="otherlinks" dense>
+        {/* TODO: Convert these to Next Links */}
         <ListItem button component="a" href="/art">
           <ListItemIcon>
             <LabelIcon />
@@ -71,8 +63,6 @@ const BlogIndexPage = () => {
     </div>
   );
 
-
-
   return (
     <Page isFluid title="Blog" activePage="blog" meta={meta}>
       <ContentWrapper
@@ -80,7 +70,7 @@ const BlogIndexPage = () => {
         image="https://commondatastorage.googleapis.com/blaine-garrett/juniper/old_gods.jpg"
         sideBarContent={sideBarContent}
       >
-        <IndexPageComponent loadMoreArticles={loadMoreArticles} paginationKey="all"/>
+        <IndexPageComponent loadMoreArticles={loadMoreArticles} paginationKey="all" />
       </ContentWrapper>
     </Page>
   );
@@ -91,12 +81,12 @@ BlogIndexPage.getInitialProps = async ({ reduxStore }) => {
   // valid time before first render
   const { dispatch } = reduxStore;
   const loadMoreArticles = loadMoreFunc(dispatch);
-  
+
   // Kick off The Initial Load...
   await loadMoreArticles(null);
 
   // Return the
-  return {loadMoreArticles};
+  return { loadMoreArticles };
 };
 
 export default BlogIndexPage;

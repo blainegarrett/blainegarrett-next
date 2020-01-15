@@ -4,7 +4,7 @@ const useStyles = makeStyles(theme => {
   return {
     '@global': {
       html: {
-        'font-size': '14px'
+        'font-size': '14px',
       },
       body: {
         'font-size': '1rem',
@@ -12,27 +12,27 @@ const useStyles = makeStyles(theme => {
         'font-weight': 400,
         color: '#555',
         'text-rendering': 'optimizelegibility',
-        'font-family': '"Open Sans", Helvetica, Arial, sans-serif'
+        'font-family': '"Open Sans", Helvetica, Arial, sans-serif',
       },
       a: {
         color: theme.palette.primary[500],
         textDecoration: 'none',
         '&:hover': {
-          textDecoration: 'underline'
-        }
+          textDecoration: 'underline',
+        },
       },
       p: {
         color: '#555',
-        'line-height': '1.6'
+        'line-height': '1.6',
       },
       'li, p': {
         color: '#555',
-        'line-height': '1.6'
+        'line-height': '1.6',
       },
 
       // Blog article styles...
       '.img-responsive': {
-        width: '100%'
+        width: '100%',
       },
       '.list-unstyled': {
         //'padding-left': 0,
@@ -41,9 +41,9 @@ const useStyles = makeStyles(theme => {
 
       'ul, ol': {
         'margin-top': 0,
-        'margin-bottom': '10px'
-      }
-    }
+        'margin-bottom': '10px',
+      },
+    },
   };
 });
 

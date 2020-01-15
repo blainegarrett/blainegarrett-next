@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = () => ({
   section: {
-    'margin-bottom': '30px'
+    'margin-bottom': '30px',
   },
   headline: {
     'margin-bottom': '15px',
@@ -20,8 +20,8 @@ const styles = theme => ({
       'padding-bottom': '5px',
       display: 'inline-block',
       'font-weight': 'normal !important',
-      'line-height': '1.1'
-    }
+      'line-height': '1.1',
+    },
   },
   socialIcons: {
     margin: '0',
@@ -49,40 +49,32 @@ const styles = theme => ({
         '-webkit-transition': 'all 0.3s ease-in-out',
         '&:hover': { opacity: 1 },
         '&.social_facebook': {
-          background:
-            'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/facebook.png") no-repeat'
+          background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/facebook.png") no-repeat',
         },
         '&.social_twitter': {
-          background:
-            'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/twitter.png") no-repeat'
+          background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/twitter.png") no-repeat',
         },
         '&.social_linkedin': {
-          background:
-            'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/linkedin.png") no-repeat'
+          background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/linkedin.png") no-repeat',
         },
         '&.social_github': {
-          background:
-            'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/github.png") no-repeat'
+          background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/github.png") no-repeat',
         },
         '&.social_instagram': {
-          background:
-            'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/instagram.png") no-repeat'
+          background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/instagram.png") no-repeat',
         },
         '&.social_googleplus': {
-          background:
-            'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/googleplus.png") no-repeat'
+          background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/googleplus.png") no-repeat',
         },
         '&.social_youtube': {
-          background:
-            'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/youtube.png") no-repeat'
+          background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/youtube.png") no-repeat',
         },
         '&.social_pintrest': {
-          background:
-            'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/pintrest.png") no-repeat'
-        }
-      }
-    }
-  }
+          background: 'url("https://storage.googleapis.com/blaine-garrett/theme/v2/social/pintrest.png") no-repeat',
+        },
+      },
+    },
+  },
 });
 
 const SideBar = ({ classes }) => {
@@ -109,7 +101,7 @@ const SideBar = ({ classes }) => {
 };
 
 SideBar.propTypes = {
-  classes: PropTypes.object
+  classes: PropTypes.object,
 };
 
 export default withStyles(styles)(SideBar);

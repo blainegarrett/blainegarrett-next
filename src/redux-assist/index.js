@@ -26,12 +26,9 @@ export function asyncCallMapper(actionGroup) {
   // actionGroup is a object created by createRequestTypes
   return {
     actionGroup, // for debugging purposes
-    request: async_args =>
-      actionFactory(actionGroup[REQUEST], { ...async_args }),
-    success: (response, async_args) =>
-      actionFactory(actionGroup[SUCCESS], { response, ...async_args }),
-    failure: (error, async_args) =>
-      actionFactory(actionGroup[FAILURE], { error, ...async_args })
+    request: async_args => actionFactory(actionGroup[REQUEST], { ...async_args }),
+    success: (response, async_args) => actionFactory(actionGroup[SUCCESS], { response, ...async_args }),
+    failure: (error, async_args) => actionFactory(actionGroup[FAILURE], { error, ...async_args }),
   };
 }
 
@@ -62,19 +59,14 @@ export function resourceIndex(state = {}, action) {
   // If you are using the apiClient to query, it stuffs the json body into action.result with the key of results being the response data
 
   // duck type a async action success
-  if (
-    action.type &&
-    action.type.indexOf(SUCCESS) !== -1 &&
-    action.response &&
-    action.response.results
-  ) {
+  if (action.type && action.type.indexOf(SUCCESS) !== -1 && action.response && action.response.results) {
     // This is likely a async response
-    var resources = action.response.results;
+    let resources = action.response.results;
     if (!Array.isArray(resources)) {
       resources = [resources];
     }
 
-    let new_resources = {};
+    const new_resources = {};
     resources.forEach(function(resource) {
       if (resource.resource_id) {
         // Ensure we do not overwrite verbose when not verbose
@@ -91,9 +83,7 @@ export function resourceIndex(state = {}, action) {
         return;
       }
 
-      console.debug(
-        'Resource did not have resource_id property. Is verbose=true?'
-      );
+      console.debug('Resource did not have resource_id property. Is verbose=true?');
     });
 
     return Object.assign({}, state, new_resources);
@@ -107,11 +97,7 @@ export function getResourcesFromState(resource_ids, state) {
 }
 
 // create a "selector creator" that uses lodash.isEqual instead of ===
-export const createDeepEqualSelector = createSelectorCreator(
-  defaultMemoize,
-  isEqual
-);
-
+export const createDeepEqualSelector = createSelectorCreator(defaultMemoize, isEqual);
 
 // Selectors...
 const selectResoureById = (state, resource_id) => {
@@ -119,11 +105,7 @@ const selectResoureById = (state, resource_id) => {
 };
 export const selectResourceIndex = state => state.resourceIndex;
 
-export const selectPaginationState = (
-  state,
-  sourceStoreName,
-  paginationKey
-) => {
+export const selectPaginationState = (state, sourceStoreName, paginationKey) => {
   let resource_ids = [];
   let more, nextCursor;
 
@@ -131,7 +113,7 @@ export const selectPaginationState = (
     throw new Error('Pagination Selector did not have a sourceStoreName argument.');
   }
 
-  let paginator = state[sourceStoreName].paginated[paginationKey];
+  const paginator = state[sourceStoreName].paginated[paginationKey];
   if (paginator) {
     resource_ids = paginator.ids;
     more = paginator.more;
@@ -148,21 +130,18 @@ export const makeSelectPagedResources = () => {
 
   return createDeepEqualSelector(
     //createSelector(
-    [
-      selectPaginationState, 
-      selectResourceIndex
-    ],
+    [selectPaginationState, selectResourceIndex],
     (
       //{ resource_ids, more, nextCursor }, // sourceStoreName, paginationKey
       //resourceIndex
       //) => {
 
-      {resource_ids, more, nextCursor}, resourceIndex) => {
+      { resource_ids, more, nextCursor },
+      resourceIndex
+    ) => {
       // Uncomment to debug selectors
       //console.log('Debug: makeSelectPagedResources called for store: ' + sourceStoreName + '.pagination[' + paginationKey + '] with nextCursor: ' + nextCursor);
-      let resources = resource_ids.map(
-        resource_id => resourceIndex[resource_id]
-      );
+      const resources = resource_ids.map(resource_id => resourceIndex[resource_id]);
       return { resources, more, nextCursor };
     }
   );
@@ -175,7 +154,8 @@ export const makeSelectResourceById = () => {
   return createDeepEqualSelector(
     //createSelector(
     [selectResoureById],
-    ({ resource }) => { // resource_id
+    ({ resource }) => {
+      // resource_id
       // Uncomment to debug selectors
       //console.log('Debug: makeSelectResourceById called for id: ' + resource_id);
       return resource;

@@ -9,17 +9,34 @@ import { getDataAttributes, getCustomDimensions } from './utils';
 
 const { publicRuntimeConfig } = getConfig();
 
+// An index of custom dimension keys - Be sure these align with what is in Analytics and Data Studio
+export const DIMENSIONS = {
+  // Advertisements
+  adClient: 'dimension1', // eg. Wetpaint
+  adCampaign: 'dimension2', // eg. 6 month
+  adInstance: 'dimension3', // Book Ad
+  adSpot: 'dimension4', // id of adspot - page, column, etc
+
+  // Content - these are used for PageViews as well
+  resourceId: 'dimension5', // resource id of primary target
+  resourceType: 'dimension6', // resource type of primary target eg. Event
+  resourceDisplayName: 'dimension7', // Nice displayname of primary target eg. "Opening"
+  isPremium: 'dimension8', // isPremium resource true/false
+  category: 'dimension9', // generic category of primary Resource
+  resourceIdParent: 'dimension10', // ResourceId of Parent Resource (eg. Gallery resource Id)
+  resourceTypeParent: 'dimension11', // Eg. Venue,
+  resourceDisplayNameParent: 'dimension12', // Display Name of parent resource eg. "Gamut Gallery"
+};
+
 /**
  * Initialize Google Analytics Tracker
  * @return {boolean} if tracker could be initialized
  */
 export const initTracker = () => {
-  let primaryTrackerId = publicRuntimeConfig.GA_PRIMARY_TRACKER_ID;
+  const primaryTrackerId = publicRuntimeConfig.GA_PRIMARY_TRACKER_ID;
 
   if (!primaryTrackerId) {
-    console.debug(
-      'Primary Tracker Id could not be established. Check value of GA_PRIMARY_TRACKER_ID of next.config'
-    );
+    console.debug('Primary Tracker Id could not be established. Check value of GA_PRIMARY_TRACKER_ID of next.config');
   }
 
   // Initialize ReactGA with tracker
@@ -27,27 +44,42 @@ export const initTracker = () => {
   return true;
 };
 
+// Internal helper to map human readable dimension data to data appropriate for sending to GA
+export function mapToCustomDimensions(data) {
+  let dimensionKey;
+  let niceDataKey;
+  const returnData = {};
+
+  for (niceDataKey in data) {
+    dimensionKey = DIMENSIONS[niceDataKey];
+    if (dimensionKey) {
+      returnData[dimensionKey] = data[niceDataKey]; // data[dimensionKey] is now the value
+    }
+  }
+  return returnData;
+}
+
 /**
  * Record an event given a raw payload
  * @param  {object} data Data payload
  * @return {boolean} if event was recorded
  */
 export const logEvent = data => {
-  let { eventCategory, eventAction, eventLabel, eventValue, ...rest } = data;
+  const { eventCategory, eventAction, eventLabel, eventValue, ...rest } = data;
 
   // Bail if we do not have an eventCategory and eventAction
   if (!(eventCategory && eventAction)) {
     console.debug('eventCategory and eventAction are required', {
       eventCategory,
-      eventAction
+      eventAction,
     });
     return false;
   }
 
-  let gaPayload = { eventCategory, eventAction, eventLabel, eventValue };
+  const gaPayload = { eventCategory, eventAction, eventLabel, eventValue };
 
   // Map human readable dimension names to dimensionX values for payload
-  let filteredDimensions = mapToCustomDimensions(rest);
+  const filteredDimensions = mapToCustomDimensions(rest);
 
   // Send Payload
   ReactGA.ga('send', 'event', { ...gaPayload, ...filteredDimensions });
@@ -60,10 +92,10 @@ export const logEvent = data => {
  * @return {boolean} If event was recorded
  */
 export function logClickEvent(element) {
-  var data = getDataAttributes(element);
+  const data = getDataAttributes(element);
 
   // Peel of data-* attributes and convert to camelcase
-  let gaPayload = {};
+  const gaPayload = {};
 
   // Apply some sane defaults
   let { gaCategory, gaLabel, gaAction, gaValue, ...rest } = data;
@@ -88,40 +120,6 @@ export function logClickEvent(element) {
   gaPayload.eventValue = gaValue;
 
   // Filter list down into known custom dimensions
-  let customDimensions = getCustomDimensions(rest);
+  const customDimensions = getCustomDimensions(rest);
   return logEvent({ ...gaPayload, ...customDimensions });
 }
-
-// Internal helper to map human readable dimension data to data appropriate for sending to GA
-export function mapToCustomDimensions(data) {
-  let dimensionKey;
-  let niceDataKey;
-  let returnData = {};
-
-  for (niceDataKey in data) {
-    dimensionKey = DIMENSIONS[niceDataKey];
-    if (dimensionKey) {
-      returnData[dimensionKey] = data[niceDataKey]; // data[dimensionKey] is now the value
-    }
-  }
-  return returnData;
-}
-
-// An index of custom dimension keys - Be sure these align with what is in Analytics and Data Studio
-export const DIMENSIONS = {
-  // Advertisements
-  adClient: 'dimension1', // eg. Wetpaint
-  adCampaign: 'dimension2', // eg. 6 month
-  adInstance: 'dimension3', // Book Ad
-  adSpot: 'dimension4', // id of adspot - page, column, etc
-
-  // Content - these are used for PageViews as well
-  resourceId: 'dimension5', // resource id of primary target
-  resourceType: 'dimension6', // resource type of primary target eg. Event
-  resourceDisplayName: 'dimension7', // Nice displayname of primary target eg. "Opening"
-  isPremium: 'dimension8', // isPremium resource true/false
-  category: 'dimension9', // generic category of primary Resource
-  resourceIdParent: 'dimension10', // ResourceId of Parent Resource (eg. Gallery resource Id)
-  resourceTypeParent: 'dimension11', // Eg. Venue,
-  resourceDisplayNameParent: 'dimension12' // Display Name of parent resource eg. "Gamut Gallery"
-};

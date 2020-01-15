@@ -6,25 +6,22 @@ const useStyles = makeStyles(() => ({
   legacyContainer: {
     padding: '0 16px',
     '& img': {
-      width: '100% !important'
-    }
-  }
+      width: '100% !important',
+    },
+  },
 }));
 
 export default function ArticleRenderer({ article }) {
   const classes = useStyles();
 
-  // Process Content 
+  // Process Content
   // TODO: Move this to a more unit testable spot
   let content = article.content;
-  let youtubeTemplate =
+  const youtubeTemplate =
     '<div class="videoWrapper"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/$2" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen /></div>';
 
   content = content.replace(/<pre>/gi, '<pre class="language-javascript">');
-  content = content.replace(
-    /(\[youtube:https?:\/\/www\.youtube\.com\/watch\?v=)(.+)(])/i,
-    youtubeTemplate
-  );
+  content = content.replace(/(\[youtube:https?:\/\/www\.youtube\.com\/watch\?v=)(.+)(])/i, youtubeTemplate);
 
   return (
     <div className={classes.legacyContainer}>
@@ -35,5 +32,5 @@ export default function ArticleRenderer({ article }) {
 
 ArticleRenderer.propTypes = {
   classes: PropTypes.object,
-  article: PropTypes.object
+  article: PropTypes.object,
 };

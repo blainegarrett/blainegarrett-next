@@ -11,49 +11,43 @@ import IndexPageComponent from './IndexPageComponent';
 
 import { commands as articleCommands } from '../../src/modules/articles/redux';
 
-
-let loadMoreFunc = (dispatch, paginationKey) => async (nextCursor) => {
+const loadMoreFunc = (dispatch, paginationKey) => async nextCursor => {
   // Note: paginationKey is the same as paginationKey AND categorySlug
-  await dispatch(articleCommands.loadArticles(
-    { limit: 10, verbose: false, category_slug: paginationKey},
-    nextCursor,
-    paginationKey
-  ));
+  await dispatch(
+    articleCommands.loadArticles({ limit: 10, verbose: false, category_slug: paginationKey }, nextCursor, paginationKey)
+  );
 };
 
+const BlogIndexPage = ({ categorySlug }) => {
+  const dispatch = useDispatch();
+  const loadMoreArticles = loadMoreFunc(dispatch, categorySlug);
 
-const BlogIndexPage = ({categorySlug}) => {
+  const activePage = categorySlug == 'programming' || categorySlug == 'art' ? categorySlug : 'blog';
 
-  let dispatch = useDispatch();
-  let loadMoreArticles = loadMoreFunc(dispatch, categorySlug);
-
-  let activePage =
-  categorySlug == 'programming' || categorySlug == 'art'
-    ? categorySlug
-    : 'blog';
-  
   // Prettify The Slug for Display Purposes
-  let prettySlug = categorySlug.split('-').map(x => x.charAt(0).toUpperCase() + x.slice(1)).join(' ');
+  const prettySlug = categorySlug
+    .split('-')
+    .map(x => x.charAt(0).toUpperCase() + x.slice(1))
+    .join(' ');
 
   // Image
-  let contentWrapperProps = {};
+  const contentWrapperProps = {};
   if (categorySlug == 'art') {
-    contentWrapperProps.image =
-    'https://commondatastorage.googleapis.com/blaine-garrett/juniper/spraypaint.jpg';
+    contentWrapperProps.image = 'https://commondatastorage.googleapis.com/blaine-garrett/juniper/spraypaint.jpg';
   } else if (categorySlug == 'programming') {
-    contentWrapperProps.image =
-    'https://commondatastorage.googleapis.com/blaine-garrett/juniper/blackhole.png';
+    contentWrapperProps.image = 'https://commondatastorage.googleapis.com/blaine-garrett/juniper/blackhole.png';
   }
 
-  let meta = {
+  const meta = {
     title: prettySlug,
-    description: 'Articles pertaining to ' + prettySlug
+    description: 'Articles pertaining to ' + prettySlug,
+    url: 'https://www.blainegarrett.com/' + categorySlug,
   };
 
   return (
     <Page isFluid title={prettySlug} activePage={activePage} meta={meta}>
       <ContentWrapper title={prettySlug} {...contentWrapperProps}>
-        <IndexPageComponent loadMoreArticles={loadMoreArticles} paginationKey={categorySlug}/>
+        <IndexPageComponent loadMoreArticles={loadMoreArticles} paginationKey={categorySlug} />
       </ContentWrapper>
     </Page>
   );
@@ -62,18 +56,17 @@ const BlogIndexPage = ({categorySlug}) => {
 BlogIndexPage.getInitialProps = async ({ reduxStore, query }) => {
   // Tick the time once, so we'll have a
   // valid time before first render
-  let categorySlug = query.slug;
-
+  const categorySlug = query.slug;
 
   // TODO: Check if we already have the data
   const { dispatch } = reduxStore;
   const loadMoreArticles = loadMoreFunc(dispatch, categorySlug);
-  
+
   // Kick off The Initial Load...
   await loadMoreArticles(null);
 
   // Return the
-  return {loadMoreArticles, categorySlug};
+  return { loadMoreArticles, categorySlug };
 };
 
 export default BlogIndexPage;

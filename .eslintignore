@@ -1,5 +1,7 @@
+node_modules/*
 build/*
 README.md
-app.yaml
 .gitignore
 .gcloudignore
+.prettierrc
+app.yaml
