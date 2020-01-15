@@ -13,7 +13,7 @@ export default class IndexPage extends React.Component {
 
     return (
       <Page isFluid activePage="home" meta={meta}>
-        <ContentWrapper title={'Welcome'} loading="lazy" image="/static/drips2.jpf" headerLarge>
+        <ContentWrapper title={'Welcome'} loading="lazy" image="/static/drips1.jpg" headerLarge>
           <Row>
             <Col xs={12}>
               <div style={{ padding: 16 }}>
