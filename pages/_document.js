@@ -9,6 +9,9 @@ class Document extends NextDocument {
     return (
       <html lang="en" dir="ltr">
         <Head>
+          <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin />
+          <link rel="preconnect" href="https://www.google-analytics.com/" crossOrigin />
+          <link rel="preconnect" href="https://storage.googleapis.com/" crossOrigin />
           {/* note if you change the icons, update manifest too */}
           {/* Use https://favicon.io/favicon-converter/ */}
 
