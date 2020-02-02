@@ -45,5 +45,13 @@
   
     // Typescript
     "@typescript-eslint/camelcase" : [0]
-  }
+  },
+  "overrides": [
+    {
+        "files": ["**/*.tsx"],
+        "rules": {
+            "react/prop-types": "off"
+        }
+    }
+]
 }

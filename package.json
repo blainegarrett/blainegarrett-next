@@ -60,7 +60,8 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "jsdom",
+    "resetMocks": true
   },
   "scripts": {
     "dev": "node server.js",
@@ -74,7 +75,7 @@
     "type": "git",
     "url": "git+https://blainegarrett@github.com/blainegarrett/blainegarrett-next.git"
   },
-  "author": "Blaine Garrett",
+  "author": "Blaine Garrett <blaine@blainegarrett.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/blainegarrett/blainegarrett-next/issues"
