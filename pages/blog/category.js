@@ -10,6 +10,7 @@ import ContentWrapper from './../../src/components/layout/ContentWrapper';
 import IndexPageComponent from './IndexPageComponent';
 
 import { commands as articleCommands } from '../../src/modules/articles/redux';
+import ProgrammingSidebar from '../../src/components/layout/ProgrammingSideBar';
 
 const loadMoreFunc = (dispatch, paginationKey) => async nextCursor => {
   // Note: paginationKey is the same as paginationKey AND categorySlug
@@ -36,6 +37,7 @@ const BlogIndexPage = ({ categorySlug }) => {
     contentWrapperProps.image = 'https://commondatastorage.googleapis.com/blaine-garrett/juniper/spraypaint.jpg';
   } else if (categorySlug == 'programming') {
     contentWrapperProps.image = 'https://commondatastorage.googleapis.com/blaine-garrett/juniper/blackhole.png';
+    contentWrapperProps.sideBarContent = <ProgrammingSidebar />;
   }
 
   const meta = {

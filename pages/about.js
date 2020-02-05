@@ -14,6 +14,7 @@ import Divider from '@material-ui/core/Divider';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import EmailIcon from '@material-ui/icons/Email';
+import FormatListBulleted from '@material-ui/icons/FormatListBulleted';
 
 export default class AboutPage extends React.Component {
   render() {
@@ -45,7 +46,18 @@ export default class AboutPage extends React.Component {
             </ListItemIcon>
             <ListItemText primary="LinkedIn" />
           </ListItem>
-
+          <ListItem
+            button
+            component="a"
+            href="https://storage.googleapis.com/blaine-garrett/resume/blaine-garrett-resume-2020-02-05-no-phone.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            <ListItemIcon>
+              <FormatListBulleted />
+            </ListItemIcon>
+            <ListItemText primary="Resume" />
+          </ListItem>
           <Divider />
 
           <ListItem

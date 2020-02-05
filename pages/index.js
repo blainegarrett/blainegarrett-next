@@ -13,20 +13,22 @@ export default class IndexPage extends React.Component {
 
     return (
       <Page isFluid activePage="home" meta={meta}>
-        <ContentWrapper title={'Welcome'} loading="lazy" image="/static/drips1.jpg" headerLarge>
+        <ContentWrapper
+          title={'Welcome'}
+          loading="lazy"
+          image="/static/drips1.jpg"
+          headerLarge
+          subheadingContent={
+            <p>
+              Portfolio returning soon. Check out my{' '}
+              <a href="https://www.linkedin.com/in/blainegarrett/">Linked In profile</a> or{' '}
+              <a href="/blog">read articles</a> I have written.
+            </p>
+          }
+        >
           <Row>
             <Col xs={12}>
-              <div style={{ padding: 16 }}>
-                Returning soon. I am rebuilding the site from the ground up to be be more 2020 friendly:
-                <ul>
-                  <li>Material Design</li>
-                  <li>React/Redux</li>
-                  <li>NextJS</li>
-                  <li>REST</li>
-                  <li>NodeJS on Google App Engine Standard.</li>
-                </ul>
-                Stay tuned.
-              </div>
+              <div style={{ padding: 16 }}></div>
             </Col>
           </Row>
         </ContentWrapper>
