@@ -52,13 +52,14 @@ const useStyles = makeStyles(theme => {
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       display: 'block',
+      backgroundAttachment: 'fixed',
 
       // Blur Variant
-      '&.blur': {
-        filter: 'blur(.5rem) brightness(75%)',
-        overflow: 'hidden',
-        transform: 'scale(1.1)',
-      },
+      //'&.blur': {
+      //filter: 'blur(.5rem) brightness(75%)',
+      //overflow: 'hidden',
+      //transform: 'scale(1.1)',
+      //},
     },
 
     // Header image dark gradiant overlay
@@ -70,6 +71,10 @@ const useStyles = makeStyles(theme => {
       position: 'absolute',
       background: 'linear-gradient(to top, rgb(0,0,0,.75) 0%, transparent 75%)',
       zIndex: 299,
+
+      '&.blur': {
+        backdropFilter: 'blur(.5rem)',
+      },
     },
 
     experimentContent: {
@@ -212,14 +217,13 @@ export default function ContentWrapper({
           large: headerLarge,
         })}
       >
+        <div className={classes.headerBackground} style={extraStyles} />
         <div
           className={classnames({
-            [classes.headerBackground]: true,
+            [classes.headerOverlay]: true,
             blur: headerBlur,
           })}
-          style={extraStyles}
         />
-        <div className={classes.headerOverlay} />
       </div>
 
       <Grid className={classes.experimentContent} fluid={true}>

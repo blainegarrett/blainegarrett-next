@@ -38,6 +38,7 @@ describe('calling recordPageViewFromMeta', () => {
     expect(ReactGA.ga).toHaveBeenCalledTimes(1);
     expect(ReactGA.ga).toBeCalledWith('send', 'pageView', {
       page: 'https://www.example.com',
+      location: 'https://www.example.com',
       title: 'Blog Post',
       dimension1: 'wetpaint',
     });
