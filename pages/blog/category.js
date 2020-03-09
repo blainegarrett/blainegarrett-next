@@ -56,7 +56,7 @@ const BlogIndexPage = ({ categorySlug }) => {
 };
 
 BlogIndexPage.getInitialProps = async ({ reduxStore, query }) => {
-  // Tick the time once, so we'll have a
+  // TODO: Select if we already have stuff loaded to prevent refetch...
   // valid time before first render
   const categorySlug = query.slug;
 

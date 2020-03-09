@@ -8,25 +8,31 @@ import ContentWrapper from './../../src/components/layout/ContentWrapper';
 import { commands as articleCommands } from '../../src/modules/articles/redux';
 import { selectors as articleSelectors } from '../../src/modules/articles/redux';
 
+async function ensureArticle(reduxStore, slug) {
+  // Step 1: Scope Selector
+  const selectArticleResourceBySlug = articleSelectors.makeSelectArticleResourceBySlug();
+  // Step 2: Select Article (only really applies on client)
+  let article = selectArticleResourceBySlug(reduxStore.getState(), slug);
+
+  // Step 3: If article not in store, async load it
+  if (!article) {
+    // If article not in state, attempt to async load it into state
+
+    await reduxStore.dispatch(articleCommands.loadArticleBySlug(slug));
+
+    // Step 3.5: Select Article - note async is done by now since await
+    article = selectArticleResourceBySlug(reduxStore.getState(), slug);
+  }
+
+  return article;
+}
+
 class ArticlePage extends React.Component {
   static async getInitialProps({ res, reduxStore, query }) {
     // Async load the article if it is not in store. On server throw 404. Redirect if slug not exact.
     const slug = query.slug;
 
-    // Step 1: Scope Selector
-    const selectArticleResourceBySlug = articleSelectors.makeSelectArticleResourceBySlug();
-
-    // Step 2: Select Article (only really applies on client)
-    let article = selectArticleResourceBySlug(reduxStore.getState(), slug);
-
-    // Step 3: If article not in store, async load it
-    if (!article) {
-      // If article not in state, attempt to async load it into state
-      await reduxStore.dispatch(articleCommands.loadArticleBySlug(slug));
-
-      // Step 3.5: Select Article - note async is done by now since await
-      article = selectArticleResourceBySlug(reduxStore.getState(), slug);
-    }
+    let article = await ensureArticle(reduxStore, slug);
 
     // Step 4: If still no article, then throw 404 on server
     if (!article) {

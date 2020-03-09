@@ -186,7 +186,7 @@ export default function ContentWrapper({
 
   // Image Node
   if (image) {
-    extraStyles = { backgroundImage: `url(${image})` };
+    extraStyles = { backgroundImage: `url("${image}")` };
   }
 
   // Title Node
