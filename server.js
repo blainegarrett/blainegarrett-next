@@ -28,7 +28,12 @@ let nakedMiddleware = function(force_url, isDev) {
   return function(req, res, next) {
     let requested_host = req.header('host');
 
-    if (isDev || requested_host === force_host) {
+    // Handle the start/stop request for basic scaling
+    if (req.path.startsWith('/_ah/')) {
+      // A 404 is fine
+      console.log(`Handling ${req.path} request in express middleware. Sending 404.`);
+      res.status(404).end();
+    } else if (isDev || requested_host === force_host || requested_host.endsWith('.appspot.com')) {
       next();
     } else {
       res.redirect(301, force_url + req.path);
