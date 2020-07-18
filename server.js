@@ -10,7 +10,6 @@
  */
 const express = require('express');
 const next = require('next');
-const compression = require('compression');
 const url = require('url');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -45,9 +44,6 @@ app
   .prepare()
   .then(() => {
     const server = express();
-
-    // TODO: compression might be on by default in next 9...
-    server.use(compression());
 
     // TODO: This should be a constant or env var?
     server.use(nakedMiddleware('https://www.blainegarrett.com', dev));
