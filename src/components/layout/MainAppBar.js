@@ -92,6 +92,8 @@ function ButtonAppBar(props) {
                     alt="Blaine Garrett Logo"
                     title="Blaine Garrett Logo"
                     loading="lazy"
+                    width="284"
+                    height="60"
                     className={classes.titleImage}
                   />
                 </a>
