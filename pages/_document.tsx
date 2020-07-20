@@ -1,11 +1,13 @@
+// Root Document
 import React from 'react';
 import { ServerStyleSheets } from '@material-ui/styles';
-import NextDocument, { Head, Main, NextScript } from 'next/document';
+import NextDocument, { Head, Main, NextScript, DocumentContext, DocumentInitialProps } from 'next/document';
 import flush from 'styled-jsx/server';
 import theme from '../src/theming/theme';
+import { RenderPageResult } from 'next/dist/next-server/lib/utils';
 
 class Document extends NextDocument {
-  render() {
+  render(): JSX.Element {
     return (
       <html lang="en" dir="ltr">
         <Head>
@@ -30,25 +32,6 @@ class Document extends NextDocument {
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
           <link href="/static/prism.css" rel="stylesheet" media="screen" type="text/css" />
-          <style>
-            {`
-          .videoWrapper {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
-    padding-top: 25px;
-    height: 0;
-    margin: 0 -16px;
-}
-.videoWrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-}
-`}
-          </style>
         </Head>
         <body>
           <Main />
@@ -58,7 +41,7 @@ class Document extends NextDocument {
     );
   }
 }
-Document.getInitialProps = async ctx => {
+Document.getInitialProps = async (ctx: DocumentContext): Promise<DocumentInitialProps> => {
   // Resolution order
   //
   // On the server:
@@ -85,9 +68,9 @@ Document.getInitialProps = async ctx => {
   const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 
-  ctx.renderPage = () =>
+  ctx.renderPage = (): RenderPageResult | Promise<RenderPageResult> =>
     originalRenderPage({
-      enhanceApp: App => props => sheets.collect(<App {...props} />),
+      enhanceApp: App => (props: any) => sheets.collect(<App {...props} />),
     });
 
   const initialProps = await NextDocument.getInitialProps(ctx);
