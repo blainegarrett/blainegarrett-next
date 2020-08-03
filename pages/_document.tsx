@@ -1,11 +1,14 @@
+// Root Document
 import React from 'react';
+import url from 'url';
 import { ServerStyleSheets } from '@material-ui/styles';
-import NextDocument, { Head, Main, NextScript } from 'next/document';
+import NextDocument, { Head, Main, NextScript, DocumentContext, DocumentInitialProps } from 'next/document';
 import flush from 'styled-jsx/server';
 import theme from '../src/theming/theme';
+import { RenderPageResult } from 'next/dist/next-server/lib/utils';
 
 class Document extends NextDocument {
-  render() {
+  render(): JSX.Element {
     return (
       <html lang="en" dir="ltr">
         <Head>
@@ -20,35 +23,11 @@ class Document extends NextDocument {
           <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png"></link>
           <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png"></link>
           <meta charSet="utf-8" />
-          {/* Use minimum-scale=1 to enable GPU rasterization */}
-          <meta
-            name="viewport"
-            content={'user-scalable=0, initial-scale=1, ' + 'minimum-scale=1, width=device-width, height=device-height'}
-          />
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
           <link href="/static/prism.css" rel="stylesheet" media="screen" type="text/css" />
-          <style>
-            {`
-          .videoWrapper {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
-    padding-top: 25px;
-    height: 0;
-    margin: 0 -16px;
-}
-.videoWrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-}
-`}
-          </style>
         </Head>
         <body>
           <Main />
@@ -58,7 +37,7 @@ class Document extends NextDocument {
     );
   }
 }
-Document.getInitialProps = async ctx => {
+Document.getInitialProps = async (ctx: DocumentContext): Promise<DocumentInitialProps> => {
   // Resolution order
   //
   // On the server:
@@ -81,13 +60,30 @@ Document.getInitialProps = async ctx => {
   // 3. app.render
   // 4. page.render
 
+  // "middleware" to enforce we're on our cannoical host
+  let targetHost = url.parse(process.env.CANONICAL_HOST as string).host;
+
+  if (
+    process.env.NODE_ENV !== 'development' &&
+    process.env.SKIP_CANONICAL_DOMAIN_REDIRECT !== 'true' &&
+    targetHost !== ctx.req?.headers.host &&
+    !ctx.asPath?.startsWith('/_ah/')
+  ) {
+    console.info(`Redirecting from ${ctx.req?.headers.host}${ctx.asPath}`);
+    ctx.res?.writeHead(308, {
+      Location: `${process.env.CANONICAL_HOST}${ctx.asPath}?redirected`,
+    });
+    ctx.res?.end();
+    return { html: '' };
+  }
+
   // Render app and page and get the context of the page with collected side effects.
   const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 
-  ctx.renderPage = () =>
+  ctx.renderPage = (): RenderPageResult | Promise<RenderPageResult> =>
     originalRenderPage({
-      enhanceApp: App => props => sheets.collect(<App {...props} />),
+      enhanceApp: (App) => (props: any) => sheets.collect(<App {...props} />),
     });
 
   const initialProps = await NextDocument.getInitialProps(ctx);

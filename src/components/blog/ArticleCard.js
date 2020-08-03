@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
+import InternalLink from '../../containers/InternalLink';
 
 const NextLink = React.forwardRef((props, ref) => {
   const { href, as, prefetch, passHref, linkComponent, ...rest } = props;
@@ -28,7 +29,7 @@ NextLink.propTypes = {
   linkComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 };
 
-const useStyles = makeStyles(theme => {
+const useStyles = makeStyles((theme) => {
   return {
     card: {
       //float: 'left',
@@ -64,17 +65,12 @@ export default function ArticleCard(props) {
 
   const slug_prefix = moment(resource.published_date).format('YYYY/MM/DD');
 
-  //return (
-  //  <li><Link href={`/blog/article?slug=${resource.slug}`} as={`${slug_prefix}/${resource.slug}`}><a title={resource.slug} className="permalink">{ resource.title }</a></Link></li>
-  //);
-
   return (
     <Card className={classes.card}>
       <CardActionArea
-        component={NextLink}
-        linkComponent={'button'}
+        component={InternalLink}
         href={`/blog/article?slug=${resource.slug}`}
-        as={`${slug_prefix}/${resource.slug}`}
+        as={`/${slug_prefix}/${resource.slug}`}
       >
         <CardMedia
           component="img"

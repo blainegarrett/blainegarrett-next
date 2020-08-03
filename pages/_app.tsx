@@ -1,31 +1,42 @@
+// Main Next App Wrapper
 import React from 'react';
-import NextApp from 'next/app';
+import NextApp, { AppProps } from 'next/app';
+import Head from 'next/head';
+
+import { Store } from 'redux';
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import GlobalStyles from '../src/theming/GlobalStyles';
 import theme from '../src/theming/theme';
 import AppContextProvider from '../src/contexts/AppContext';
 import analytics from '../src/analytics';
 import withReduxStore from '../src/redux/withReduxStore';
 import { Provider as ReduxProvider } from 'react-redux';
 
-class App extends NextApp {
-  componentDidMount() {
+interface MyAppProps extends AppProps {
+  reduxStore: Store;
+}
+
+class App extends NextApp<MyAppProps> {
+  componentDidMount(): void {
     // Initialize Google Analytics
     analytics.init();
 
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
+    if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
   }
 
-  render() {
+  render(): JSX.Element {
     const { reduxStore, Component, pageProps } = this.props;
 
     return (
-      <React.Fragment>
+      <>
+        <Head>
+          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        </Head>
+
         {/* Wrap every page in Styles and Theme providers */}
         <StylesProvider injectFirst={true}>
           {/* MuiThemeProvider makes the theme available down the React
@@ -33,7 +44,6 @@ class App extends NextApp {
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <GlobalStyles />
             <ReduxProvider store={reduxStore}>
               <AppContextProvider>
                 <Component {...pageProps} />
@@ -41,7 +51,7 @@ class App extends NextApp {
             </ReduxProvider>
           </ThemeProvider>
         </StylesProvider>
-      </React.Fragment>
+      </>
     );
   }
 }

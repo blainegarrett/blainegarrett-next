@@ -8,6 +8,16 @@ const nextConfig = {
     API_HOST: 'https://blainegarrett-api-dot-blaine-garrett.appspot.com',
     GA_PRIMARY_TRACKER_ID: 'UA-150765667-1',
   },
+  workboxOpts: { swDest: './static/service-worker.js' },
+  async rewrites() {
+    return [
+      { source: '/favicon.ico', destination: '/static/favicon.ico' },
+      { source: '/robots.txt', destination: '/static/robots.txt' },
+      { source: '/service-worker.js', destination: '/_next/static/service-worker.js' },
+      { source: '/:year/:month/:day/:slug', destination: '/blog/article?lol=wut' },
+      { source: '/:slug', destination: '/blog/category' },
+    ];
+  },
 };
 
 // Comment out this conditional if you need to debug service worker during dev

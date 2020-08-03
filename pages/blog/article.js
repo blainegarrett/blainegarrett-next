@@ -46,21 +46,15 @@ class ArticlePage extends React.Component {
     // Step 5: Ensure query url is in the desired published date format
     if (res) {
       // Note: We're not passing query.year, month, date, so they're undefined on client
-      const expectedPrefix = `20${query.year}-${query.month}-${query.day}`;
-      const publishedTZ = moment(article.published_date)
-        .utc()
-        .add(-6, 'hours');
+      const expectedPrefix = `${query.year}-${query.month}-${query.day}`;
+      const publishedTZ = moment(article.published_date).utc().add(-6, 'hours');
 
       if (!publishedTZ.format().startsWith(expectedPrefix)) {
         // Redirect to the actual url
-        const bits = publishedTZ
-          .format()
-          .split('T')[0]
-          .split('-');
+        const bits = publishedTZ.format().split('T')[0].split('-');
 
         if (res) {
           // Server Side - redirect...
-          console.log('Redirecting...');
           res.writeHead(302, {
             Location: `/${bits[0]}/${bits[1]}/${bits[2]}/${article.slug}`,
           });
@@ -91,13 +85,8 @@ class ArticlePage extends React.Component {
     }
 
     // Gross: Update permalink on the backend...
-    const publishedTZ = moment(article.published_date)
-      .utc()
-      .add(-6, 'hours');
-    const bits = publishedTZ
-      .format()
-      .split('T')[0]
-      .split('-');
+    const publishedTZ = moment(article.published_date).utc().add(-6, 'hours');
+    const bits = publishedTZ.format().split('T')[0].split('-');
     let permalink = `/${bits[0]}/${bits[1]}/${bits[2]}/${article.slug}`;
 
     // TODO: Clean this up a bit more...
