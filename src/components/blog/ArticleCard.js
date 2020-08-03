@@ -65,16 +65,12 @@ export default function ArticleCard(props) {
 
   const slug_prefix = moment(resource.published_date).format('YYYY/MM/DD');
 
-  //return (
-  //  <li><Link href={`/blog/article?slug=${resource.slug}`} as={`${slug_prefix}/${resource.slug}`}><a title={resource.slug} className="permalink">{ resource.title }</a></Link></li>
-  //);
-
   return (
     <Card className={classes.card}>
       <CardActionArea
         component={InternalLink}
         href={`/blog/article?slug=${resource.slug}`}
-        as={`${slug_prefix}/${resource.slug}`}
+        as={`/${slug_prefix}/${resource.slug}`}
       >
         <CardMedia
           component="img"
