@@ -1,5 +1,6 @@
 // Root Document
 import React from 'react';
+import url from 'url';
 import { ServerStyleSheets } from '@material-ui/styles';
 import NextDocument, { Head, Main, NextScript, DocumentContext, DocumentInitialProps } from 'next/document';
 import flush from 'styled-jsx/server';
@@ -58,6 +59,23 @@ Document.getInitialProps = async (ctx: DocumentContext): Promise<DocumentInitial
   // 2. page.getInitialProps
   // 3. app.render
   // 4. page.render
+
+  // "middleware" to enforce we're on our cannoical host
+  let targetHost = url.parse(process.env.CANONICAL_HOST as string).host;
+
+  if (
+    process.env.NODE_ENV !== 'development' &&
+    process.env.SKIP_CANONICAL_DOMAIN_REDIRECT !== 'true' &&
+    targetHost !== ctx.req?.headers.host &&
+    !ctx.asPath?.startsWith('/_ah/')
+  ) {
+    console.info(`Redirecting from ${ctx.req?.headers.host}${ctx.asPath}`);
+    ctx.res?.writeHead(308, {
+      Location: `${process.env.CANONICAL_HOST}${ctx.asPath}?redirected`,
+    });
+    ctx.res?.end();
+    return { html: '' };
+  }
 
   // Render app and page and get the context of the page with collected side effects.
   const sheets = new ServerStyleSheets();

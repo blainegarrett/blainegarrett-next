@@ -64,10 +64,10 @@
     "resetMocks": true
   },
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next -p ${PORT:-3000}",
     "build": "next build",
-    "start": "node server.js",
-    "start-local": "NODE_ENV=production PORT=8080 node server.js",
+    "start": "NODE_ENV=production next start -p $PORT",
+    "start-local": "NODE_ENV=production SKIP_CANONICAL_DOMAIN_REDIRECT=true next start -p ${PORT:-8080}",
     "test": "jest",
     "lint": "eslint . --ext .js,.ts"
   },
