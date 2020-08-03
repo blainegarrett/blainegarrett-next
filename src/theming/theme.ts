@@ -74,6 +74,22 @@ const muiTheme = createMuiTheme({
           //'list-style': 'none'
         },
 
+        // Video Wrapper
+        '.videoWrapper': {
+          position: 'relative',
+          paddingBottom: '56.25%' /* 16:9 */,
+          paddingTop: '25px',
+          height: 0,
+          margin: '0 -16px',
+        },
+        '.videoWrapper iframe': {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+        },
+
         'ul, ol': {
           marginTop: 0,
           marginBottom: '10px',

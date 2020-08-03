@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import { Grid } from '../../components/layout/grid';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: { flexGrow: 1 },
   appBar: { backgroundColor: '#000000' },
   flex: { flex: 1 },
@@ -22,6 +22,7 @@ const styles = theme => ({
     [theme.breakpoints.down('md')]: {
       maxWidth: '200px',
       marginLeft: '-24px',
+      maxHeight: '50px',
     },
   },
   menuButton: {
