@@ -1,6 +1,8 @@
 // Main Next App Wrapper
 import React from 'react';
 import NextApp, { AppProps } from 'next/app';
+import Head from 'next/head';
+
 import { Store } from 'redux';
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -30,7 +32,11 @@ class App extends NextApp<MyAppProps> {
     const { reduxStore, Component, pageProps } = this.props;
 
     return (
-      <React.Fragment>
+      <>
+        <Head>
+          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        </Head>
+
         {/* Wrap every page in Styles and Theme providers */}
         <StylesProvider injectFirst={true}>
           {/* MuiThemeProvider makes the theme available down the React
@@ -45,7 +51,7 @@ class App extends NextApp<MyAppProps> {
             </ReduxProvider>
           </ThemeProvider>
         </StylesProvider>
-      </React.Fragment>
+      </>
     );
   }
 }

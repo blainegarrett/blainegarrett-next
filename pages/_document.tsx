@@ -22,11 +22,6 @@ class Document extends NextDocument {
           <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png"></link>
           <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png"></link>
           <meta charSet="utf-8" />
-          {/* Use minimum-scale=1 to enable GPU rasterization */}
-          <meta
-            name="viewport"
-            content={'user-scalable=0, initial-scale=1, ' + 'minimum-scale=1, width=device-width, height=device-height'}
-          />
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -70,7 +65,7 @@ Document.getInitialProps = async (ctx: DocumentContext): Promise<DocumentInitial
 
   ctx.renderPage = (): RenderPageResult | Promise<RenderPageResult> =>
     originalRenderPage({
-      enhanceApp: App => (props: any) => sheets.collect(<App {...props} />),
+      enhanceApp: (App) => (props: any) => sheets.collect(<App {...props} />),
     });
 
   const initialProps = await NextDocument.getInitialProps(ctx);
