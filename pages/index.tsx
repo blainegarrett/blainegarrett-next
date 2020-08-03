@@ -23,7 +23,7 @@ const IndexPage: NextPage<{}> = () => {
           <p>
             Portfolio returning soon. Check out my{' '}
             <a href="https://www.linkedin.com/in/blainegarrett/">Linked In profile</a> or{' '}
-            <a href="/blog">read articles</a> I have written.
+            <a href="/blog">read articles</a> I have written. ~Blaine
           </p>
         }
       >
