@@ -2,19 +2,39 @@
 import React from 'react';
 import NextApp, { AppProps } from 'next/app';
 import Head from 'next/head';
+import { createStore } from 'redux';
 
-import { Store } from 'redux';
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '~/theming/theme';
 import AppContextProvider from '~/contexts/AppContext';
 import analytics from '~/analytics';
-import withReduxStore from '~/redux/withReduxStore';
+//import withReduxStore from '~/redux/withReduxStore';
 import { Provider as ReduxProvider } from 'react-redux';
+//import { wrapper } from '~/store';
+import { HYDRATE } from 'next-redux-wrapper';
+
+const rootReducer = (state = { tick: 'init' }, action) => {
+  switch (action.type) {
+    case HYDRATE:
+      // Attention! This will overwrite client state! Real apps should use proper reconciliation.
+      return { ...state, ...action.payload };
+    case 'TICK':
+      return { ...state, tick: action.payload };
+    default:
+      return state;
+  }
+};
 
 interface MyAppProps extends AppProps {
-  reduxStore: Store;
+  // reduxStore: Store;
+  derp?: boolean;
+  store: any;
 }
+
+const makeStore = (initialState) => {
+  return createStore(rootReducer, initialState);
+};
 
 class App extends NextApp<MyAppProps> {
   componentDidMount(): void {
@@ -29,7 +49,8 @@ class App extends NextApp<MyAppProps> {
   }
 
   render(): JSX.Element {
-    const { reduxStore, Component, pageProps } = this.props;
+    const { Component, pageProps } = this.props;
+    let store = makeStore({ tick: 'fuck' });
 
     return (
       <>
@@ -44,7 +65,7 @@ class App extends NextApp<MyAppProps> {
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <ReduxProvider store={reduxStore}>
+            <ReduxProvider store={store}>
               <AppContextProvider>
                 <Component {...pageProps} />
               </AppContextProvider>
@@ -56,4 +77,4 @@ class App extends NextApp<MyAppProps> {
   }
 }
 
-export default withReduxStore(App);
+export default App;
