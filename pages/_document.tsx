@@ -4,7 +4,7 @@ import url from 'url';
 import { ServerStyleSheets } from '@material-ui/styles';
 import NextDocument, { Head, Main, NextScript, DocumentContext, DocumentInitialProps } from 'next/document';
 import flush from 'styled-jsx/server';
-import theme from '../src/theming/theme';
+import theme from '~/theming/theme';
 import { RenderPageResult } from 'next/dist/next-server/lib/utils';
 
 class Document extends NextDocument {

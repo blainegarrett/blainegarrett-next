@@ -2,11 +2,11 @@ import moment from 'moment';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Page from '../../src/components/Page';
-import ArticleRenderer from '../../src/components/blog/ArticleRenderer';
-import ContentWrapper from './../../src/components/layout/ContentWrapper';
-import { commands as articleCommands } from '../../src/modules/articles/redux';
-import { selectors as articleSelectors } from '../../src/modules/articles/redux';
+import Page from '~/components/Page';
+import ArticleRenderer from '~/components/blog/ArticleRenderer';
+import ContentWrapper from '~/components/layout/ContentWrapper';
+import { commands as articleCommands } from '~/modules/articles/redux';
+import { selectors as articleSelectors } from '~/modules/articles/redux';
 
 async function ensureArticle(reduxStore, slug) {
   // Step 1: Scope Selector

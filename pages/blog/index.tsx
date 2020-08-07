@@ -2,11 +2,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { commands as articleCommands } from '../../src/modules/articles/redux';
+import { commands as articleCommands } from '~/modules/articles/redux';
 
-import Page from '../../src/components/Page';
-import ContentWrapper from './../../src/components/layout/ContentWrapper';
-import IndexPageComponent from './IndexPageComponent';
+import Page from '~/components/Page';
+import ContentWrapper from '~/components/layout/ContentWrapper';
+import ArticleListScreen from '~/screens/blog/ArticleListScreen';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,7 +14,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import LabelIcon from '@material-ui/icons/Label';
 
-const loadMoreFunc = dispatch => async nextCursor => {
+const loadMoreFunc = (dispatch) => async (nextCursor) => {
   await dispatch(articleCommands.loadArticles({ limit: 10, verbose: false }, nextCursor, 'all'));
 };
 
@@ -70,15 +70,13 @@ const BlogIndexPage = () => {
         image="https://commondatastorage.googleapis.com/blaine-garrett/juniper/old_gods.jpg"
         sideBarContent={sideBarContent}
       >
-        <IndexPageComponent loadMoreArticles={loadMoreArticles} paginationKey="all" />
+        <ArticleListScreen loadMoreArticles={loadMoreArticles} paginationKey="all" />
       </ContentWrapper>
     </Page>
   );
 };
 
 BlogIndexPage.getInitialProps = async ({ reduxStore }) => {
-  // Tick the time once, so we'll have a
-  // valid time before first render
   const { dispatch } = reduxStore;
   const loadMoreArticles = loadMoreFunc(dispatch);
 

@@ -2,9 +2,9 @@
 import React from 'react';
 import { NextPage } from 'next';
 
-import Page from '../src/components/Page';
-import { Row, Col } from '../src/components/layout/grid';
-import ContentWrapper from '../src/components/layout/ContentWrapper';
+import Page from '~/components/Page';
+import { Row, Col } from '~/components/layout/grid';
+import ContentWrapper from '~/components/layout/ContentWrapper';
 
 const LinksPage: NextPage<{}> = () => {
   const meta = {

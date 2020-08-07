@@ -10,7 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
-import { Grid } from '../../components/layout/grid';
+import { Grid } from '~/components/layout/grid';
 
 const styles = (theme) => ({
   root: { flexGrow: 1 },

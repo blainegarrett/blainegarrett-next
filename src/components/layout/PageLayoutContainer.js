@@ -5,7 +5,7 @@ import { Grid } from './grid';
 import MainAppBar from './MainAppBar';
 
 import MenuDialog from './MenuDialog';
-import { AppContext } from '../../contexts/AppContext';
+import { AppContext } from '~/contexts/AppContext';
 
 export default function PageLayoutContainer(props) {
   let { children, activePage, isFluid } = props;
@@ -20,7 +20,7 @@ export default function PageLayoutContainer(props) {
     setMenuActive(force);
   }
 
-  const onMenuToggle = force => {
+  const onMenuToggle = (force) => {
     // Optional force param should be bool
     let newMenuOpen = !appCtx.menuActive;
     if (force != undefined) {

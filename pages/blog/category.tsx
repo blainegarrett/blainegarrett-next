@@ -5,14 +5,14 @@ import { useDispatch } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
-import Page from '../../src/components/Page';
-import ContentWrapper from './../../src/components/layout/ContentWrapper';
-import IndexPageComponent from './IndexPageComponent';
+import Page from '~//components/Page';
+import ContentWrapper from '~//components/layout/ContentWrapper';
+import ArticleListScreen from '~//screens/blog/ArticleListScreen';
 
-import { commands as articleCommands } from '../../src/modules/articles/redux';
-import ProgrammingSidebar from '../../src/components/layout/ProgrammingSideBar';
+import { commands as articleCommands } from '~//modules/articles/redux';
+import ProgrammingSidebar from '~//components/layout/ProgrammingSideBar';
 
-const loadMoreFunc = (dispatch, paginationKey) => async nextCursor => {
+const loadMoreFunc = (dispatch, paginationKey) => async (nextCursor) => {
   // Note: paginationKey is the same as paginationKey AND categorySlug
   await dispatch(
     articleCommands.loadArticles({ limit: 10, verbose: false, category_slug: paginationKey }, nextCursor, paginationKey)
@@ -28,7 +28,7 @@ const BlogIndexPage = ({ categorySlug }) => {
   // Prettify The Slug for Display Purposes
   const prettySlug = categorySlug
     .split('-')
-    .map(x => x.charAt(0).toUpperCase() + x.slice(1))
+    .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
     .join(' ');
 
   // Image
@@ -49,7 +49,7 @@ const BlogIndexPage = ({ categorySlug }) => {
   return (
     <Page isFluid title={prettySlug} activePage={activePage} meta={meta}>
       <ContentWrapper title={prettySlug} {...contentWrapperProps}>
-        <IndexPageComponent loadMoreArticles={loadMoreArticles} paginationKey={categorySlug} />
+        <ArticleListScreen loadMoreArticles={loadMoreArticles} paginationKey={categorySlug} />
       </ContentWrapper>
     </Page>
   );

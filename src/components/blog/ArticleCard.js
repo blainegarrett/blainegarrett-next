@@ -1,3 +1,4 @@
+// Default Article Card Renderer
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -9,8 +10,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
-import InternalLink from '../../containers/InternalLink';
+import InternalLink from '~/containers/InternalLink';
 
+// Temporary Link Component to use for Material-UI Cards
 const NextLink = React.forwardRef((props, ref) => {
   const { href, as, prefetch, passHref, linkComponent, ...rest } = props;
   return (
@@ -32,7 +34,6 @@ NextLink.propTypes = {
 const useStyles = makeStyles((theme) => {
   return {
     card: {
-      //float: 'left',
       borderTop: 0,
       width: '100%',
       borderBottom: '1px solid rgba(0, 0, 0, 0.12)',

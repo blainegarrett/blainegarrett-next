@@ -6,10 +6,10 @@ import Head from 'next/head';
 import { Store } from 'redux';
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from '../src/theming/theme';
-import AppContextProvider from '../src/contexts/AppContext';
-import analytics from '../src/analytics';
-import withReduxStore from '../src/redux/withReduxStore';
+import theme from '~/theming/theme';
+import AppContextProvider from '~/contexts/AppContext';
+import analytics from '~/analytics';
+import withReduxStore from '~/redux/withReduxStore';
 import { Provider as ReduxProvider } from 'react-redux';
 
 interface MyAppProps extends AppProps {

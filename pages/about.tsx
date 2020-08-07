@@ -2,10 +2,10 @@
 import React from 'react';
 import { NextPage } from 'next';
 
-import Page from '../src/components/Page';
-import { Row, Col } from '../src/components/layout/grid';
-import ContentWrapper from '../src/components/layout/ContentWrapper';
-import SideBar from '../src/components/layout/SideBar';
+import Page from '~/components/Page';
+import { Row, Col } from '~/components/layout/grid';
+import ContentWrapper from '~/components/layout/ContentWrapper';
+import SideBar from '~/components/layout/SideBar';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedIn from '@material-ui/icons/LinkedIn';
 

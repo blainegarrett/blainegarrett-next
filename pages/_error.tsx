@@ -2,8 +2,8 @@
 import React from 'react';
 import { NextPage } from 'next';
 
-import Page from '../src/components/Page';
-import { Row, Col } from '../src/components/layout/grid';
+import Page from '~/components/Page';
+import { Row, Col } from '~/components/layout/grid';
 
 const ErrorPage: NextPage<{ statusCode: any }> = ({ statusCode }) => {
   // export default class ErrorPage extends React.Component {
