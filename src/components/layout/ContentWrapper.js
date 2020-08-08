@@ -5,8 +5,10 @@ import classnames from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import Hidden from '@material-ui/core/Hidden';
 import { Grid, Row, Col } from './grid';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/dist/client/router';
 
-const useStyles = makeStyles(theme => {
+const useStyles = makeStyles((theme) => {
   return {
     outerWrap: {
       width: '100%',
@@ -183,7 +185,7 @@ export default function ContentWrapper({
 }) {
   const classes = useStyles();
   let extraStyles = {};
-
+  let router = useRouter();
   // Image Node
   if (image) {
     extraStyles = { backgroundImage: `url("${image}")` };
@@ -198,33 +200,71 @@ export default function ContentWrapper({
   // Side Bar
   const sideBarWrapper = (
     <Col xs={12} md={2}>
-      <div
-        className={classnames({
-          [classes.sideBarContainer]: true,
-          large: headerLarge,
-        })}
+      <motion.div
+        key={router.asPath}
+        transition={{
+          type: 'spring',
+          damping: 20,
+          stiffness: 100,
+        }}
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: 0, opacity: 0 }}
+
+        /*
+                  initial="pageInitial"
+                  animate="pageAnimate"
+                  variants={{
+                    pageInitial: {
+                      opacity: 0,
+                      scale: 0.5,
+                    },
+                    pageAnimate: {
+                      opacity: 1,
+                      scale: 1,
+                    },
+                  }}
+                  */
       >
-        {sideBarContent}
-      </div>
+        <div
+          className={classnames({
+            [classes.sideBarContainer]: true,
+            large: headerLarge,
+          })}
+        >
+          {sideBarContent}
+        </div>
+      </motion.div>
     </Col>
   );
 
   return (
     <div className={classes.outerWrap}>
-      <div
-        className={classnames({
-          [classes.headerImageWrap]: true,
-          large: headerLarge,
-        })}
+      <motion.div
+        key={router.asPath}
+        transition={{
+          type: 'spring',
+          damping: 20,
+          stiffness: 100,
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
       >
-        <div className={classes.headerBackground} style={extraStyles} />
         <div
           className={classnames({
-            [classes.headerOverlay]: true,
-            blur: headerBlur,
+            [classes.headerImageWrap]: true,
+            large: headerLarge,
           })}
-        />
-      </div>
+        >
+          <div className={classes.headerBackground} style={extraStyles} />
+          <div
+            className={classnames({
+              [classes.headerOverlay]: true,
+              blur: headerBlur,
+            })}
+          />
+        </div>
+      </motion.div>
 
       <Grid className={classes.experimentContent} fluid={true}>
         <Row>
@@ -237,17 +277,41 @@ export default function ContentWrapper({
                 large: headerLarge,
               })}
             >
-              <div className={classes.headerTextContentInner}>
-                {title && <h1 className={classes.title}>{title}</h1>}
-                {titleContentNode}
-              </div>
+              <motion.div
+                key={router.asPath}
+                transition={{
+                  type: 'spring',
+                  damping: 20,
+                  stiffness: 100,
+                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <div className={classes.headerTextContentInner}>
+                  {title && <h1 className={classes.title}>{title}</h1>}
+                  {titleContentNode}
+                </div>
+              </motion.div>
             </div>
-            <div className={classes.experimentContentThing}>
-              <div className={classes.subheadingWrapper}>
-                {subheadingContent || 'I will find something good to put here...'}{' '}
+
+            <motion.div
+              key={router.asPath}
+              transition={{
+                type: 'spring',
+                damping: 20,
+                stiffness: 100,
+              }}
+              initial={{ y: 400, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ x: 0, opacity: 0 }}
+            >
+              <div className={classes.experimentContentThing}>
+                <div className={classes.subheadingWrapper}>
+                  {subheadingContent || 'I will find something good to put here...'}{' '}
+                </div>
+                <Col>{children}</Col>
               </div>
-              <Col>{children}</Col>
-            </div>
+            </motion.div>
           </Col>
           <Hidden mdUp>{sideBarWrapper}</Hidden>
         </Row>

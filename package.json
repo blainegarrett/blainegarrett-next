@@ -10,6 +10,7 @@
     "axios": "^0.19.2",
     "clsx": "^1.1.1",
     "express": "^4.17.1",
+    "framer-motion": "^2.3.0",
     "lodash.isequal": "^4.5.0",
     "moment-timezone": "^0.5.31",
     "next": "^9.5.1",
