@@ -6,7 +6,8 @@ import { commands as articleCommands } from '~/modules/articles/redux';
 
 import Page from '~/components/Page';
 import ContentWrapper from '~/components/layout/ContentWrapper';
-import ArticleListScreen from '~/screens/blog/ArticleListScreen';
+//import ArticleListScreen from '~/screens/blog/ArticleListScreen';
+import ArticleListScreen from './IndexPageComponent';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';

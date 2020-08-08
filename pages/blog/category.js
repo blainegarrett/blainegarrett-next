@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 
 import Page from '~//components/Page';
 import ContentWrapper from '~//components/layout/ContentWrapper';
-import ArticleListScreen from '~//screens/blog/ArticleListScreen';
-
+//import ArticleListScreen from '~//screens/blog/ArticleListScreen';
+import ArticleListScreen from './IndexPageComponent';
 import { commands as articleCommands } from '~//modules/articles/redux';
 import ProgrammingSidebar from '~//components/layout/ProgrammingSideBar';
 
