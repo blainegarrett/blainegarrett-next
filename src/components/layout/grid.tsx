@@ -81,7 +81,7 @@ export interface RowProps extends GridProps {
 
 const Row: React.FC<RowProps> = ({ children, ...rest }) => {
   return (
-    <MuiGrid {...rest} spacing={1} container={true}>
+    <MuiGrid {...rest} spacing={4} container={true}>
       {children}
     </MuiGrid>
   );

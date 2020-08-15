@@ -39,7 +39,7 @@ const muiTheme = createMuiTheme({
     MuiCssBaseline: {
       '@global': {
         html: {
-          fontSize: '14px',
+          fontSize: '16px',
         },
         body: {
           fontSize: '1rem',
@@ -47,7 +47,7 @@ const muiTheme = createMuiTheme({
           fontWeight: 400,
           color: '#555',
           textRendering: 'optimizelegibility',
-          fontFamily: '"Open Sans", Helvetica, Arial, sans-serif',
+          fontFamily: '"Inter", Helvetica, Arial, sans-serif',
         },
         a: {
           color: green[500],

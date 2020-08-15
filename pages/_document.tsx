@@ -26,7 +26,11 @@ class Document extends NextDocument {
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-          <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
+
+          {/* <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700&display=swap" rel="stylesheet" /> */}
+          <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
+
           <link href="/static/prism.css" rel="stylesheet" media="screen" type="text/css" />
         </Head>
         <body>
@@ -64,6 +68,7 @@ Document.getInitialProps = async (ctx: DocumentContext): Promise<DocumentInitial
   let targetHost = url.parse(process.env.CANONICAL_HOST as string).host;
 
   if (
+    ctx.req?.headers.host && // static...
     process.env.NODE_ENV !== 'development' &&
     process.env.SKIP_CANONICAL_DOMAIN_REDIRECT !== 'true' &&
     targetHost !== ctx.req?.headers.host &&

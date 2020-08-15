@@ -86,15 +86,12 @@ function ButtonAppBar(props) {
         <Grid>
           <Toolbar className={classes.toolbar}>
             <div className={classes.flex}>
-              <Link href="/index" as="/">
+              <Link href="/" as="/">
                 <a title="Home">
                   <img
                     src="https://storage.googleapis.com/blaine-garrett/theme/v2/logo.png"
                     alt="Blaine Garrett Logo"
                     title="Blaine Garrett Logo"
-                    loading="lazy"
-                    width="284"
-                    height="60"
                     className={classes.titleImage}
                   />
                 </a>
