@@ -5,7 +5,7 @@ const nextConfig = {
   distDir: 'build',
   serverRuntimeConfig: {},
   publicRuntimeConfig: {
-    API_HOST: 'https://blainegarrett-api-dot-blaine-garrett.appspot.com',
+    API_HOST: process.env.API_HOST,
     GA_PRIMARY_TRACKER_ID: 'UA-150765667-1',
   },
   workboxOpts: { swDest: './static/service-worker.js' },

@@ -42,7 +42,7 @@ function callApi(endpoint, params, data, method, skip_auth_header = false) {
 
   // Make request and call appropriate callbacks
   return axios(fullUrl, options)
-    .then(response => {
+    .then((response) => {
       return { json: response.data, response };
     })
     .then(({ json }) => {
@@ -57,8 +57,8 @@ function callApi(endpoint, params, data, method, skip_auth_header = false) {
       };
     })
     .then(
-      response => ({ response }),
-      function(error) {
+      (response) => ({ response }),
+      function (error) {
         // Handle network error
         console.error(error);
         if (error.messages) {
@@ -70,15 +70,15 @@ function callApi(endpoint, params, data, method, skip_auth_header = false) {
 }
 
 // Clean a cursor for use in the api - empty string is fine but not null
-const cleanCursor = cursor => (!cursor ? '' : cursor);
+const cleanCursor = (cursor) => (!cursor ? '' : cursor);
 
 export function fetchArticles({ nextCursor, params }) {
   if (params.is_published == undefined) {
     params.is_published = true;
   }
-  return callApi('/api/rest/v1.0/posts', { cursor: cleanCursor(nextCursor), ...params }, {}, 'GET', true);
+  return callApi('/api/rest/v2.0/posts', { cursor: cleanCursor(nextCursor), ...params }, {}, 'GET', true);
 }
 
 export function fetchArticleBySlug({ slug }) {
-  return callApi('/api/rest/v1.0/posts', { get_by_slug: slug, verbose: true }, {}, 'GET', true);
+  return callApi('/api/rest/v2.0/posts', { get_by_slug: slug, verbose: true }, {}, 'GET', true);
 }

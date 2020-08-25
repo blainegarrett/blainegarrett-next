@@ -33,7 +33,7 @@ const LOAD_ARTICLE = createAsyncActionTypes('LOAD_ARTICLE');
  Section 3: Reducers
 ************************************/
 const paginated = paginate({
-  mapActionToKey: action => action.paginationKey,
+  mapActionToKey: (action) => action.paginationKey,
   types: [LOAD_ARTICLES.REQUEST, LOAD_ARTICLES.SUCCESS, LOAD_ARTICLES.FAILURE],
 });
 
@@ -45,7 +45,7 @@ function articleSlugIndex(state = {}, action) {
       // This fires in addition to pagination so these are cached...
       const results = action.response.results;
       const newResources = state;
-      results.forEach(r => {
+      results.forEach((r) => {
         newResources[r.slug] = r.resource_id;
       });
 
@@ -91,7 +91,12 @@ const selectArticleBySlug = (state, slug) => {
  */
 const makeSelectArticleResourceBySlug = () => {
   return createDeepEqualSelector([selectArticleBySlug, selectResourceIndex], (resource_id, resourceIndex) => {
-    return resourceIndex[resource_id];
+    let resource = resourceIndex[resource_id];
+    if (resource && resource._meta.is_verbose) {
+      return resource;
+    }
+
+    return null;
   });
 };
 
@@ -121,7 +126,7 @@ const selectStuff = createSelector(makeSelectPagedResources(), ({ ...state }) =>
 // }
 
 function loadArticles(params, nextCursor, paginationKey) {
-  return dispatch => {
+  return (dispatch) => {
     return asyncFetch(dispatch, asyncCallMapper(LOAD_ARTICLES), fetchArticles, {
       params,
       nextCursor,
@@ -131,7 +136,7 @@ function loadArticles(params, nextCursor, paginationKey) {
 }
 
 function loadArticleBySlug(slug) {
-  return dispatch => {
+  return (dispatch) => {
     return asyncFetch(dispatch, asyncCallMapper(LOAD_ARTICLE), fetchArticleBySlug, { slug });
   };
 }
