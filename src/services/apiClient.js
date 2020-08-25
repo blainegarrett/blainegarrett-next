@@ -79,6 +79,7 @@ export function fetchArticles({ nextCursor, params }) {
   return callApi('/api/rest/v2.0/posts', { cursor: cleanCursor(nextCursor), ...params }, {}, 'GET', true);
 }
 
+// Fetch article by slug
 export function fetchArticleBySlug({ slug }) {
   return callApi('/api/rest/v2.0/posts', { get_by_slug: slug, verbose: true }, {}, 'GET', true);
 }
