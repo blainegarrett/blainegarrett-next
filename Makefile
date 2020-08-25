@@ -26,6 +26,11 @@ build:
 deploy:
 	gcloud --verbosity=debug --project blaine-garrett app deploy ./app.yaml --version $(filter-out $@,$(MAKECMDGOALS))
 
+.PHONY: deploy-vercel 
+deploy-vercel:
+	vercel --prod
+	echo "Deployed. Visit https://vercel.com/blainegarrett/blainegarrett-next"
+
 .PHONY: test
 test:
 	npm test
