@@ -70,7 +70,7 @@ const Heading: React.FC<{}> = (props) => {
             //border: '1px solid red',
           }}
         >
-          I'm a Minneapolis-based Software Engineer & Artist
+          I'm a Minneapolis-based Product Engineer &amp; Artist
         </Typography>
 
         <Button

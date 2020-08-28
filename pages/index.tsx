@@ -1,7 +1,13 @@
 // HomePage
 
 import React from 'react';
-import { NextPage } from 'next';
+import {
+  NextPage,
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  GetStaticPropsResult,
+} from 'next';
 import Page from '~/components/Page';
 import { Row, Col } from '~/components/layout/grid';
 import CoolCard from '~/components/blog/CoolCard';
@@ -11,6 +17,7 @@ import { ArticleResource } from '~/types';
 import { motion } from 'framer-motion';
 import Heading from '~/components/layout/Heading';
 import IntroPanel from '~/components/layout/IntroPanel';
+
 interface IndexPageProps {
   articles: ArticleResource[];
 }
@@ -104,6 +111,11 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
                 <Col xs={12}>
                   <br />
                   <Heading>Writing</Heading>
+                  <p style={{ marginBottom: 0, marginTop: 32 }}>
+                    I write on a variety of topics. More recently, I have been contributing tech writing to{' '}
+                    <a href="https://hashnode.blainegarrett.com/">Hashnode</a>. Below are a few of my more recent
+                    articles.
+                  </p>
                 </Col>
                 {props.articles.map((r, i) => {
                   let Component = CoolCard;
@@ -117,11 +129,13 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
                     </Col>
                   );
                 })}
+                <div style={{ textAlign: 'right', width: '100%', marginRight: 16 }}>
+                  <a href="https://hashnode.com/@blainegarrrett/joinme">Join Me on Hashnode</a>
+                </div>
               </Row>
             </div>
           </Col>
         </Row>
-        {/* </ContentWrapper> */}
       </Container>
     </Page>
   );
@@ -129,7 +143,10 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
 
 //export const getStaticProps: GetStaticProps<IndexPageProps> = async () => {
 //export const getServersideProps: GetServerSideProps<IndexPageProps> = async () => {
-export async function getServerSideProps() {
+//export async function getServerSideProps() {
+
+//export async function getServerSideProps(): Promise<GetServerSidePropsResult<IndexPageProps>> {
+export async function getServerSideProps(): Promise<GetServerSidePropsResult<IndexPageProps>> {
   return {
     props: {
       articles: [
@@ -141,7 +158,6 @@ export async function getServerSideProps() {
           readMore:
             'https://hashnode.blainegarrett.com/mapping-linear-scales-from-one-to-another-ckd3ldz9502qtaws10lsxcwhz',
         },
-
         {
           title: 'Generating Union Types from a Bijective Map Using Typescript Const Assertion',
           summary:
