@@ -77,6 +77,7 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
       <div style={{ backgroundColor: '#eeeeee', backgroundImage: 'url("/static/21469f9e.png")' }}>
         <Container maxWidth="md">
           <br />
+          😃😃😃
           <br />
         </Container>
       </div>

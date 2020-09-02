@@ -2,7 +2,7 @@
 const withOffline = require('next-offline');
 
 const nextConfig = {
-  distDir: 'build',
+  //distDir: 'build',
   serverRuntimeConfig: {},
   publicRuntimeConfig: {
     API_HOST: process.env.API_HOST,

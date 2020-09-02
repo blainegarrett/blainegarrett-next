@@ -2,7 +2,7 @@
 
 .PHONY: clean
 clean:
-	rm -rf build/*
+	rm -rf .next/*
 	rm -rf node_modules/*
 
 .PHONY: install
@@ -19,7 +19,7 @@ run:
 
 .PHONY: build
 build:
-	rm -rf build/*
+	rm -rf .next/*
 	NODE_ENV=production npm run build
 
 .PHONY: deploy
