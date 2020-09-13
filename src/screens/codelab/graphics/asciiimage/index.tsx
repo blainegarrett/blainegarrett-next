@@ -45,6 +45,7 @@ function AsciiImageScreen() {
 
   return (
     <Container>
+      <h2>Canvas</h2>
       <canvas ref={canvasRef} height="1500" width="1500"></canvas>
       <img
         ref={imageSrcRef}
