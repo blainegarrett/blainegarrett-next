@@ -3,10 +3,10 @@ import Container from '@material-ui/core/Container';
 
 type ColorIndex = [number, number, number, number]; // r,g,b,a
 
-// function getColorIndiciesForCoord(x: number, y: number, width: number): ColorIndex {
-//   let red = y * (width * 4) + x * 4;
-//   return [red, red + 1, red + 2, red + 3];
-// }
+function getColorIndiciesForCoord(x: number, y: number, width: number): ColorIndex {
+  let red = y * (width * 4) + x * 4;
+  return [red, red + 1, red + 2, red + 3];
+}
 
 function AsciiImageScreen() {
   let canvasRef = React.useRef<HTMLCanvasElement | null>(null);
@@ -21,11 +21,56 @@ function AsciiImageScreen() {
   }, []);
 
   const receiveImage = () => {
+    // TODO: Add Form Controls
+    let pixelSize = 10;
     //let index = getColorIndiciesForCoord(0, 0, imageSrcRef.current?.width);
     //console.log(index);
+    let srcImgNode = imageSrcRef.current;
+    if (srcImgNode && canvasRef.current && canvasCtx.current) {
+      canvasRef.current.width = srcImgNode.width;
+      canvasRef.current.height = srcImgNode.height;
+      canvasCtx.current.drawImage(srcImgNode, 0, 0);
+      //grayscale();
+      pixelize(canvasRef.current, canvasCtx.current, srcImgNode, pixelSize);
+    }
+  };
 
-    canvasCtx.current!.drawImage(imageSrcRef.current!, 0, 0);
-    grayscale();
+  let pixelize = (
+    canvas: HTMLCanvasElement,
+    context: CanvasRenderingContext2D,
+    sourceImage: HTMLImageElement,
+    pxSize: number
+  ): void => {
+    let h = sourceImage.height;
+    let w = sourceImage.width;
+    let i, j;
+
+    let data = context.getImageData(0, 0, w, h);
+    let pxS = pxSize;
+
+    let index: ColorIndex;
+    let r: number;
+    let g: number;
+    let b: number;
+
+    for (i = 0; i < w + pxS; i += pxS) {
+      for (j = 0; j < h + pxS; j += pxS) {
+        context.beginPath();
+        context.rect(i, j, i + pxS, j + pxS);
+        index = getColorIndiciesForCoord(i, j, w);
+        r = data.data[index[0]];
+        g = data.data[index[1]];
+        b = data.data[index[2]];
+        //a = data.data[index[3]];
+
+        context.fillStyle = `rgba(${r}, ${g}, ${b}, 255)`;
+        //context.strokeStyle = '#ffffff';
+        //context.stroke();
+        context.fill();
+      }
+    }
+
+    return;
   };
 
   let grayscale = function () {
@@ -46,11 +91,12 @@ function AsciiImageScreen() {
   return (
     <Container>
       <h2>Canvas</h2>
-      <canvas ref={canvasRef} height="1500" width="1500"></canvas>
+      <canvas ref={canvasRef}></canvas>
+
       <img
         ref={imageSrcRef}
         crossOrigin="anonymous"
-        src="https://storage.googleapis.com/cdn.mplsart.com/blainestuff/about_wedding.jpg"
+        src="https://storage.googleapis.com/cdn.mplsart.com/blainestuff/pexels-burst-374134.jpg"
         onLoad={receiveImage}
       />
     </Container>
