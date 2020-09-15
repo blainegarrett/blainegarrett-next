@@ -8,15 +8,15 @@ function getColorIndiciesForCoord(x: number, y: number, width: number): ColorInd
   return [red, red + 1, red + 2, red + 3];
 }
 
-function AsciiImageScreen() {
+const AsciiImageScreen: React.FC<{}> = () => {
   let canvasRef = React.useRef<HTMLCanvasElement | null>(null);
-  let canvasCtx = React.useRef<CanvasRenderingContext2D | null>(null);
+  let canvasCtxRef = React.useRef<CanvasRenderingContext2D | null>(null);
   let imageSrcRef = React.useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
     // Initialize
     if (canvasRef.current) {
-      canvasCtx.current = canvasRef.current.getContext('2d');
+      canvasCtxRef.current = canvasRef.current.getContext('2d');
     }
   }, []);
 
@@ -26,12 +26,12 @@ function AsciiImageScreen() {
     //let index = getColorIndiciesForCoord(0, 0, imageSrcRef.current?.width);
     //console.log(index);
     let srcImgNode = imageSrcRef.current;
-    if (srcImgNode && canvasRef.current && canvasCtx.current) {
+    if (srcImgNode && canvasRef.current && canvasCtxRef.current) {
       canvasRef.current.width = srcImgNode.width;
       canvasRef.current.height = srcImgNode.height;
-      canvasCtx.current.drawImage(srcImgNode, 0, 0);
+      canvasCtxRef.current.drawImage(srcImgNode, 0, 0);
       //grayscale();
-      pixelize(canvasRef.current, canvasCtx.current, srcImgNode, pixelSize);
+      pixelize(canvasRef.current, canvasCtxRef.current, srcImgNode, pixelSize);
     }
   };
 
@@ -74,7 +74,7 @@ function AsciiImageScreen() {
   };
 
   let grayscale = function () {
-    let imageData = canvasCtx.current?.getImageData(0, 0, canvasRef.current!.width, canvasRef.current!.height);
+    let imageData = canvasCtxRef.current?.getImageData(0, 0, canvasRef.current!.width, canvasRef.current!.height);
     let data = imageData!.data;
 
     for (let i = 0; i < data.length; i += 4) {
@@ -84,7 +84,7 @@ function AsciiImageScreen() {
       data[i + 2] = avg; // blue
     }
     if (imageData) {
-      canvasCtx.current!.putImageData(imageData, 0, 0);
+      canvasCtxRef.current!.putImageData(imageData, 0, 0);
     }
   };
 
@@ -101,6 +101,6 @@ function AsciiImageScreen() {
       />
     </Container>
   );
-}
+};
 
 export default AsciiImageScreen;

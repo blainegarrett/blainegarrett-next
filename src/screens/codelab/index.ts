@@ -8,6 +8,13 @@ export interface CodeLabResource {
 let index: CodeLabResource[] = [];
 index.push({
   category: 'graphics',
+  slug: 'simplecanvas',
+  title: 'Simple useRef Example with HTML5 Canvas',
+  description: 'A barebones example of working with HTML5 Canvas in React with TypeScript',
+});
+
+index.push({
+  category: 'graphics',
   slug: 'asciiimage',
   title: 'ASCII Image Using HTML5 Canvas',
   description: 'sdfdsds',
