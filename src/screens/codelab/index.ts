@@ -22,9 +22,9 @@ index.push({
 
 index.push({
   category: 'graphics',
-  slug: 'quantization',
-  title: 'Image Quantization with HTML5 Canvas',
-  description: 'sdfdsds',
+  slug: 'naivequantization',
+  title: 'Naive Color Quantization with HTML5 Canvas',
+  description: 'A Naive approach to Color Quantization with HTML5 Canvas',
 });
 
 export default index;
