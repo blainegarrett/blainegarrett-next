@@ -75,11 +75,7 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
       </div>
 
       <div style={{ backgroundColor: '#eeeeee', backgroundImage: 'url("/static/21469f9e.png")' }}>
-        <Container maxWidth="md">
-          <br />
-          😃😃😃
-          <br />
-        </Container>
+        <Container maxWidth="md">&nbsp;</Container>
       </div>
 
       <Container>
@@ -177,14 +173,29 @@ export async function getServerSideProps(): Promise<GetServerSidePropsResult<Ind
           readMore:
             'https://hashnode.blainegarrett.com/building-a-github-repo-template-part-1-nextjs-react-and-typescript-ckcnovxex003bjos1632n4g9a',
         },
-        // {
-        //   title: 'Container-like Deployments To App Engine Standard Using Google Cloud Build',
-        //   summary:
-        //     'As more build and deploy strategies utilize Docker, we explore using Cloud Build to Deploy to App Engine Standard legacy VMs',
-        //   imgUrl: 'https://commondatastorage.googleapis.com/blaine-garrett/juniper/docker-gcb-gae.png',
-        //   readMore:
-        //     'https://www.blainegarrett.com/2019/10/29/using-google-cloud-build-to-create-a-production-build-and-deploy-to-appengine-standard',
-        // },
+        {
+          title: 'Container-like Deployments To App Engine Standard Using Google Cloud Build',
+          summary:
+            'As more build and deploy strategies utilize Docker, we explore using Cloud Build to Deploy to App Engine Standard legacy VMs',
+          imgUrl: 'https://commondatastorage.googleapis.com/blaine-garrett/juniper/docker-gcb-gae.png',
+          readMore:
+            'https://www.blainegarrett.com/2019/10/29/using-google-cloud-build-to-create-a-production-build-and-deploy-to-appengine-standard',
+        },
+        {
+          title: 'Euclidean Distance in N dimensions and Naive Image Quantization',
+          summary: '',
+          imgUrl:
+            'https://cdn.hashnode.com/res/hashnode/image/upload/v1600398045225/F0T9g4Xkw.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=format&q=60',
+          readMore:
+            'https://hashnode.blainegarrett.com/euclidean-distance-in-n-dimensions-and-naive-image-quantization-ckf8ohadm00okq5s1d2dr5mj2',
+        },
+        {
+          title: 'Basics of Modular Arithmetic',
+          summary: '',
+          imgUrl:
+            'https://cdn.hashnode.com/res/hashnode/image/upload/v1596030120898/dDlo2MxNa.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=format&q=60',
+          readMore: 'https://hashnode.blainegarrett.com/basics-of-modular-arithmetic-ckd7lzbcj00asses1331v0d85',
+        },
       ],
     },
   };
