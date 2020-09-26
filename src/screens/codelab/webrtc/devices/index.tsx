@@ -16,7 +16,7 @@ import SpeakerIcon from '@material-ui/icons/Speaker';
 import CameraIcon from '@material-ui/icons/VideoCam';
 import UnknownDeviceIcon from '@material-ui/icons/DeviceUnknown';
 
-let useStyles = makeStyles((theme: Theme) => {
+let useStyles = makeStyles(() => {
   return {
     deviceTypeRow: {
       backgroundColor: '#666666',
