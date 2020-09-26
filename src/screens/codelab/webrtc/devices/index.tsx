@@ -13,7 +13,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import MicIcon from '@material-ui/icons/Mic';
 import SpeakerIcon from '@material-ui/icons/Speaker';
-import CameraIcon from '@material-ui/icons/VideoCam';
+import CameraIcon from '@material-ui/icons/Videocam';
 import UnknownDeviceIcon from '@material-ui/icons/DeviceUnknown';
 
 let useStyles = makeStyles(() => {
