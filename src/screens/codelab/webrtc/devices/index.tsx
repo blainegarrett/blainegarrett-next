@@ -262,10 +262,24 @@ const DeviceSelectionExample: React.FC<{}> = () => {
   return (
     <Container>
       <h2>WebRTC Device Detection</h2>
-      <p>This is an example of detecting available devices using WebRTC.</p>
+      <p>
+        This is an example of detecting available hardware devices in-browser using getUserMedia().
+        <a
+          href="https://hashnode.blainegarrett.com/accessing-available-devices-in-browser-via-getusermedia-ckfk1bwx800d96cs1fhtcdwee"
+          target="blank"
+          rel="norrefer"
+        >
+          See the complementary Hashnode article for more information.
+        </a>
+      </p>
 
       {errorNode}
       {content}
+      <p>
+        Disclaimer: When granting access to your devices, this codelab does not do anything with the audio or video
+        stream other than logging out the successful connection. No audio or video data is transferred to your device or
+        any off device locations.
+      </p>
     </Container>
   );
 };
