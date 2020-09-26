@@ -27,4 +27,11 @@ index.push({
   description: 'A Naive approach to Color Quantization with HTML5 Canvas',
 });
 
+index.push({
+  category: 'webrtc',
+  slug: 'devices',
+  title: 'Selecting Devices in WebRTC',
+  description: '',
+});
+
 export default index;
