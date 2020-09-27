@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -38,10 +38,10 @@ let useStyles = makeStyles(() => {
   };
 });
 
-enum DEVICE_STATUS {
-  PENDING = 'pending',
-  ALLOWED = 'allowed',
-  DISALLOWED = 'disallowed',
+enum PermissionState {
+  DENIED = 'denied',
+  GRANTED = 'granted',
+  PROMPT = 'prompt',
 }
 
 // MediaDeviceKind is a defined type, but define enum for clarity
@@ -51,7 +51,7 @@ enum MediaDeviceKind {
   SPEAKER = 'audiooutput',
 }
 
-const StatusIndicator: React.FC<{ status: DEVICE_STATUS }> = (props) => {
+const StatusIndicator: React.FC<{ status: PermissionState }> = (props) => {
   return <span>{props.status}</span>;
 };
 
@@ -63,29 +63,33 @@ const DeviceSelectionExample: React.FC<{}> = () => {
   let [isInitialized, setInitalized] = useState<boolean>(false);
   let [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
   let [error, setError] = useState<string | null>(null);
-  let [micStatus, setMicStatus] = useState<DEVICE_STATUS>(DEVICE_STATUS.PENDING);
-  let [cameraStatus, setCameraStatus] = useState<DEVICE_STATUS>(DEVICE_STATUS.PENDING);
+  let [micStatus, setMicStatus] = useState<PermissionState>(PermissionState.PROMPT);
+  let [cameraStatus, setCameraStatus] = useState<PermissionState>(PermissionState.PROMPT);
 
   function handleSuccess(deviceType: MediaDeviceKind) {
     return (stream: MediaStream) => {
       // Set Device Allowed Status
       if (deviceType === MediaDeviceKind.CAMERA) {
-        setCameraStatus(DEVICE_STATUS.ALLOWED);
+        setCameraStatus(PermissionState.GRANTED);
       } else if (deviceType === MediaDeviceKind.MICROPHONE) {
-        setMicStatus(DEVICE_STATUS.ALLOWED);
+        setMicStatus(PermissionState.GRANTED);
       }
 
-      // For the purpose of this Demo, we don't actually do anything with the stream
+      // For the purpose of this Demo, we don't actually do anything with the stream and want to release the device
+      // Note: This will cause the camera to momentarily blink
       console.log(stream);
+      stream.getTracks().forEach(function (track) {
+        track.stop(); // eg. stop camera, mic, etc
+      });
     };
   }
 
   function handleError(deviceType: MediaDeviceKind) {
     return (error: DOMException) => {
       if (deviceType === MediaDeviceKind.CAMERA) {
-        setCameraStatus(DEVICE_STATUS.DISALLOWED);
+        setCameraStatus(PermissionState.DENIED);
       } else if (deviceType === MediaDeviceKind.MICROPHONE) {
-        setMicStatus(DEVICE_STATUS.DISALLOWED);
+        setMicStatus(PermissionState.DENIED);
       }
 
       // An error occurred getting one or more media based on constraint.
@@ -140,7 +144,67 @@ const DeviceSelectionExample: React.FC<{}> = () => {
     getAvailableDevices();
   };
 
-  let getDeviceRows = (deviceType: MediaDeviceKind, status: DEVICE_STATUS) => {
+  useEffect(() => {
+    // Handle Changes to permission state
+    let micPermStatus: PermissionStatus;
+    let camPermStatus: PermissionStatus;
+
+    if (!(navigator.permissions && navigator.permissions.query)) {
+      // Safari 14.0 doesn't support the permissions api
+      console.error('navigator.permissions.query is not supported. Unable to listen for changes');
+      return;
+    }
+
+    const micPermPromise = navigator.permissions.query({ name: 'microphone' });
+    const camPermPromise = navigator.permissions.query({ name: 'camera' });
+
+    const micPermListener = (e: Event) => {
+      console.log('Microphone Permission Changed');
+      let newState: PermissionStatus = e.currentTarget as PermissionStatus;
+      if (newState) {
+        setMicStatus(newState.state as PermissionState);
+      }
+    };
+
+    const camPermListener = (e: Event) => {
+      console.log('Camera Permission Changed');
+      let newState: PermissionStatus = e.currentTarget as PermissionStatus;
+      if (newState) {
+        setCameraStatus(newState.state as PermissionState);
+      }
+    };
+
+    micPermPromise
+      .then((result: PermissionStatus) => {
+        micPermStatus = result;
+        setMicStatus(result.state as PermissionState);
+        result.addEventListener('change', micPermListener);
+      })
+      .catch((error) => {
+        // FF for example, doesn't allow 'microphone' in the query
+        console.error(error);
+      });
+
+    camPermPromise
+      .then((result: PermissionStatus) => {
+        camPermStatus = result;
+        setCameraStatus(result.state as PermissionState);
+        result.addEventListener('change', camPermListener);
+      })
+      .catch((error) => {
+        // FF for example, doesn't allow 'camera' in the query
+        console.error(error);
+      });
+
+    // Cleanup logic
+    return () => {
+      // Disconnect listeners to not pollute listeners on other pages
+      micPermStatus && micPermStatus.removeEventListener('change', micPermListener);
+      camPermStatus && camPermStatus.removeEventListener('change', camPermListener);
+    };
+  }, []);
+
+  let getDeviceRows = (deviceType: MediaDeviceKind, status: PermissionState) => {
     return devices
       .filter((device: MediaDeviceInfo) => device.kind === deviceType)
       .map((device: MediaDeviceInfo, i) => {
@@ -154,12 +218,12 @@ const DeviceSelectionExample: React.FC<{}> = () => {
         }
 
         return (
-          <TableRow key={i} className={clsx({ [classes.errorRow]: status === DEVICE_STATUS.DISALLOWED })}>
+          <TableRow key={i} className={clsx({ [classes.errorRow]: status === PermissionState.DENIED })}>
             <TableCell>
               <IconClass />
             </TableCell>
             <TableCell>
-              {device.label} {status === DEVICE_STATUS.DISALLOWED && ' Unable to get Device info. Access is blocked.'}
+              {device.label} {status === PermissionState.DENIED && ' Unable to get Device info. Access is denied.'}
             </TableCell>
             <TableCell style={{ maxWidth: 30, overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {device.deviceId}
@@ -278,7 +342,7 @@ const DeviceSelectionExample: React.FC<{}> = () => {
       <p>
         Disclaimer: When granting access to your devices, this codelab does not do anything with the audio or video
         stream other than logging out the successful connection. No audio or video data is transferred to your device or
-        any off device locations.
+        any off device locations. You may see your camera light blink for a split second while using this demo.
       </p>
     </Container>
   );
