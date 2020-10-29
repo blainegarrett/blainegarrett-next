@@ -34,4 +34,11 @@ index.push({
   description: '',
 });
 
+index.push({
+  category: 'webrtc',
+  slug: 'recordaudio',
+  title: 'Recording Audio Locally',
+  description: 'An example of recording audio locally using webRTC',
+});
+
 export default index;
