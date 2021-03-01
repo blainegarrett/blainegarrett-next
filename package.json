@@ -16,7 +16,7 @@
     "moment-timezone": "^0.5.31",
     "next": "^9.5.2",
     "next-offline": "^5.0.2",
-    "prismjs": "^1.21.0",
+    "prismjs": "^1.23.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
